@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<!-- © 2025 Asorn (https://asorn.cn). Designed and developed by Asorn. All rights reserved. -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU Shan - About Me</title>
+    <link rel="stylesheet" href="./css/style.min.css">
+    <link rel="shortcut icon" href="./assets/public/favicon.svg"/>
+</head>
+<body>
+    <canvas class="fireworks"></canvas>
+    <div class="head" id="headscrollbg">
+        <div class="main">
+            <div class="main-left">
+                <a href="./index.html" class="logo"><img height= 24px width= 24px src="./assets/public/logo_graph.png"></a>
+                <div class="tag tag-cooperate" onclick="window.location.href='./about.html'">
+                    <div class="breath-dot"></div>Contact
+                </div>
+            </div>
+            <div class="menu" id="main-menu">
+                <li class="magical btn" onclick="window.location.href='./index.html'">Home</li>
+                <!-- <li class="magical btn" onclick="window.location.href='./work.html'">Work</li>
+                <li class="magical btn" onclick="window.location.href='./tool.html'">Tool</li> -->
+                <li class="magical btn" onclick="window.location.href='./blog.html'">Blog</li>
+                <!-- <li class="magical btn" onclick="window.location.href='./book.html'">Book</li> -->
+                <li class="magical btn nav" onclick="window.location.href='./about.html'">About</li>
+            </div>
+            <div class="menu" id="menu-expand">
+                <li class="magical btn menu-expand-btn" id="menu-expand-child"><i class="icon menu-icon"></i></li>
+            </div>
+            <div id="menu-panel">
+                <div class="menu-panel-content" id="menu-panel-content"></div>
+                <div class="menu-close-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.5859 12L2.79297 4.20706L4.20718 2.79285L12.0001 10.5857L19.793 2.79285L21.2072 4.20706L13.4143 12L21.2072 19.7928L19.793 21.2071L12.0001 13.4142L4.20718 21.2071L2.79297 19.7928L10.5859 12Z"></path></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about">
+        <div class="about-top">
+            <div class="about-name text-effect">LU Shan</div>
+            <div class="about-info">
+                <div class="about-info-left load-pro">
+                    <div class="about-info-title">Introduce</div>
+                    <div class="introduce-desc">
+                        I am a final-year student at The Hong Kong Polytechnic University, majoring in Physics with a secondary major on Artificial Intelligence and Data Analysis, and minoring in Mathematics. In the coming semester, I will be joining the Southern University of Science and Technology in Shenzhen as an exchange student, where I plan to take advanced courses in Statistics, Mathematics, and Physics.<br><br>
+                        Academically, I am deeply passionate about theoretical and applied research, with a strong interest in pursuing a PhD in areas such as Theoretical Statistics, Machine Learning (particularly diffusion models), and Quantum Computing. While my university journey has been heavily focused on coursework and research, I have also actively participated in extracurricular activities, such as co-founding the Hainan-Hong Kong Youth Federation and volunteering in community service initiatives, including food distribution for the elderly. Additionally, I was part of a team that won second place in a entrepreneurship competition organized by the University of Macau, earning the opportunity to present our business proposal to representatives from eight major casinos.<br><br>
+                        That said, my university life hasn’t been solely defined by academics or achievements. Recently, I went through an unexpected breakup with someone I deeply loved and saw a future with. This loss has been profoundly difficult, and I’m still in the process of healing and rebuilding myself emotionally.<br><br>
+                        Although life feels somewhat off course right now, I haven’t let go of hope. More than anything, I wish we could find our way back to each other and rekindle what we shared. At the same time, I am trying to focus on self-improvement—strengthening my mind, advancing my studies, and growing through this period of change.<br><br>
+                        What I’ve learned through this experience is that while some things are beyond our control, we can always choose how we respond. I am committed to moving forward with sincerity, resilience, and an open heart—whether in research or the quiet journey back to myself.<br><br>
+                        I look forward to embracing new opportunities, collaborating with like-minded individuals, and continuing my journey toward becoming a thoughtful and innovative researcher.<br><br>
+                    </div>
+                </div>
+                <div class="about-info-right load-pro">
+                    <div class="contact">
+                        <div class="about-info-title">Contact</div>
+                        <div class="contact-desc">
+                            <div class="list">
+                                <div class="list-label">Email：</div>
+                                <div href="javascript:" class="list-value" id="email" tabindex="0" role="button"  title="点击复制邮箱">
+                                    <a id="emailCopied">33at20@gmail.com</a>
+                                </div>
+                                <span class="list-value copied">Copied&nbsp;✓</span>
+                            </div>
+                            <div class="list">
+                                <div class="list-label">WeChat：</div>
+                                <div class="list-value">
+                                    <a class="tooltip">Lucasat21
+                                        <div class="tooltip-box">
+                                            <img height=320px width=320px src="./assets/about/wechat.png">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="list-label">Phone：</div>
+                                <div href="javascript:" class="list-value" id="phone" tabindex="0" role="button"  title="点击电话号码">
+                                    <a id="phoneCopied">63522087</a>
+                                </div>
+                                <span class="list-value copied">Copied&nbsp;✓</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="resume">
+                        <div class="about-info-title resume-title">Resume</div>
+                        <div class="resume-desc">
+                            <div class="resume-desc-helptext">Download CV (PDF & 1MB)</div>
+                            <div class="magical primary-btn btn-s"><a href="https://asorn.cn/" target="_blank">Download</a></div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="about-middle load-pro">
+            <div class="power">
+                <div class="list-00">
+                    <div class="magical power-card-number">
+                        <a>
+                            <div class="card-title">xx</div>
+                            <div class="card-text">Work</div>
+                        </a>
+                    </div>
+                    <div class="magical power-card-number">
+                        <a>
+                            <div class="card-title">xx</div>
+                            <div class="card-text">Project</div>
+                        </a>
+                    </div>
+                    <div class="magical power-card-number">
+                        <a>
+                            <div class="card-title">xx</div>
+                            <div class="card-text">Article</div>
+                        </a>
+                    </div>
+                    <div class="magical power-card-number">
+                        <a>
+                            <div class="card-title">xx</div>
+                            <div class="card-text">Patent</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="list-01">
+                    <div class="magical power-card">
+                        <a>
+                            <div class="card-img" style="background-image: url('./assets/about/menu.svg')"></div>
+                            <div class="card-text">My abilities</div>
+                        </a>
+                    </div>
+                    <div class="magical power-card">
+                        <a>
+                            <div class="card-img" style="background-image: url('./assets/about/pen.svg')"></div>
+                            <div class="card-text">My abilities</div>
+                        </a>
+                    </div>
+                    <div class="magical power-card">
+                        <a>
+                            <div class="card-img" style="background-image: url('./assets/about/pin.svg')"></div>
+                            <div class="card-text">My abilities</div>
+                        </a>
+                    </div>
+                    <div class="magical power-card">
+                        <a>
+                            <div class="card-img" style="background-image: url('./assets/about/abstract.svg')"></div>
+                            <div class="card-text">My abilities</div>
+                        </a>
+                    </div>
+                    <div class="magical power-card">
+                        <a>
+                            <div class="card-img" style="background-image: url('./assets/about/code.svg')"></div>
+                            <div class="card-text">My abilities</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about-bottom load-pro">
+            <div class="experience">
+                <div class="item load-pro">
+                    <div class="time">❖ 2022.9 ~ Now</div>
+                    <div class="name">
+                        <div class="company"><a href="https://www.polyu.edu.hk/" target="_blank">HKPU ↗</a></div>
+                        <div class="job">Full-Time Student</div>
+                    </div>
+                    <div class="project-experience">
+                        <div class="item load-pro">
+                            <div class="title">Project Title</div>
+                            <div class="desc">
+                                <ul>
+                                    <li>...</li>
+                                    <!-- <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li> -->
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- <div class="item load-pro">
+                            <div class="title">Project Title</div>
+                            <div class="desc">
+                                <ul>
+                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult;</li>
+                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="item load-pro">
+                            <div class="title">Project Title</div>
+                            <div class="desc">
+                                <ul>
+                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
+                                </ul>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <!-- <div class="item load-pro">
+                    <div class="time">❖ 2019.08 ~ 2023.08</div>
+                    <div class="name">
+                        <div class="company"><a href="https://asorn.cn/" target="_blank">Company Name ↗</a></div>
+                        <div class="job">Product Designer</div>
+                    </div>
+                    <div class="project-experience">
+                        <div class="item load-pro">
+                            <div class="title">Project Title</div>
+                            <div class="desc">
+                                <ul>
+                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="item load-pro">
+                            <div class="title">Project Title</div>
+                            <div class="desc">
+                                <ul>
+                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult;</li>
+                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="item load-pro">
+                            <div class="title">Project Title</div>
+                            <div class="desc">
+                                <ul>
+                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item load-pro">
+                    <div class="time">❖ 2016.05 ~ 2019.06</div>
+                    <div class="name">
+                        <div class="company"><a href="https://asorn.cn/" target="_blank">Company Name ↗</a></div>
+                        <div class="job">Product Designer</div>
+                    </div>
+                    <div class="project-experience">
+                        <div class="item load-pro">
+                            <div class="title">Project Title</div>
+                            <div class="desc">
+                                <ul>
+                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-content">
+            <div class="copyright">
+                <div>© Last Updated 03/09/2025 <!-- <a href="https://asorn.cn/" target="_blank">Asorn</a></div>
+                <span>|</span>
+                <div class="fillings">
+                    <a href="https://asorn.cn/" target="_blank">Your filing number</a>
+                </div> -->
+            </div>
+            <!-- <div class="friends">
+                <a href="https://zdo.fun/" target="_blank">ZDO</a>
+                <a href="https://larkmap.com/" target="_blank">Larkmap</a>
+                <a href="https://qingicon.com/" target="_blank">QingIcon</a>
+            </div> -->
+        </div>
+    </div>
+    <div class="widget">
+        <div class="shape-light"></div>
+        <div class="shape-star">
+            <div class="rising-stars rising-stars-visible">
+                <div style="height:1px;width:1px"></div>
+                <div style="height:2px;width:2px"></div>
+                <div style="height:1px;width:1px"></div>
+            </div>
+        </div>
+        <div class="shape-earth"></div>
+    </div>
+    <div class="widget-top"></div>
+</body>
+<script src="./js/main.min.js"></script>
+<script src='./js/anime.js'></script>
+<script src='./js/firework.js'></script>
+</html>

@@ -2448,6 +2448,70 @@ img {
   color: #62616F;
 }
 
+/* 学年课程列表样式 */
+/* css/coursework.css
+   Styles just for the coursework expand/collapse UI.
+   ChatGpt helps
+*/
+
+.about .coursework-title {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+  outline: none;
+}
+
+/* the text node that shows year; we keep its existing look but ensure hover feedback */
+.about .coursework-title:hover {
+  opacity: 0.95;
+}
+
+/* small caret added after the title text via pseudo-element */
+.about .coursework-title .toggle-arrow::after {
+  content: "▾";
+  display: inline-block;
+  margin-left: 0.6rem;
+  transition: transform 300ms ease;
+  transform-origin: center;
+  font-size: 0.9em;
+}
+
+/* when open, rotate arrow */
+.about .coursework-title.open .toggle-arrow::after {
+  transform: rotate(180deg);
+}
+
+/* animated content panel */
+.about .coursework-desc {
+  overflow: hidden;              /* required for max-height animations */
+  max-height: 0;                 /* collapsed by default */
+  transition: max-height 320ms ease, opacity 220ms ease;
+  opacity: 0;
+  padding-top: 0;                /* remove extra spacing while collapsed */
+  margin-top: 0;
+  /* keep line-height and text appearance unchanged */
+  will-change: max-height, opacity;
+}
+
+/* when open (JS will add 'open' to the title), set visibility */
+.about .coursework-title.open + .coursework-desc {
+  opacity: 1;
+  padding-top: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+/* improve keyboard focus style */
+.about .coursework-title:focus {
+  box-shadow: 0 0 0 3px rgba(150,150,255,0.06);
+  border-radius: 4px;
+}
+
+/* ensure long lists wrap nicely */
+.about .coursework-desc br { display: inline; }
+
+
 .about .about-bottom .experience .item .project-experience {
   display: flex;
   flex-direction: column;

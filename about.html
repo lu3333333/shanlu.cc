@@ -165,10 +165,78 @@
                     </div>
                     <div class="project-experience">
                         <div class="item load-pro">
-                            <div class="title">Project Title</div>
+                            <!-- <div class="title coursework-title">Coursework:
+                                <span>Click to Display</span>
+                            </div>
+                        <div class="desc coursework-desc" style="display: none;"> -->
+                            <div class="title">Coursework</div>
                             <div class="desc">
                                 <ul>
-                                    <li>...</li>
+                                    <li>
+                                        <div class="title coursework-title"> 
+                                            <span class="toggle-arrow">
+                                                22/23 Acedemic Year<br>
+                                            </span>
+                                        </div>
+                                        <div class="desc coursework-desc" style="display: none;">
+                                            ABCT1101 INTRODUCTORY LIFE SCIENCE <br>
+                                            ABCT1700 INTRODUCTION TO CHEMISTRY <br>
+                                            AMA1110 BASIC MATHEMATICS I - CALCULUS AND PROBABILITY & STATISTICS <br>
+                                            AMA1120 BASIC MATHEMATICS II - CALCULUS AND LINEAR ALGEBRA <br>
+                                            AMA1600 FUNDAMENTALS OF AI AND DATA ANALYTICS <br>
+                                            AMA1D08 THE MATHEMATICS BEHIND MUSIC <br>
+                                            AP10005 PHYSICS I <br>
+                                            AP10006 PHYSICS II <br>
+                                            AP10007 APPLIED PHYSICS LABORATORY <br>
+                                            AP30012 THERMAL AND STATISTICAL PHYSICS <br>
+                                            AP40017 EXPERIMENT X <br>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="title coursework-title"> 
+                                            <span class="toggle-arrow">
+                                                23/24 Acedemic Year<br>
+                                            </span>
+                                        </div>
+                                        <div class="desc coursework-desc" style="display: none;">
+                                            AMA1501 INTRODUCTION TO STATISTICS FOR BUSINESS <br>
+                                            AMA1611 DATA ANALYTICS FUNDAMENTALS <br>
+                                            AMA2111 MATHEMATICS I <br>
+                                            AMA2691 PROBABILITY & DISTRIBUTIONS <br>
+                                            AMA3724 FURTHER MATHEMATICAL METHODS <br>
+                                            AP20002 MATERIALS SCIENCE <br>
+                                            AP20006 QUANTUM MECHANICS FOR SCIENTISTS AND ENGINEERS <br>
+                                            AP20016 ELECTROMAGNETISM AND WAVES <br>
+                                            AP20017 MECHANICS AND ROBOTIC MOTION <br>
+                                            COMP1012 PROGRAMMING FUNDAMENTALS AND APPLICATIONS <br>
+                                            COMP2013 DATA STRUCTURES AND ALGORITHMS <br>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="title coursework-title"> 
+                                            <span class="toggle-arrow">
+                                                24/25 Acedemic Year
+                                            </span>
+                                        </div>
+                                        <div class="desc coursework-desc" style="display: none;">
+                                            AMA3304  THEORY OF INTEREST AND PORTFOLIO ANALYSIS <br>
+                                            AMA3602 APPLIED LINEAR MODELS <br>
+                                            AMA3640 STATISTICAL INFERENCE <br>
+                                            AMA3658 STOCHASTIC PROCESSES FOR INVESTMENT <br>
+                                            AMA3707 REAL ANALYSIS <br>
+                                            AMA4380 ALGORITHMIC AND HIGH FREQUENCY TRADING <br>
+                                            AMA4688 SIMULATION <br>
+                                            AMA4840 DECISION ANALYSIS <br>
+                                            AP30010 RADIATION PHYSICS <br>
+                                            AP30011 SOLID STATE PHYSICS <br>
+                                            AP30019 DATA ANALYSIS TECHNIQUES FOR SCIENTISTS <br>
+                                            AP30020 FROM SEMICONDUCTOR TO INTELLIGENT DEVICES <br>
+                                            AP30022 SCIENTIFIC INSTRUMENTATION AND AUTOMATION <br>
+                                            AP30023 DESIGNING SENSING SYSTEMS FOR INTERNET OF THINGS IN SMART CITIES <br>
+                                            COMP4431 ARTIFICIAL INTELLIGENCE <br>
+                                            COMP4432 MACHINE LEARNING <br>
+                                        </div>
+                                    </li>
                                     <!-- <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li> -->
                                 </ul>
                             </div>
@@ -278,4 +346,105 @@
 <script src="./js/main.min.js"></script>
 <script src='./js/anime.js'></script>
 <script src='./js/firework.js'></script>
+
+<!-- Deepseek做的点击展开动画 -->
+<script>
+// js/coursework.js
+// Handles expand/collapse for all coursework-year items
+document.addEventListener('DOMContentLoaded', function () {
+  // select all title elements (there are multiple .coursework-title in the HTML)
+  const titles = Array.from(document.querySelectorAll('.coursework-title'));
+
+  titles.forEach(title => {
+    // find the .toggle-arrow inside the title (exists in your markup)
+    const arrow = title.querySelector('.toggle-arrow');
+
+    // the markup has: <div class="title coursework-title"> ... </div>
+    // then the next sibling is the .desc.coursework-desc
+    const desc = title.nextElementSibling;
+    if (!desc || !desc.classList.contains('coursework-desc')) return;
+
+    // init accessibility attributes
+    title.setAttribute('role', 'button');
+    title.setAttribute('tabindex', '0');
+    title.setAttribute('aria-expanded', 'false');
+
+    // ensure desc starts collapsed (some markup had inline display:none)
+    desc.style.display = 'block'; // make visible for measuring but we keep max-height:0 so it's visually hidden
+    desc.style.maxHeight = '0';
+    desc.style.overflow = 'hidden';
+    desc.style.transition = 'max-height 320ms ease, opacity 220ms ease';
+    desc.style.opacity = '0';
+
+    // toggle function
+    function toggle(openState) {
+      const isOpen = title.classList.contains('open');
+      const shouldOpen = typeof openState === 'boolean' ? openState : !isOpen;
+
+      if (shouldOpen) {
+        title.classList.add('open');
+        title.setAttribute('aria-expanded', 'true');
+
+        // ensure block for correct scrollHeight
+        desc.style.display = 'block';
+        // compute needed height, set max-height to that value
+        const h = desc.scrollHeight;
+        desc.style.maxHeight = h + 'px';
+        // set opacity visible
+        desc.style.opacity = '1';
+      } else {
+        // collapse
+        title.classList.remove('open');
+        title.setAttribute('aria-expanded', 'false');
+        desc.style.maxHeight = '0';
+        desc.style.opacity = '0';
+        // leave display:block to avoid reflow jumps; if you prefer, you can hide after transition
+      }
+    }
+
+    // click handler
+    title.addEventListener('click', function (e) {
+      toggle();
+    });
+
+    // keyboard handler (Enter or Space to toggle)
+    title.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+
+    // Optional: if you want only one open at a time, uncomment the block below:
+    /*
+    title.addEventListener('click', function () {
+      // close other items
+      titles.forEach(t => {
+        if (t !== title && t.classList.contains('open')) {
+          t.classList.remove('open');
+          t.setAttribute('aria-expanded', 'false');
+          const otherDesc = t.nextElementSibling;
+          if (otherDesc) {
+            otherDesc.style.maxHeight = '0';
+            otherDesc.style.opacity = '0';
+          }
+        }
+      });
+      // open this one
+      toggle(true);
+    });
+    */
+
+  });
+
+  // Ensure initial collapsed view (first screenshot) — close all on load
+  // (This enforces first-image look)
+  const allDesc = document.querySelectorAll('.coursework-desc');
+  allDesc.forEach(d => {
+    d.style.maxHeight = '0';
+    d.style.opacity = '0';
+    d.style.overflow = 'hidden';
+  });
+});
+</script>
 </html>

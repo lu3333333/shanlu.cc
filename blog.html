@@ -7,6 +7,49 @@
     <title>Blog</title>
     <link rel="stylesheet" href="./css/style.min.css">
     <link rel="shortcut icon" href="./assets/public/favicon.svg" />
+    <style>
+        /* Year sections and navigation styles */
+        .year-nav {
+            position: fixed;
+            top: 120px;
+            right: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+        .year-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .year-nav li {
+            margin-bottom: 8px;
+        }
+        .year-nav li:last-child {
+            margin-bottom: 0;
+        }
+        .year-nav a {
+            display: block;
+            font-size: 13px;
+            line-height: 22px;
+            font-weight: 500;
+            color: #E8E8F6;
+            text-decoration: none;
+            padding: 6px 12px;
+            background-color: #141419;
+            border-radius: 9999px;
+        }
+        .year-nav a:hover {
+            color: #6461F1;
+        }
+        .year-heading {
+            font-size: 20px;
+            line-height: 1.5;
+            font-weight: 600;
+            margin: 40px 0 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -154,6 +197,7 @@
                         </div>
                     </a>
                 </div>
+                <h2 id="year-2026" class="year-heading">2026</h2>
                 <div class="item load-pro">
                     <a onclick="window.location.href='./notes/miditv-ppt.pdf'" target="_blank">
                         <div class="text">
@@ -171,6 +215,7 @@
                     </a>
                     <div class="content-divider"></div>
                 </div>
+                <h2 id="year-2025" class="year-heading">2025</h2>
                  <div class="item load-pro">
                     <a onclick="window.location.href='./notes/spwm.pdf'" target="_blank">
                         <div class="text">
@@ -479,6 +524,12 @@
                 </div> -->
             </div>
         </div>
+    </div>
+    <div class="year-nav">
+        <ul>
+            <li class="magical btn"><a href="#year-2026">2026</a></li>
+            <li class="magical btn"><a href="#year-2025">2025</a></li>
+        </ul>
     </div>
     <div class="footer">
         <div class="footer-content">

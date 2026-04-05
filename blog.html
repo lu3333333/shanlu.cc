@@ -8,46 +8,401 @@
     <link rel="stylesheet" href="./css/style.min.css">
     <link rel="shortcut icon" href="./assets/public/favicon.svg" />
     <style>
-        /* Year sections and navigation styles */
-        .year-nav {
-            position: fixed;
-            top: 120px;
-            right: 40px;
+        .blog-list-item {
+            width: 100%;
             display: flex;
             flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+        }
+
+        .blog-archive {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .archive-intro {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 4px 24px;
+        }
+
+        .archive-intro .archive-kicker {
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
             gap: 8px;
-            z-index: 100;
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #A8A8B6;
         }
-        .year-nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+
+        .archive-intro .archive-kicker::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #6461F1;
+            box-shadow: 0 0 0 6px rgba(100, 97, 241, 0.12);
         }
-        .year-nav li {
-            margin-bottom: 8px;
+
+        .archive-intro .archive-copy {
+            max-width: 560px;
+            font-size: 13px;
+            line-height: 24px;
+            color: #62616F;
         }
-        .year-nav li:last-child {
+
+        .year-accordion {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .year-group {
+            --circle-size: 520px;
+            --border: 20px;
+            width: 100%;
+            display: block;
+            overflow: hidden;
+            border-radius: 20px;
+            background: rgba(20, 20, 25, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 0 32px rgba(10, 10, 14, 0.28);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, background-color 0.28s ease;
+            scroll-margin-top: 96px;
+        }
+
+        .year-group.magical {
+            display: block;
+        }
+
+        .year-group:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(10, 10, 14, 0.4);
+        }
+
+        .year-group.is-open {
+            background: rgba(20, 20, 25, 0.96);
+            box-shadow: 0 24px 56px rgba(10, 10, 14, 0.46);
+        }
+
+        .year-toggle {
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 28px 28px 26px;
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .year-toggle::before {
+            content: '';
+            position: absolute;
+            left: 28px;
+            right: 28px;
+            bottom: 0;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(100, 97, 241, 0), rgba(100, 97, 241, 0.4), rgba(100, 97, 241, 0));
+            opacity: 0;
+            transition: opacity 0.28s ease;
+        }
+
+        .year-group.is-open .year-toggle::before {
+            opacity: 1;
+        }
+
+        .year-toggle::after {
+            content: attr(data-year);
+            position: absolute;
+            right: 88px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 72px;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: -0.08em;
+            color: rgba(232, 232, 246, 0.04);
+            pointer-events: none;
+            transition: color 0.28s ease, transform 0.28s ease;
+        }
+
+        .year-group.is-open .year-toggle::after {
+            color: rgba(100, 97, 241, 0.1);
+            transform: translateY(-50%) scale(1.02);
+        }
+
+        .year-main {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .year-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #6461F1;
+            box-shadow: 0 0 0 6px rgba(100, 97, 241, 0.12), 0 0 18px rgba(100, 97, 241, 0.22);
+            opacity: 0.72;
+            transition: opacity 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
+        }
+
+        .year-group:not(.is-open) .year-dot {
+            opacity: 0.38;
+            box-shadow: 0 0 0 6px rgba(100, 97, 241, 0.06);
+        }
+
+        .year-number {
+            font-size: clamp(30px, 6vw, 48px);
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: -0.06em;
+            background: linear-gradient(180deg, #E8E8F6 0%, rgba(232, 232, 246, 0.68) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .year-action {
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            border: 1px solid rgba(168, 168, 182, 0.18);
+            background: rgba(232, 232, 246, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.28s ease;
+        }
+
+        .year-action::before,
+        .year-action::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 1.5px;
+            border-radius: 999px;
+            background: #A8A8B6;
+            transition: transform 0.28s ease, opacity 0.28s ease, background 0.28s ease;
+        }
+
+        .year-action::after {
+            transform: rotate(90deg);
+        }
+
+        .year-group.is-open .year-action {
+            border-color: rgba(100, 97, 241, 0.3);
+            background: rgba(100, 97, 241, 0.08);
+            box-shadow: 0 0 18px rgba(100, 97, 241, 0.12);
+        }
+
+        .year-group.is-open .year-action::before,
+        .year-group.is-open .year-action::after {
+            background: #E8E8F6;
+        }
+
+        .year-group.is-open .year-action::after {
+            transform: rotate(180deg);
+            opacity: 0;
+        }
+
+        .year-panel {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.32s ease;
+        }
+
+        .year-group.is-open .year-panel {
+            opacity: 1;
+        }
+
+        .year-panel-inner {
+            position: relative;
+            padding: 16px 28px 24px 28px;
+        }
+
+        .year-panel-inner::before {
+            content: '';
+            position: absolute;
+            left: 31px;
+            top: 12px;
+            bottom: 24px;
+            width: 1px;
+            background: linear-gradient(180deg, rgba(100, 97, 241, 0.42) 0%, rgba(78, 78, 100, 0.12) 100%);
+            opacity: 0.9;
+        }
+
+        .year-entry {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .year-entry::before {
+            content: '';
+            position: absolute;
+            left: 31px;
+            top: 16px;
+            transform: translateX(-50%);
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: #6461F1;
+            box-shadow: 0 0 0 6px rgba(100, 97, 241, 0.1);
+        }
+
+        .year-panel .item a {
+            gap: 10px;
+            transition: transform 0.24s ease;
+        }
+
+        .year-panel .item a:hover {
+            transform: translateX(4px);
+        }
+
+        .year-panel .item a .info {
+            order: -1;
+            opacity: 1;
+        }
+
+        .year-panel .item a .info .info-time {
+            font-size: 11px;
+            line-height: 18px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #8E8BFF;
+        }
+
+        .year-panel .item a .text {
+            gap: 10px;
+        }
+
+        .year-panel .item a .text .title-area {
+            align-items: flex-start;
+        }
+
+        .year-panel .item a .text .desc {
+            color: #9C9CAD;
+        }
+
+        .year-panel .item .content-divider {
+            width: calc(100% - 32px);
+            margin: 20px 0 24px 32px;
+        }
+
+        .year-panel .item:last-child .content-divider {
             margin-bottom: 0;
         }
-        .year-nav a {
-            display: block;
-            font-size: 13px;
-            line-height: 22px;
-            font-weight: 500;
-            color: #E8E8F6;
-            text-decoration: none;
-            padding: 6px 12px;
-            background-color: #141419;
-            border-radius: 9999px;
+
+        .year-panel .item a:hover .text .name {
+            text-shadow: 0 0 10px rgba(100, 97, 241, 0.28);
         }
-        .year-nav a:hover {
-            color: #6461F1;
+
+        @media (max-width: 968px) {
+            .year-toggle {
+                padding: 24px;
+            }
+
+            .year-toggle::before {
+                left: 24px;
+                right: 24px;
+            }
+
+            .year-toggle::after {
+                right: 78px;
+                font-size: 56px;
+            }
+
+            .year-panel-inner {
+                padding: 12px 24px 20px 24px;
+            }
+
+            .year-panel-inner::before,
+            .year-entry::before {
+                left: 27px;
+            }
+
+            .year-entry {
+                padding-left: 28px;
+            }
+
+            .year-panel .item .content-divider {
+                width: calc(100% - 28px);
+                margin-left: 28px;
+            }
         }
-        .year-heading {
-            font-size: 20px;
-            line-height: 1.5;
-            font-weight: 600;
-            margin: 40px 0 20px;
+
+        @media (max-width: 580px) {
+            .archive-intro {
+                padding-bottom: 20px;
+            }
+
+            .archive-intro .archive-copy {
+                max-width: 100%;
+            }
+
+            .year-toggle {
+                padding: 22px 20px;
+            }
+
+            .year-toggle::before {
+                left: 20px;
+                right: 20px;
+            }
+
+            .year-toggle::after {
+                display: none;
+            }
+
+            .year-main {
+                gap: 10px;
+            }
+
+            .year-number {
+                font-size: 34px;
+            }
+
+            .year-action {
+                width: 36px;
+                height: 36px;
+            }
+
+            .year-panel-inner {
+                padding: 10px 20px 18px 20px;
+            }
+
+            .year-panel-inner::before,
+            .year-entry::before {
+                left: 23px;
+            }
+
+            .year-entry {
+                padding-left: 24px;
+            }
+
+            .year-panel .item .content-divider {
+                width: calc(100% - 24px);
+                margin-left: 24px;
+            }
         }
     </style>
 </head>
@@ -95,11 +450,8 @@
                             <div class="info-desc">A description of knowledge</div>
                         </div>
                         <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <path d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z" fill="#B3B3C1"></path>
                             </svg>
                         </div>
                     </a>
@@ -112,11 +464,8 @@
                             <div class="info-desc">A description of knowledge</div>
                         </div>
                         <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <path d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z" fill="#B3B3C1"></path>
                             </svg>
                         </div>
                     </a>
@@ -129,11 +478,8 @@
                             <div class="info-desc">A description of knowledge</div>
                         </div>
                         <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <path d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z" fill="#B3B3C1"></path>
                             </svg>
                         </div>
                     </a>
@@ -146,11 +492,8 @@
                             <div class="info-desc">A description of knowledge</div>
                         </div>
                         <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <path d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z" fill="#B3B3C1"></path>
                             </svg>
                         </div>
                     </a>
@@ -163,16 +506,14 @@
                             <div class="info-desc">A description of knowledge</div>
                         </div>
                         <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <path d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z" fill="#B3B3C1"></path>
                             </svg>
                         </div>
                     </a>
                 </div>
             </div>
+
             <div class="blog-list-item">
                 <div class="magical blog-recommend">
                     <a href="https://www.uisdc.com/derived-visual-color" target="_blank">
@@ -197,361 +538,256 @@
                         </div>
                     </a>
                 </div>
-                <h2 id="year-2026" class="year-heading">2026</h2>
-                <div class="item load-pro">
-                    <a href="https://www.shanlu.cc" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">回家家家家家!</div>
-                                    <div class="name link"> ↗</div>
+
+                <div class="blog-archive">
+                    <div class="archive-intro load-pro">
+                        <div class="archive-kicker">Year Archive</div>
+                        <!-- <div class="archive-copy">这里只有年份。点开某一年，才会展开那一年留下的文字；切换到别的年份时，上一年会自动收起。</div> -->
+                    </div>
+
+                    <div class="year-accordion" id="year-accordion">
+                        <section class="year-group magical load-pro" id="year-2026">
+                            <button class="year-toggle" id="year-toggle-2026" type="button" data-year="2026" aria-expanded="false" aria-controls="year-panel-2026">
+                                <span class="year-main">
+                                    <span class="year-dot"></span>
+                                    <span class="year-number">2026</span>
+                                </span>
+                                <span class="year-action" aria-hidden="true"></span>
+                            </button>
+                            <div class="year-panel" id="year-panel-2026" role="region" aria-labelledby="year-toggle-2026">
+                                <div class="year-panel-inner">
+                                    <div class="item load-pro year-entry">
+                                        <a href="https://www.shanlu.cc/notes/elc-ptycho.pdf" target="_blank">
+                                            <div class="text">
+                                                <div class="title-area">
+                                                    <div class="title">
+                                                        <div class="name">毕业有望</div>
+                                                        <div class="name link"> ↗</div>
+                                                    </div>
+                                                    <div class="tag-text"># Tag</div>
+                                                </div>
+                                                <div class="desc">爆肝了两周, 从开始写理论, 慢慢在写的过程中对项目建立了更深的理解, 再去思考, 做实验, 最后完成初稿的写作, 整个过程其实还蛮快乐, electron ptychography, 确实是十分有趣的课题, 毕设论文也有很认真的对待, 算是为我的物理阶段画上圆满的句号.</div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="info-time">2026-04-05</div>
+                                            </div>
+                                        </a>
+                                        <div class="content-divider"></div>
+                                    </div>
+                                    <div class="item load-pro year-entry">
+                                        <a href="https://www.shanlu.cc" target="_blank">
+                                            <div class="text">
+                                                <div class="title-area">
+                                                    <div class="title">
+                                                        <div class="name">回家家家家家!</div>
+                                                        <div class="name link"> ↗</div>
+                                                    </div>
+                                                    <div class="tag-text"># Tag</div>
+                                                </div>
+                                                <div class="desc">分手后第一次回家, 刚好赶上老皮还在, 2月5号回来, 6号九点就开始玩, 说是玩, 但过程中也聊了很多, 有过去, 有现在, 也有未来, 更有感情, 不知不觉和老皮和纪廷认识已经九年了, 时间让我们看起来都变了很多, 但内心总有一些东西是不会随时间改变的...Waiting for next time!</div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="info-time">2026-02-06</div>
+                                            </div>
+                                        </a>
+                                        <div class="content-divider"></div>
+                                    </div>
+
+                                    <div class="item load-pro year-entry">
+                                        <a href="./notes/miditv-ppt.pdf" target="_blank">
+                                            <div class="text">
+                                                <div class="title-area">
+                                                    <div class="title">
+                                                        <div class="name">毕设中期答辩结束</div>
+                                                        <div class="name link"> ↗</div>
+                                                    </div>
+                                                    <div class="tag-text"># Tag</div>
+                                                </div>
+                                                <div class="desc">1月8号,在南科大考完最后一门,Jana的动力系统,在小神童的帮助下,晚上把东西都搬回宿舍,上学期几乎都在调整、悲伤,也是用纸(手纸,草稿纸)最多的一个学期,回来后极限9,10,11,12四天把毕设中期答辩做出来了,没想到出乎意料的还不错,慢慢体会到在澳门大学startup的用意...,希望这个学期能够恢复起来,只选了很少的课, all I ask is...</div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="info-time">2026-01-13</div>
+                                            </div>
+                                        </a>
+                                        <div class="content-divider"></div>
+                                    </div>
                                 </div>
-                                <div class="tag-text"># Tag</div>
                             </div>
-                            <div class="desc">分手后第一次回家, 刚好赶上老皮还在, 2月5号回来, 6号九点就开始玩, 说是玩, 但过程中也聊了很多, 有过去, 有现在, 也有未来, 更有感情, 不知不觉和老皮和纪廷认识已经九年了, 时间让我们看起来都变了很多, 但内心总有一些东西是不会随时间改变的...Waiting for next time!</div></div>
-                        <div class="info">
-                            <div class="info-time">2026-02-06</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
+                        </section>
+
+                        <section class="year-group magical load-pro" id="year-2025">
+                            <button class="year-toggle" id="year-toggle-2025" type="button" data-year="2025" aria-expanded="false" aria-controls="year-panel-2025">
+                                <span class="year-main">
+                                    <span class="year-dot"></span>
+                                    <span class="year-number">2025</span>
+                                </span>
+                                <span class="year-action" aria-hidden="true"></span>
+                            </button>
+                            <div class="year-panel" id="year-panel-2025" role="region" aria-labelledby="year-toggle-2025">
+                                <div class="year-panel-inner">
+                                    <div class="item load-pro year-entry">
+                                        <a href="./notes/spwm.pdf" target="_blank">
+                                            <div class="text">
+                                                <div class="title-area">
+                                                    <div class="title">
+                                                        <div class="name">Finishing First Formal Note</div>
+                                                        <div class="name link"> ↗</div>
+                                                    </div>
+                                                    <div class="tag-text"># Tag</div>
+                                                </div>
+                                                <div class="desc">在南科大的学期基本上要结束了,学期初最煎熬的课程,是随机过程,基本上上课完全听不懂,并且速度还极快,于是第二周开始记笔记,在十四周时突发奇想,想要把笔记记录下来,于是慢慢着手开始实现,这也算是发现了一个方式帮我排解,平时学习也学不进,待着还会瞎想,于是做笔记变成了我最好的消费时间的行为.</div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="info-time">2025-12-26</div>
+                                            </div>
+                                        </a>
+                                        <div class="content-divider"></div>
+                                    </div>
+
+                                    <div class="item load-pro year-entry">
+                                        <a href="https://www.shanlu.cc" target="_blank">
+                                            <div class="text">
+                                                <div class="title-area">
+                                                    <div class="title">
+                                                        <div class="name">Redirect of Ph.D to Financial Math</div>
+                                                        <div class="name link"> ↗</div>
+                                                    </div>
+                                                    <div class="tag-text"># Tag</div>
+                                                </div>
+                                                <div class="desc">纠结了很久,最终还是和老板说了,确实当初选择统计的初衷,和坚持我下去的动力也没了,我想如今没有其他顾虑,还是选择自己最热爱的方向比较好,也很感谢蒋招立老师愿意“收留”我...</div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="info-time">2025-10-16</div>
+                                            </div>
+                                        </a>
+                                        <div class="content-divider"></div>
+                                    </div>
+
+                                    <div class="item load-pro year-entry">
+                                        <a href="https://www.shanlu.cc" target="_blank">
+                                            <div class="text">
+                                                <div class="title-area">
+                                                    <div class="title">
+                                                        <div class="name">SUSTech Exchange</div>
+                                                        <div class="name link"> ↗</div>
+                                                    </div>
+                                                    <div class="tag-text"># Tag</div>
+                                                </div>
+                                                <div class="desc">期待已久的南科大交换终于开始了,虽然现在只剩下了对学校的期待,没了对深圳生活的期待,但是还是要继续下去啦...,选了不少课程,希望一个学期可以正常进行,并且坚持下去吧,每周还要准备组会汇报,杨云的文章实在难读...</div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="info-time">2025-09-08</div>
+                                            </div>
+                                        </a>
+                                        <div class="content-divider"></div>
+                                    </div>
+
+                                    <div class="item load-pro year-entry">
+                                        <a href="https://www.shanlu.cc" target="_blank">
+                                            <div class="text">
+                                                <div class="title-area">
+                                                    <div class="title">
+                                                        <div class="name">姜然 Ph.D Registration</div>
+                                                        <div class="name link"> ↗</div>
+                                                    </div>
+                                                    <div class="tag-text"># Tag</div>
+                                                </div>
+                                                <div class="desc">祝贺姜然师姐通过Ph.D中期答辩, Bayesian Learning for Image Processing,希望师姐后续研究顺利,貌似刘赟昊师兄也会加入进来.</div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="info-time">2025-08-13</div>
+                                            </div>
+                                        </a>
+                                        <div class="content-divider"></div>
+                                    </div>
+
+                                    <div class="item load-pro year-entry">
+                                        <a href="https://www.shanlu.cc" target="_blank">
+                                            <div class="text">
+                                                <div class="title-area">
+                                                    <div class="title">
+                                                        <div class="name">PolyU International Summer School 2025</div>
+                                                        <div class="name link"> ↗</div>
+                                                    </div>
+                                                    <div class="tag-text"># Tag</div>
+                                                </div>
+                                                <div class="desc">第一次上本校的国际暑校,选了一门经济学的课:Economic Logic in Everyday Life,课程固然很有趣,但是最开心的还是在课上认识的人,非常开心认识两位来自清华的朋友, 王祎政, 徐小婷.希望以后还有机会再见!</div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="info-time">2025-08-12</div>
+                                            </div>
+                                        </a>
+                                        <div class="content-divider"></div>
+                                    </div>
+
+                                    <div class="item load-pro year-entry">
+                                        <a href="https://www.shanlu.cc" target="_blank">
+                                            <div class="text">
+                                                <div class="title-area">
+                                                    <div class="title">
+                                                        <div class="name">乔迁</div>
+                                                        <div class="name link"> ↗</div>
+                                                    </div>
+                                                    <div class="tag-text"># Tag</div>
+                                                </div>
+                                                <div class="desc">终于从香港搬到了深圳,想了很久的事情,虽然路途中很艰辛,行李还被海关扣下,但是从莲塘口岸出来时,第一口深圳的空气就值了,希望小宝在深圳生活好好的,期待下学期深圳生活!</div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="info-time">2025-08-01</div>
+                                            </div>
+                                        </a>
+                                        <div class="content-divider"></div>
+                                    </div>
+
+                                    <div class="item load-pro year-entry">
+                                        <a href="https://www.shanlu.cc" target="_blank">
+                                            <div class="text">
+                                                <div class="title-area">
+                                                    <div class="title">
+                                                        <div class="name">3rd JCSDS</div>
+                                                        <div class="name link"> ↗</div>
+                                                    </div>
+                                                    <div class="tag-text"># Tag</div>
+                                                </div>
+                                                <div class="desc">第一次参加学术会议,感谢Catherine LIU的support,希望以后有机会在学术会议上汇报.听了许多前沿的报告,有统计领域的,有应用方向的,也有很多LLM的,当然也看了很多金融数学的报告...(有点不务正业)</div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="info-time">2025-07-11</div>
+                                            </div>
+                                        </a>
+                                        <div class="content-divider"></div>
+                                    </div>
+
+                                    <div class="item load-pro year-entry">
+                                        <a href="https://www.shanlu.cc" target="_blank">
+                                            <div class="text">
+                                                <div class="title-area">
+                                                    <div class="title">
+                                                        <div class="name">数聚东南</div>
+                                                        <div class="name link"> ↗</div>
+                                                    </div>
+                                                    <div class="tag-text"># Tag</div>
+                                                </div>
+                                                <div class="desc">有幸来到东南大学,参加JCSDS系列短课,很多方向的汇报都十分有趣,但还是最喜欢王炜辰老师的《Estimation of Out-of-Sample Sharpe Ratio for High Dimensional Portfolio Optimization》,还是感谢刘老板报销...</div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="info-time">2025-07-05</div>
+                                            </div>
+                                        </a>
+                                        <div class="content-divider"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
-                <div class="item load-pro">
-                    <a onclick="window.location.href='./notes/miditv-ppt.pdf'" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">毕设中期答辩结束</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">1月8号,在南科大考完最后一门,Jana的动力系统,在小神童的帮助下,晚上把东西都搬回宿舍,上学期几乎都在调整、悲伤,也是用纸(手纸,草稿纸)最多的一个学期,回来后极限9,10,11,12四天把毕设中期答辩做出来了,没想到出乎意料的还不错,慢慢体会到在澳门大学startup的用意...,希望这个学期能够恢复起来,只选了很少的课, all I ask is...</div></div>
-                        <div class="info">
-                            <div class="info-time">2026-01-13</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <h2 id="year-2025" class="year-heading">2025</h2>
-                 <div class="item load-pro">
-                    <a onclick="window.location.href='./notes/spwm.pdf'" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Finishing First Formal Note</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">在南科大的学期基本上要结束了,学期初最煎熬的课程,是随机过程,基本上上课完全听不懂,并且速度还极快,于是第二周开始记笔记,在十四周时突发奇想,想要把笔记记录下来,于是慢慢着手开始实现,这也算是发现了一个方式帮我排解,平时学习也学不进,待着还会瞎想,于是做笔记变成了我最好的消费时间的行为.</div></div>
-                        <div class="info">
-                            <div class="info-time">2025-12-26</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.shanlu.cc" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Redirect of Ph.D to Financial Math</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">纠结了很久,最终还是和老板说了,确实当初选择统计的初衷,和坚持我下去的动力也没了,我想如今没有其他顾虑,还是选择自己最热爱的方向比较好,也很感谢蒋招立老师愿意“收留”我...</div></div>
-                        <div class="info">
-                            <div class="info-time">2025-10-16</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.shanlu.cc" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">SUSTech Exchange</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">期待已久的南科大交换终于开始了,虽然现在只剩下了对学校的期待,没了对深圳生活的期待,但是还是要继续下去啦...,选了不少课程,希望一个学期可以正常进行,并且坚持下去吧,每周还要准备组会汇报,杨云的文章实在难读...</div></div>
-                        <div class="info">
-                            <div class="info-time">2025-09-08</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.shanlu.cc" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">姜然 Ph.D Registration</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">祝贺姜然师姐通过Ph.D中期答辩, Bayesian Learning for Image Processing,希望师姐后续研究顺利,貌似刘赟昊师兄也会加入进来.</div></div>
-                        <div class="info">
-                            <div class="info-time">2025-08-13</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.shanlu.cc" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">PolyU International Summer School 2025</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">第一次上本校的国际暑校,选了一门经济学的课:Economic Logic in Everyday Life,课程固然很有趣,但是最开心的还是在课上认识的人,非常开心认识两位来自清华的朋友, 王祎政, 徐小婷.希望以后还有机会再见!</div></div>
-                        <div class="info">
-                            <div class="info-time">2025-08-12</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.shanlu.cc" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">乔迁</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">终于从香港搬到了深圳,想了很久的事情,虽然路途中很艰辛,行李还被海关扣下,但是从莲塘口岸出来时,第一口深圳的空气就值了,希望小宝在深圳生活好好的,期待下学期深圳生活!</div></div>
-                        <div class="info">
-                            <div class="info-time">2025-08-01</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.shanlu.cc" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">3rd JCSDS</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">第一次参加学术会议,感谢Catherine LIU的support,希望以后有机会在学术会议上汇报.听了许多前沿的报告,有统计领域的,有应用方向的,也有很多LLM的,当然也看了很多金融数学的报告...(有点不务正业)</div></div>
-                        <div class="info">
-                            <div class="info-time">2025-07-11</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.shanlu.cc" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">数聚东南</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">有幸来到东南大学,参加JCSDS系列短课,很多方向的汇报都十分有趣,但还是最喜欢王炜辰老师的《Estimation of Out-of-Sample Sharpe Ratio for High Dimensional Portfolio Optimization》,还是感谢刘老板报销...</div></div>
-                        <div class="info">
-                            <div class="info-time">2025-07-05</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <!-- <div class="item load-pro">
-                    <a href="https://www.yuque.com/asorn" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Article Title</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">Welcome to my open source blog, my blog address is https://asorn.cn/</div></div>
-                        <div class="info">
-                            <div class="info-time">2022-11-20</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.yuque.com/asorn" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Article Title</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">Welcome to my open source blog, my blog address is https://asorn.cn/, Welcome to my open source blog, my blog address is https://asorn.cn/</div></div>
-                        <div class="info">
-                            <div class="info-time">2022-11-20</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.yuque.com/asorn" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Article Title</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">Welcome to my open source blog, my blog address is https://asorn.cn/</div></div>
-                        <div class="info">
-                            <div class="info-time">2022-11-20</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.yuque.com/asorn" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Article Title</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">Welcome to my open source blog, my blog address is https://asorn.cn/, Welcome to my open source blog, my blog address is https://asorn.cn/</div></div>
-                        <div class="info">
-                            <div class="info-time">2022-11-20</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.yuque.com/asorn" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Article Title</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">Welcome to my open source blog, my blog address is https://asorn.cn/</div></div>
-                        <div class="info">
-                            <div class="info-time">2022-11-20</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.yuque.com/asorn" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Article Title</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">Welcome to my open source blog, my blog address is https://asorn.cn/, Welcome to my open source blog, my blog address is https://asorn.cn/</div></div>
-                        <div class="info">
-                            <div class="info-time">2022-11-20</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.yuque.com/asorn" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Article Title</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">Welcome to my open source blog, my blog address is https://asorn.cn/</div></div>
-                        <div class="info">
-                            <div class="info-time">2022-11-20</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.yuque.com/asorn" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Article Title</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">Welcome to my open source blog, my blog address is https://asorn.cn/, Welcome to my open source blog, my blog address is https://asorn.cn/</div></div>
-                        <div class="info">
-                            <div class="info-time">2022-11-20</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.yuque.com/asorn" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Article Title</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">Welcome to my open source blog, my blog address is https://asorn.cn/</div></div>
-                        <div class="info">
-                            <div class="info-time">2022-11-20</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div>
-                <div class="item load-pro">
-                    <a href="https://www.yuque.com/asorn" target="_blank">
-                        <div class="text">
-                            <div class="title-area">
-                                <div class="title">
-                                    <div class="name">Article Title</div>
-                                    <div class="name link"> ↗</div>
-                                </div>
-                                <div class="tag-text"># Tag</div>
-                            </div>
-                            <div class="desc">Welcome to my open source blog, my blog address is https://asorn.cn/, Welcome to my open source blog, my blog address is https://asorn.cn/</div></div>
-                        <div class="info">
-                            <div class="info-time">2022-11-20</div>
-                        </div>
-                    </a>
-                    <div class="content-divider"></div>
-                </div> -->
             </div>
         </div>
-    </div>
-    <div class="year-nav">
-        <ul>
-            <li class="magical btn"><a href="#year-2026">2026</a></li>
-            <li class="magical btn"><a href="#year-2025">2025</a></li>
-        </ul>
     </div>
     <div class="footer">
         <div class="footer-content">
             <div class="copyright">
-                <div>© Last Updated 17/1/2026 <!-- <a href="https://asorn.cn/" target="_blank">Asorn</a></div>
+                <div>© Last Updated 5/4/2026 <!-- <a href="https://asorn.cn/" target="_blank">Asorn</a></div>
                 <span>|</span>
                 <div class="fillings">
                     <a href="https://asorn.cn/" target="_blank">Your filing number</a>
@@ -580,5 +816,109 @@
 <script src="./js/main.min.js"></script>
 <script src='./js/anime.js'></script>
 <script src='./js/firework.js'></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const yearGroups = Array.from(document.querySelectorAll('.year-group'));
+        if (!yearGroups.length) return;
 
+        function updateScrollIndicator() {
+            window.dispatchEvent(new Event('scroll'));
+        }
+
+        function setPanelHeight(panel) {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+        }
+
+        function closeGroup(group, options = {}) {
+            const { updateHash = true } = options;
+            const button = group.querySelector('.year-toggle');
+            const panel = group.querySelector('.year-panel');
+
+            if (!group.classList.contains('is-open')) return;
+
+            setPanelHeight(panel);
+            requestAnimationFrame(() => {
+                group.classList.remove('is-open');
+                button.setAttribute('aria-expanded', 'false');
+                panel.style.maxHeight = '0px';
+            });
+
+            if (updateHash && window.location.hash === `#${group.id}`) {
+                history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+            }
+
+            setTimeout(updateScrollIndicator, 320);
+        }
+
+        function openGroup(group, options = {}) {
+            const { updateHash = true, scrollIntoView = true } = options;
+            const button = group.querySelector('.year-toggle');
+            const panel = group.querySelector('.year-panel');
+
+            yearGroups.forEach(otherGroup => {
+                if (otherGroup !== group) {
+                    closeGroup(otherGroup, { updateHash: false });
+                }
+            });
+
+            group.classList.add('is-open');
+            button.setAttribute('aria-expanded', 'true');
+            setPanelHeight(panel);
+
+            if (updateHash) {
+                history.replaceState(null, '', `${window.location.pathname}${window.location.search}#${group.id}`);
+            }
+
+            setTimeout(() => {
+                setPanelHeight(panel);
+                updateScrollIndicator();
+            }, 320);
+
+            if (scrollIntoView) {
+                setTimeout(() => {
+                    const top = group.getBoundingClientRect().top + window.pageYOffset - 92;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }, 80);
+            }
+        }
+
+        yearGroups.forEach(group => {
+            const button = group.querySelector('.year-toggle');
+            const panel = group.querySelector('.year-panel');
+
+            panel.style.maxHeight = '0px';
+            button.addEventListener('click', function () {
+                const isOpen = group.classList.contains('is-open');
+                if (isOpen) {
+                    closeGroup(group);
+                } else {
+                    openGroup(group);
+                }
+            });
+        });
+
+        function syncFromHash() {
+            const hash = window.location.hash;
+            if (!hash) return;
+            const target = document.querySelector(hash);
+            if (target && target.classList.contains('year-group')) {
+                openGroup(target, { updateHash: false, scrollIntoView: false });
+                setTimeout(() => {
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - 92;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }, 60);
+            }
+        }
+
+        syncFromHash();
+        window.addEventListener('hashchange', syncFromHash);
+        window.addEventListener('resize', function () {
+            const openPanel = document.querySelector('.year-group.is-open .year-panel');
+            if (openPanel) {
+                setPanelHeight(openPanel);
+            }
+            updateScrollIndicator();
+        });
+    });
+</script>
 </html>

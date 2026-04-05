@@ -108,6 +108,11 @@
             text-align: left;
         }
 
+        .year-toggle:focus-visible {
+            outline: none;
+            box-shadow: inset 0 0 0 1px rgba(100, 97, 241, 0.42);
+        }
+
         .year-toggle::before {
             content: '';
             position: absolute;
@@ -144,9 +149,16 @@
             transform: translateY(-50%) scale(1.02);
         }
 
-        .year-main {
+        .year-summary {
             position: relative;
             z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .year-main {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -176,6 +188,19 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .year-meta {
+            padding-left: 20px;
+            font-size: 12px;
+            line-height: 20px;
+            color: #62616F;
+            letter-spacing: 0.02em;
+            transition: color 0.28s ease;
+        }
+
+        .year-group.is-open .year-meta {
+            color: #8D8BA4;
         }
 
         .year-action {
@@ -208,6 +233,12 @@
             transform: rotate(90deg);
         }
 
+        .year-group:hover .year-action {
+            transform: translateY(-1px);
+            border-color: rgba(168, 168, 182, 0.28);
+            background: rgba(232, 232, 246, 0.06);
+        }
+
         .year-group.is-open .year-action {
             border-color: rgba(100, 97, 241, 0.3);
             background: rgba(100, 97, 241, 0.08);
@@ -236,6 +267,8 @@
         }
 
         .year-panel-inner {
+            --track-x: 2px;
+            --dot-size: 10px;
             position: relative;
             padding: 16px 28px 24px 28px;
         }
@@ -243,9 +276,9 @@
         .year-panel-inner::before {
             content: '';
             position: absolute;
-            left: 31px;
-            top: 12px;
-            bottom: 24px;
+            left: calc(28px + var(--track-x) + (var(--dot-size) / 2) - 0.5px);
+            top: 18px;
+            bottom: 26px;
             width: 1px;
             background: linear-gradient(180deg, rgba(100, 97, 241, 0.42) 0%, rgba(78, 78, 100, 0.12) 100%);
             opacity: 0.9;
@@ -253,132 +286,224 @@
 
         .year-entry {
             position: relative;
-            padding-left: 32px;
+            padding-left: calc(var(--track-x) + var(--dot-size) + 20px);
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.32s ease, transform 0.32s ease;
+        }
+
+        .year-entry.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .year-entry::before {
             content: '';
             position: absolute;
-            left: 31px;
-            top: 16px;
-            transform: translateX(-50%);
+            left: var(--track-x);
+            top: 24px;
+            width: var(--dot-size);
+            height: var(--dot-size);
+            border-radius: 999px;
+            background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.08) 40%, transparent 45%), #6461F1;
+            box-shadow: 0 0 0 6px rgba(100, 97, 241, 0.12), 0 0 20px rgba(100, 97, 241, 0.18);
+        }
+
+        .year-entry:last-child .content-divider {
+            display: none;
+        }
+
+        .year-entry .content-divider {
+            margin: 20px 0 0;
+        }
+
+        .year-entry .item a {
+            gap: 14px;
+        }
+
+        .year-entry .item a .text {
+            opacity: 0.86;
+        }
+
+        .blog .blog-list .blog-list-item .item a .text .title-area .tag-text,
+        .blog .blog-list .blog-list-item .blog-recommend a .right-content .text .title-area .tag-text {
+            --tag-color: #C7C7D5;
+            --tag-bg: rgba(168, 168, 182, 0.08);
+            --tag-border: rgba(168, 168, 182, 0.14);
+            --tag-glow: rgba(168, 168, 182, 0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px 6px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--tag-border);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%), var(--tag-bg);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 24px rgba(10, 10, 14, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--tag-color);
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 600;
+            font-style: normal;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .blog .blog-list .blog-list-item .item a .text .title-area .tag-text::before,
+        .blog .blog-list .blog-list-item .blog-recommend a .right-content .text .title-area .tag-text::before {
+            content: '';
             width: 7px;
             height: 7px;
-            border-radius: 999px;
-            background: #6461F1;
-            box-shadow: 0 0 0 6px rgba(100, 97, 241, 0.1);
+            border-radius: 2px;
+            transform: rotate(45deg);
+            background: var(--tag-color);
+            box-shadow: 0 0 0 4px var(--tag-glow);
+            flex-shrink: 0;
         }
 
-        .year-panel .item a {
-            gap: 10px;
-            transition: transform 0.24s ease;
+        .tag-milestone {
+            --tag-color: #CFCBFF;
+            --tag-bg: rgba(100, 97, 241, 0.10);
+            --tag-border: rgba(100, 97, 241, 0.24);
+            --tag-glow: rgba(100, 97, 241, 0.10);
         }
 
-        .year-panel .item a:hover {
-            transform: translateX(4px);
+        .tag-note {
+            --tag-color: #BCE9FF;
+            --tag-bg: rgba(111, 213, 255, 0.10);
+            --tag-border: rgba(111, 213, 255, 0.24);
+            --tag-glow: rgba(111, 213, 255, 0.10);
         }
 
-        .year-panel .item a .info {
-            order: -1;
-            opacity: 1;
+        .tag-decision {
+            --tag-color: #FFD1E5;
+            --tag-bg: rgba(245, 168, 199, 0.10);
+            --tag-border: rgba(245, 168, 199, 0.24);
+            --tag-glow: rgba(245, 168, 199, 0.10);
         }
 
-        .year-panel .item a .info .info-time {
-            font-size: 11px;
-            line-height: 18px;
-            font-weight: 500;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: #8E8BFF;
+        .tag-exchange {
+            --tag-color: #C8F8DF;
+            --tag-bg: rgba(110, 231, 183, 0.10);
+            --tag-border: rgba(110, 231, 183, 0.24);
+            --tag-glow: rgba(110, 231, 183, 0.10);
         }
 
-        .year-panel .item a .text {
-            gap: 10px;
+        .tag-research {
+            --tag-color: #C8EAFF;
+            --tag-bg: rgba(123, 212, 255, 0.10);
+            --tag-border: rgba(123, 212, 255, 0.24);
+            --tag-glow: rgba(123, 212, 255, 0.10);
         }
 
-        .year-panel .item a .text .title-area {
-            align-items: flex-start;
+        .tag-conference {
+            --tag-color: #C5FFF7;
+            --tag-bg: rgba(115, 229, 210, 0.10);
+            --tag-border: rgba(115, 229, 210, 0.24);
+            --tag-glow: rgba(115, 229, 210, 0.10);
         }
 
-        .year-panel .item a .text .desc {
-            color: #9C9CAD;
+        .tag-life {
+            --tag-color: #FFE3B4;
+            --tag-bg: rgba(231, 193, 123, 0.10);
+            --tag-border: rgba(231, 193, 123, 0.24);
+            --tag-glow: rgba(231, 193, 123, 0.10);
         }
 
-        .year-panel .item .content-divider {
-            width: calc(100% - 32px);
-            margin: 20px 0 24px 32px;
+        .tag-move {
+            --tag-color: #FFD6B6;
+            --tag-bg: rgba(242, 177, 120, 0.10);
+            --tag-border: rgba(242, 177, 120, 0.24);
+            --tag-glow: rgba(242, 177, 120, 0.10);
         }
 
-        .year-panel .item:last-child .content-divider {
-            margin-bottom: 0;
-        }
-
-        .year-panel .item a:hover .text .name {
-            text-shadow: 0 0 10px rgba(100, 97, 241, 0.28);
+        .tag-return {
+            --tag-color: #DDD2FF;
+            --tag-bg: rgba(200, 182, 255, 0.10);
+            --tag-border: rgba(200, 182, 255, 0.24);
+            --tag-glow: rgba(200, 182, 255, 0.10);
         }
 
         @media (max-width: 968px) {
-            .year-toggle {
-                padding: 24px;
-            }
-
-            .year-toggle::before {
-                left: 24px;
-                right: 24px;
-            }
-
-            .year-toggle::after {
-                right: 78px;
-                font-size: 56px;
-            }
-
-            .year-panel-inner {
-                padding: 12px 24px 20px 24px;
-            }
-
-            .year-panel-inner::before,
-            .year-entry::before {
-                left: 27px;
-            }
-
-            .year-entry {
-                padding-left: 28px;
-            }
-
-            .year-panel .item .content-divider {
-                width: calc(100% - 28px);
-                margin-left: 28px;
-            }
-        }
-
-        @media (max-width: 580px) {
             .archive-intro {
                 padding-bottom: 20px;
             }
 
-            .archive-intro .archive-copy {
-                max-width: 100%;
+            .year-group {
+                --border: 18px;
+                border-radius: 18px;
             }
 
             .year-toggle {
-                padding: 22px 20px;
+                padding: 24px 22px 22px;
+                gap: 18px;
             }
 
             .year-toggle::before {
-                left: 20px;
-                right: 20px;
+                left: 22px;
+                right: 22px;
+            }
+
+            .year-toggle::after {
+                right: 70px;
+                font-size: 56px;
+            }
+
+            .year-meta {
+                padding-left: 20px;
+            }
+
+            .year-panel-inner {
+                padding: 14px 22px 20px;
+            }
+
+            .year-panel-inner::before {
+                left: calc(22px + var(--track-x) + (var(--dot-size) / 2) - 0.5px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .blog-archive {
+                margin-top: 0;
+            }
+
+            .archive-intro {
+                padding: 0 2px 18px;
+            }
+
+            .archive-intro .archive-copy {
+                font-size: 12px;
+                line-height: 22px;
+            }
+
+            .year-group {
+                --border: 16px;
+                border-radius: 16px;
+            }
+
+            .year-toggle {
+                padding: 22px 18px 20px;
+                gap: 16px;
+            }
+
+            .year-toggle::before {
+                left: 18px;
+                right: 18px;
             }
 
             .year-toggle::after {
                 display: none;
             }
 
-            .year-main {
-                gap: 10px;
+            .year-number {
+                font-size: 38px;
             }
 
-            .year-number {
-                font-size: 34px;
+            .year-meta {
+                padding-left: 18px;
+                font-size: 11px;
             }
 
             .year-action {
@@ -387,21 +512,25 @@
             }
 
             .year-panel-inner {
-                padding: 10px 20px 18px 20px;
+                padding: 12px 18px 18px;
             }
 
-            .year-panel-inner::before,
-            .year-entry::before {
-                left: 23px;
+            .year-panel-inner::before {
+                left: calc(18px + var(--track-x) + (var(--dot-size) / 2) - 0.5px);
             }
 
             .year-entry {
-                padding-left: 24px;
+                padding-left: calc(var(--track-x) + var(--dot-size) + 18px);
             }
 
-            .year-panel .item .content-divider {
-                width: calc(100% - 24px);
-                margin-left: 24px;
+            .year-entry::before {
+                top: 22px;
+            }
+
+            .year-entry .item a .text .title-area {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
@@ -412,7 +541,7 @@
     <div class="head" id="headscrollbg">
         <div class="main">
             <div class="main-left">
-                <a href="./index.html" class="logo"><img height= 24px width= 24px src="./assets/public/logo_graph.png"></a>
+                <a href="./index.html" class="logo"><img height="24" width="24" src="./assets/public/logo_graph.png"></a>
                 <div class="tag tag-cooperate" onclick="window.location.href='./about.html'">
                     <div class="breath-dot"></div>Contact
                 </div>
@@ -513,7 +642,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="blog-list-item">
                 <div class="magical blog-recommend">
                     <a href="https://www.uisdc.com/derived-visual-color" target="_blank">
@@ -528,9 +656,9 @@
                                         <div class="name">个人博客建立</div>
                                         <div class="name link"> ↗</div>
                                     </div>
-                                    <div class="tag-text"># Tag</div>
+                                    <div class="tag-text tag-milestone">Milestone</div>
                                 </div>
-                                <div class="desc" id="clampText">欢迎来到我的个人博客网站,里面记录了一些即使的思想和感悟...</div>
+                                <div class="desc" id="clampText">欢迎来到我的个人博客网站,里面记录了一些即时的思想和感悟...</div>
                             </div>
                             <div class="info">
                                 <div class="info-time">2025-10-20</div>
@@ -539,255 +667,272 @@
                     </a>
                 </div>
 
-                <div class="blog-archive">
-                    <div class="archive-intro load-pro">
-                        <div class="archive-kicker">Year Archive</div>
-                        <!-- <div class="archive-copy">这里只有年份。点开某一年，才会展开那一年留下的文字；切换到别的年份时，上一年会自动收起。</div> -->
+                <div class="blog-archive" id="archive">
+                    <!-- <div class="archive-intro">
+                        <div class="archive-kicker">Archive</div>
+                        <div class="archive-copy">按年份归档，只展开当下想读的一年。以后内容再慢慢变多，它也会像一份持续生长的个人记录。</div>
+                    </div> -->
+                    <div class="year-accordion" id="yearAccordion">
+                        <section class="magical year-group" id="year-2026">
+            <button class="year-toggle" type="button" data-year="2026" aria-expanded="false" aria-controls="panel-2026">
+                <div class="year-summary">
+                    <div class="year-main">
+                        <span class="year-dot" aria-hidden="true"></span>
+                        <span class="year-number">2026</span>
                     </div>
+                    <div class="year-meta">3 entries · latest 04/05</div>
+                </div>
+                <span class="year-action" aria-hidden="true"></span>
+            </button>
+            <div class="year-panel" id="panel-2026" hidden>
+                <div class="year-panel-inner">
+                    <div class="year-entry">
+                        <div class="item">
+                            <a href="./notes/elc-ptycho.pdf" target="_blank">
+                                <div class="text">
+                    <div class="title-area">
+                    <div class="title">
+                        <div class="name">毕业有望</div>
+                        <div class="name link"> ↗</div>
+                    </div>
+                    <div class="tag-text tag-return">millstone</div>
+                </div>
+                <div class="desc">爆肝了两周, 从开始写理论, 慢慢在写的过程中对项目建立了更深的理解, 再去思考, 做实验, 最后完成初稿的写作, 整个过程其实还蛮快乐, electron ptychography, 确实是十分有趣的课题, 毕设论文也有很认真的对待, 算是为我的物理阶段画上圆满的句号.</div>
+            </div>
+            <div class="info">
+                <div class="info-time">2026-04-05</div>
+            </div>
+        </a>
+        <div class="content-divider"></div>
+    </div>
+    <div class="item">
+        <a href="https://www.shanlu.cc" target="_blank">
+            <div class="text">
+                <div class="title-area">
+                    <div class="title">
+                        <div class="name">回家家家家家!</div>
+                        <div class="name link"> ↗</div>
+                    </div>
+                    <div class="tag-text tag-return">Return</div>
+                </div>
+                <div class="desc">分手后第一次回家, 刚好赶上老皮还在, 2月5号回来, 6号九点就开始玩, 说是玩, 但过程中也聊了很多, 有过去, 有现在, 也有未来, 更有感情, 不知不觉和老皮和纪廷认识已经九年了, 时间让我们看起来都变了很多, 但内心总有一些东西是不会随时间改变的...Waiting for next time!</div>
+            </div>
+            <div class="info">
+                <div class="info-time">2026-02-06</div>
+            </div>
+        </a>
+        <div class="content-divider"></div>
+    </div>
+</div>
+<div class="year-entry">
+    <div class="item">
+        <a href="./notes/miditv-ppt.pdf" target="_blank">
+            <div class="text">
+                <div class="title-area">
+                    <div class="title">
+                        <div class="name">毕设中期答辩结束</div>
+                        <div class="name link"> ↗</div>
+                    </div>
+                    <div class="tag-text tag-milestone">Milestone</div>
+                </div>
+                <div class="desc">1月8号,在南科大考完最后一门,Jana的动力系统,在小神童的帮助下,晚上把东西都搬回宿舍,上学期几乎都在调整、悲伤,也是用纸(手纸,草稿纸)最多的一个学期,回来后极限9,10,11,12四天把毕设中期答辩做出来了,没想到出乎意料的还不错,慢慢体会到在澳门大学startup的用意...,希望这个学期能够恢复起来,只选了很少的课, all I ask is...</div>
+            </div>
+            <div class="info">
+                <div class="info-time">2026-01-13</div>
+            </div>
+        </a>
 
-                    <div class="year-accordion" id="year-accordion">
-                        <section class="year-group magical load-pro" id="year-2026">
-                            <button class="year-toggle" id="year-toggle-2026" type="button" data-year="2026" aria-expanded="false" aria-controls="year-panel-2026">
-                                <span class="year-main">
-                                    <span class="year-dot"></span>
-                                    <span class="year-number">2026</span>
-                                </span>
-                                <span class="year-action" aria-hidden="true"></span>
-                            </button>
-                            <div class="year-panel" id="year-panel-2026" role="region" aria-labelledby="year-toggle-2026">
-                                <div class="year-panel-inner">
-                                    <div class="item load-pro year-entry">
-                                        <a href="./notes/elc-ptycho.pdf" target="_blank">
-                                            <div class="text">
-                                                <div class="title-area">
-                                                    <div class="title">
-                                                        <div class="name">毕业有望</div>
-                                                        <div class="name link"> ↗</div>
-                                                    </div>
-                                                    <div class="tag-text"># Tag</div>
-                                                </div>
-                                                <div class="desc">爆肝了两周, 从开始写理论, 慢慢在写的过程中对项目建立了更深的理解, 再去思考, 做实验, 最后完成初稿的写作, 整个过程其实还蛮快乐, electron ptychography, 确实是十分有趣的课题, 毕设论文也有很认真的对待, 算是为我的物理阶段画上圆满的句号.</div>
-                                            </div>
-                                            <div class="info">
-                                                <div class="info-time">2026-04-05</div>
-                                            </div>
-                                        </a>
-                                        <div class="content-divider"></div>
-                                    </div>
-                                    <div class="item load-pro year-entry">
-                                        <a href="https://www.shanlu.cc" target="_blank">
-                                            <div class="text">
-                                                <div class="title-area">
-                                                    <div class="title">
-                                                        <div class="name">回家家家家家!</div>
-                                                        <div class="name link"> ↗</div>
-                                                    </div>
-                                                    <div class="tag-text"># Tag</div>
-                                                </div>
-                                                <div class="desc">分手后第一次回家, 刚好赶上老皮还在, 2月5号回来, 6号九点就开始玩, 说是玩, 但过程中也聊了很多, 有过去, 有现在, 也有未来, 更有感情, 不知不觉和老皮和纪廷认识已经九年了, 时间让我们看起来都变了很多, 但内心总有一些东西是不会随时间改变的...Waiting for next time!</div>
-                                            </div>
-                                            <div class="info">
-                                                <div class="info-time">2026-02-06</div>
-                                            </div>
-                                        </a>
-                                        <div class="content-divider"></div>
-                                    </div>
+    </div>
+</div>
+                </div>
+            </div>
+        </section>
+<section class="magical year-group" id="year-2025">
+            <button class="year-toggle" type="button" data-year="2025" aria-expanded="false" aria-controls="panel-2025">
+                <div class="year-summary">
+                    <div class="year-main">
+                        <span class="year-dot" aria-hidden="true"></span>
+                        <span class="year-number">2025</span>
+                    </div>
+                    <div class="year-meta">8 entries · latest 12/26</div>
+                </div>
+                <span class="year-action" aria-hidden="true"></span>
+            </button>
+            <div class="year-panel" id="panel-2025" hidden>
+                <div class="year-panel-inner">
+                    <div class="year-entry">
+    <div class="item">
+        <a href="./notes/spwm.pdf" target="_blank">
+            <div class="text">
+                <div class="title-area">
+                    <div class="title">
+                        <div class="name">Finishing First Formal Note</div>
+                        <div class="name link"> ↗</div>
+                    </div>
+                    <div class="tag-text tag-note">Note</div>
+                </div>
+                <div class="desc">在南科大的学期基本上要结束了,学期初最煎熬的课程,是随机过程,基本上上课完全听不懂,并且速度还极快,于是第二周开始记笔记,在十四周时突发奇想,想要把笔记记录下来,于是慢慢着手开始实现,这也算是发现了一个方式帮我排解,平时学习也学不进,待着还会瞎想,于是做笔记变成了我最好的消费时间的行为.</div>
+            </div>
+            <div class="info">
+                <div class="info-time">2025-12-26</div>
+            </div>
+        </a>
+        <div class="content-divider"></div>
+    </div>
+</div>
+<div class="year-entry">
+    <div class="item">
+        <a href="https://www.shanlu.cc" target="_blank">
+            <div class="text">
+                <div class="title-area">
+                    <div class="title">
+                        <div class="name">Redirect of Ph.D to Financial Math</div>
+                        <div class="name link"> ↗</div>
+                    </div>
+                    <div class="tag-text tag-decision">Decision</div>
+                </div>
+                <div class="desc">纠结了很久,最终还是和老板说了,确实当初选择统计的初衷,和坚持我下去的动力也没了,我想如今没有其他顾虑,还是选择自己最热爱的方向比较好,也很感谢蒋招立老师愿意“收留”我...</div>
+            </div>
+            <div class="info">
+                <div class="info-time">2025-10-16</div>
+            </div>
+        </a>
+        <div class="content-divider"></div>
+    </div>
+</div>
+<div class="year-entry">
+    <div class="item">
+        <a href="https://www.shanlu.cc" target="_blank">
+            <div class="text">
+                <div class="title-area">
+                    <div class="title">
+                        <div class="name">SUSTech Exchange</div>
+                        <div class="name link"> ↗</div>
+                    </div>
+                    <div class="tag-text tag-exchange">Exchange</div>
+                </div>
+                <div class="desc">期待已久的南科大交换终于开始了,虽然现在只剩下了对学校的期待,没了对深圳生活的期待,但是还是要继续下去啦...,选了不少课程,希望一个学期可以正常进行,并且坚持下去吧,每周还要准备组会汇报,杨云的文章实在难读...</div>
+            </div>
+            <div class="info">
+                <div class="info-time">2025-09-08</div>
+            </div>
+        </a>
+        <div class="content-divider"></div>
+    </div>
+</div>
+<div class="year-entry">
+    <div class="item">
+        <a href="https://www.shanlu.cc" target="_blank">
+            <div class="text">
+                <div class="title-area">
+                    <div class="title">
+                        <div class="name">姜然 Ph.D Registration</div>
+                        <div class="name link"> ↗</div>
+                    </div>
+                    <div class="tag-text tag-research">Research</div>
+                </div>
+                <div class="desc">祝贺姜然师姐通过Ph.D中期答辩, Bayesian Learning for Image Processing,希望师姐后续研究顺利,貌似刘赟昊师兄也会加入进来.</div>
+            </div>
+            <div class="info">
+                <div class="info-time">2025-08-13</div>
+            </div>
+        </a>
+        <div class="content-divider"></div>
+    </div>
+</div>
+<div class="year-entry">
+    <div class="item">
+        <a href="https://www.shanlu.cc" target="_blank">
+            <div class="text">
+                <div class="title-area">
+                    <div class="title">
+                        <div class="name">PolyU International Summer School 2025</div>
+                        <div class="name link"> ↗</div>
+                    </div>
+                    <div class="tag-text tag-life">Life</div>
+                </div>
+                <div class="desc">第一次上本校的国际暑校,选了一门经济学的课:Economic Logic in Everyday Life,课程固然很有趣,但是最开心的还是在课上认识的人,非常开心认识两位来自清华的朋友, 王祎政, 徐小婷.希望以后还有机会再见!</div>
+            </div>
+            <div class="info">
+                <div class="info-time">2025-08-12</div>
+            </div>
+        </a>
+        <div class="content-divider"></div>
+    </div>
+</div>
+<div class="year-entry">
+    <div class="item">
+        <a href="https://www.shanlu.cc" target="_blank">
+            <div class="text">
+                <div class="title-area">
+                    <div class="title">
+                        <div class="name">乔迁</div>
+                        <div class="name link"> ↗</div>
+                    </div>
+                    <div class="tag-text tag-move">Move</div>
+                </div>
+                <div class="desc">终于从香港搬到了深圳,想了很久的事情,虽然路途中很艰辛,行李还被海关扣下,但是从莲塘口岸出来时,第一口深圳的空气就值了,希望小宝在深圳生活好好的,期待下学期深圳生活!</div>
+            </div>
+            <div class="info">
+                <div class="info-time">2025-08-01</div>
+            </div>
+        </a>
+        <div class="content-divider"></div>
+    </div>
+</div>
+<div class="year-entry">
+    <div class="item">
+        <a href="https://www.shanlu.cc" target="_blank">
+            <div class="text">
+                <div class="title-area">
+                    <div class="title">
+                        <div class="name">3rd JCSDS</div>
+                        <div class="name link"> ↗</div>
+                    </div>
+                    <div class="tag-text tag-conference">Conference</div>
+                </div>
+                <div class="desc">第一次参加学术会议,感谢Catherine LIU的support,希望以后有机会在学术会议上汇报.听了许多前沿的报告,有统计领域的,有应用方向的,也有很多LLM的,当然也看了很多金融数学的报告...(有点不务正业)</div>
+            </div>
+            <div class="info">
+                <div class="info-time">2025-07-11</div>
+            </div>
+        </a>
+        <div class="content-divider"></div>
+    </div>
+</div>
+<div class="year-entry">
+    <div class="item">
+        <a href="https://www.shanlu.cc" target="_blank">
+            <div class="text">
+                <div class="title-area">
+                    <div class="title">
+                        <div class="name">数聚东南</div>
+                        <div class="name link"> ↗</div>
+                    </div>
+                    <div class="tag-text tag-conference">Conference</div>
+                </div>
+                <div class="desc">有幸来到东南大学,参加JCSDS系列短课,很多方向的汇报都十分有趣,但还是最喜欢王炜辰老师的《Estimation of Out-of-Sample Sharpe Ratio for High Dimensional Portfolio Optimization》,还是感谢刘老板报销...</div>
+            </div>
+            <div class="info">
+                <div class="info-time">2025-07-05</div>
+            </div>
+        </a>
 
-                                    <div class="item load-pro year-entry">
-                                        <a href="./notes/miditv-ppt.pdf" target="_blank">
-                                            <div class="text">
-                                                <div class="title-area">
-                                                    <div class="title">
-                                                        <div class="name">毕设中期答辩结束</div>
-                                                        <div class="name link"> ↗</div>
-                                                    </div>
-                                                    <div class="tag-text"># Tag</div>
-                                                </div>
-                                                <div class="desc">1月8号,在南科大考完最后一门,Jana的动力系统,在小神童的帮助下,晚上把东西都搬回宿舍,上学期几乎都在调整、悲伤,也是用纸(手纸,草稿纸)最多的一个学期,回来后极限9,10,11,12四天把毕设中期答辩做出来了,没想到出乎意料的还不错,慢慢体会到在澳门大学startup的用意...,希望这个学期能够恢复起来,只选了很少的课, all I ask is...</div>
-                                            </div>
-                                            <div class="info">
-                                                <div class="info-time">2026-01-13</div>
-                                            </div>
-                                        </a>
-                                        <div class="content-divider"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section class="year-group magical load-pro" id="year-2025">
-                            <button class="year-toggle" id="year-toggle-2025" type="button" data-year="2025" aria-expanded="false" aria-controls="year-panel-2025">
-                                <span class="year-main">
-                                    <span class="year-dot"></span>
-                                    <span class="year-number">2025</span>
-                                </span>
-                                <span class="year-action" aria-hidden="true"></span>
-                            </button>
-                            <div class="year-panel" id="year-panel-2025" role="region" aria-labelledby="year-toggle-2025">
-                                <div class="year-panel-inner">
-                                    <div class="item load-pro year-entry">
-                                        <a href="./notes/spwm.pdf" target="_blank">
-                                            <div class="text">
-                                                <div class="title-area">
-                                                    <div class="title">
-                                                        <div class="name">Finishing First Formal Note</div>
-                                                        <div class="name link"> ↗</div>
-                                                    </div>
-                                                    <div class="tag-text"># Tag</div>
-                                                </div>
-                                                <div class="desc">在南科大的学期基本上要结束了,学期初最煎熬的课程,是随机过程,基本上上课完全听不懂,并且速度还极快,于是第二周开始记笔记,在十四周时突发奇想,想要把笔记记录下来,于是慢慢着手开始实现,这也算是发现了一个方式帮我排解,平时学习也学不进,待着还会瞎想,于是做笔记变成了我最好的消费时间的行为.</div>
-                                            </div>
-                                            <div class="info">
-                                                <div class="info-time">2025-12-26</div>
-                                            </div>
-                                        </a>
-                                        <div class="content-divider"></div>
-                                    </div>
-
-                                    <div class="item load-pro year-entry">
-                                        <a href="https://www.shanlu.cc" target="_blank">
-                                            <div class="text">
-                                                <div class="title-area">
-                                                    <div class="title">
-                                                        <div class="name">Redirect of Ph.D to Financial Math</div>
-                                                        <div class="name link"> ↗</div>
-                                                    </div>
-                                                    <div class="tag-text"># Tag</div>
-                                                </div>
-                                                <div class="desc">纠结了很久,最终还是和老板说了,确实当初选择统计的初衷,和坚持我下去的动力也没了,我想如今没有其他顾虑,还是选择自己最热爱的方向比较好,也很感谢蒋招立老师愿意“收留”我...</div>
-                                            </div>
-                                            <div class="info">
-                                                <div class="info-time">2025-10-16</div>
-                                            </div>
-                                        </a>
-                                        <div class="content-divider"></div>
-                                    </div>
-
-                                    <div class="item load-pro year-entry">
-                                        <a href="https://www.shanlu.cc" target="_blank">
-                                            <div class="text">
-                                                <div class="title-area">
-                                                    <div class="title">
-                                                        <div class="name">SUSTech Exchange</div>
-                                                        <div class="name link"> ↗</div>
-                                                    </div>
-                                                    <div class="tag-text"># Tag</div>
-                                                </div>
-                                                <div class="desc">期待已久的南科大交换终于开始了,虽然现在只剩下了对学校的期待,没了对深圳生活的期待,但是还是要继续下去啦...,选了不少课程,希望一个学期可以正常进行,并且坚持下去吧,每周还要准备组会汇报,杨云的文章实在难读...</div>
-                                            </div>
-                                            <div class="info">
-                                                <div class="info-time">2025-09-08</div>
-                                            </div>
-                                        </a>
-                                        <div class="content-divider"></div>
-                                    </div>
-
-                                    <div class="item load-pro year-entry">
-                                        <a href="https://www.shanlu.cc" target="_blank">
-                                            <div class="text">
-                                                <div class="title-area">
-                                                    <div class="title">
-                                                        <div class="name">姜然 Ph.D Registration</div>
-                                                        <div class="name link"> ↗</div>
-                                                    </div>
-                                                    <div class="tag-text"># Tag</div>
-                                                </div>
-                                                <div class="desc">祝贺姜然师姐通过Ph.D中期答辩, Bayesian Learning for Image Processing,希望师姐后续研究顺利,貌似刘赟昊师兄也会加入进来.</div>
-                                            </div>
-                                            <div class="info">
-                                                <div class="info-time">2025-08-13</div>
-                                            </div>
-                                        </a>
-                                        <div class="content-divider"></div>
-                                    </div>
-
-                                    <div class="item load-pro year-entry">
-                                        <a href="https://www.shanlu.cc" target="_blank">
-                                            <div class="text">
-                                                <div class="title-area">
-                                                    <div class="title">
-                                                        <div class="name">PolyU International Summer School 2025</div>
-                                                        <div class="name link"> ↗</div>
-                                                    </div>
-                                                    <div class="tag-text"># Tag</div>
-                                                </div>
-                                                <div class="desc">第一次上本校的国际暑校,选了一门经济学的课:Economic Logic in Everyday Life,课程固然很有趣,但是最开心的还是在课上认识的人,非常开心认识两位来自清华的朋友, 王祎政, 徐小婷.希望以后还有机会再见!</div>
-                                            </div>
-                                            <div class="info">
-                                                <div class="info-time">2025-08-12</div>
-                                            </div>
-                                        </a>
-                                        <div class="content-divider"></div>
-                                    </div>
-
-                                    <div class="item load-pro year-entry">
-                                        <a href="https://www.shanlu.cc" target="_blank">
-                                            <div class="text">
-                                                <div class="title-area">
-                                                    <div class="title">
-                                                        <div class="name">乔迁</div>
-                                                        <div class="name link"> ↗</div>
-                                                    </div>
-                                                    <div class="tag-text"># Tag</div>
-                                                </div>
-                                                <div class="desc">终于从香港搬到了深圳,想了很久的事情,虽然路途中很艰辛,行李还被海关扣下,但是从莲塘口岸出来时,第一口深圳的空气就值了,希望小宝在深圳生活好好的,期待下学期深圳生活!</div>
-                                            </div>
-                                            <div class="info">
-                                                <div class="info-time">2025-08-01</div>
-                                            </div>
-                                        </a>
-                                        <div class="content-divider"></div>
-                                    </div>
-
-                                    <div class="item load-pro year-entry">
-                                        <a href="https://www.shanlu.cc" target="_blank">
-                                            <div class="text">
-                                                <div class="title-area">
-                                                    <div class="title">
-                                                        <div class="name">3rd JCSDS</div>
-                                                        <div class="name link"> ↗</div>
-                                                    </div>
-                                                    <div class="tag-text"># Tag</div>
-                                                </div>
-                                                <div class="desc">第一次参加学术会议,感谢Catherine LIU的support,希望以后有机会在学术会议上汇报.听了许多前沿的报告,有统计领域的,有应用方向的,也有很多LLM的,当然也看了很多金融数学的报告...(有点不务正业)</div>
-                                            </div>
-                                            <div class="info">
-                                                <div class="info-time">2025-07-11</div>
-                                            </div>
-                                        </a>
-                                        <div class="content-divider"></div>
-                                    </div>
-
-                                    <div class="item load-pro year-entry">
-                                        <a href="https://www.shanlu.cc" target="_blank">
-                                            <div class="text">
-                                                <div class="title-area">
-                                                    <div class="title">
-                                                        <div class="name">数聚东南</div>
-                                                        <div class="name link"> ↗</div>
-                                                    </div>
-                                                    <div class="tag-text"># Tag</div>
-                                                </div>
-                                                <div class="desc">有幸来到东南大学,参加JCSDS系列短课,很多方向的汇报都十分有趣,但还是最喜欢王炜辰老师的《Estimation of Out-of-Sample Sharpe Ratio for High Dimensional Portfolio Optimization》,还是感谢刘老板报销...</div>
-                                            </div>
-                                            <div class="info">
-                                                <div class="info-time">2025-07-05</div>
-                                            </div>
-                                        </a>
-                                        <div class="content-divider"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+    </div>
+</div>
+                </div>
+            </div>
+        </section>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="footer">
         <div class="footer-content">
             <div class="copyright">
-                <div>© Last Updated 5/4/2026 <!-- <a href="https://asorn.cn/" target="_blank">Asorn</a></div>
+                <div>© Last Updated 17/1/2026 <!-- <a href="https://asorn.cn/" target="_blank">Asorn</a></div>
                 <span>|</span>
                 <div class="fillings">
                     <a href="https://asorn.cn/" target="_blank">Your filing number</a>
@@ -814,111 +959,114 @@
     <div class="widget-top"></div>
 </body>
 <script src="./js/main.min.js"></script>
-<script src='./js/anime.js'></script>
-<script src='./js/firework.js'></script>
+<script src="./js/anime.js"></script>
+<script src="./js/firework.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const yearGroups = Array.from(document.querySelectorAll('.year-group'));
-        if (!yearGroups.length) return;
+document.addEventListener('DOMContentLoaded', function () {
+    const groups = Array.from(document.querySelectorAll('.year-group'));
+    if (!groups.length) return;
 
-        function updateScrollIndicator() {
-            window.dispatchEvent(new Event('scroll'));
-        }
-
-        function setPanelHeight(panel) {
-            panel.style.maxHeight = panel.scrollHeight + 'px';
-        }
-
-        function closeGroup(group, options = {}) {
-            const { updateHash = true } = options;
-            const button = group.querySelector('.year-toggle');
-            const panel = group.querySelector('.year-panel');
-
-            if (!group.classList.contains('is-open')) return;
-
-            setPanelHeight(panel);
-            requestAnimationFrame(() => {
-                group.classList.remove('is-open');
-                button.setAttribute('aria-expanded', 'false');
-                panel.style.maxHeight = '0px';
-            });
-
-            if (updateHash && window.location.hash === `#${group.id}`) {
-                history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+    function setEntriesVisible(group, visible) {
+        const entries = Array.from(group.querySelectorAll('.year-entry'));
+        entries.forEach((entry, index) => {
+            entry.style.transitionDelay = visible ? `${index * 60}ms` : '0ms';
+            if (visible) {
+                requestAnimationFrame(() => entry.classList.add('is-visible'));
+            } else {
+                entry.classList.remove('is-visible');
             }
+        });
+    }
 
-            setTimeout(updateScrollIndicator, 320);
-        }
-
-        function openGroup(group, options = {}) {
-            const { updateHash = true, scrollIntoView = true } = options;
-            const button = group.querySelector('.year-toggle');
-            const panel = group.querySelector('.year-panel');
-
-            yearGroups.forEach(otherGroup => {
-                if (otherGroup !== group) {
-                    closeGroup(otherGroup, { updateHash: false });
-                }
-            });
-
-            group.classList.add('is-open');
-            button.setAttribute('aria-expanded', 'true');
-            setPanelHeight(panel);
-
-            if (updateHash) {
-                history.replaceState(null, '', `${window.location.pathname}${window.location.search}#${group.id}`);
-            }
-
-            setTimeout(() => {
-                setPanelHeight(panel);
-                updateScrollIndicator();
-            }, 320);
-
-            if (scrollIntoView) {
-                setTimeout(() => {
-                    const top = group.getBoundingClientRect().top + window.pageYOffset - 92;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                }, 80);
-            }
-        }
-
-        yearGroups.forEach(group => {
-            const button = group.querySelector('.year-toggle');
-            const panel = group.querySelector('.year-panel');
-
+    function closeGroup(group) {
+        const button = group.querySelector('.year-toggle');
+        const panel = group.querySelector('.year-panel');
+        button.setAttribute('aria-expanded', 'false');
+        group.classList.remove('is-open');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        requestAnimationFrame(() => {
             panel.style.maxHeight = '0px';
-            button.addEventListener('click', function () {
-                const isOpen = group.classList.contains('is-open');
-                if (isOpen) {
-                    closeGroup(group);
-                } else {
-                    openGroup(group);
-                }
-            });
+            panel.style.opacity = '0';
+        });
+        setEntriesVisible(group, false);
+        window.setTimeout(() => {
+            if (!group.classList.contains('is-open')) {
+                panel.hidden = true;
+            }
+        }, 420);
+    }
+
+    function openGroup(group, options = {}) {
+        const { updateHash = true, instant = false } = options;
+        groups.forEach(other => {
+            if (other !== group && other.classList.contains('is-open')) {
+                closeGroup(other);
+            }
         });
 
-        function syncFromHash() {
-            const hash = window.location.hash;
-            if (!hash) return;
-            const target = document.querySelector(hash);
-            if (target && target.classList.contains('year-group')) {
-                openGroup(target, { updateHash: false, scrollIntoView: false });
-                setTimeout(() => {
-                    const top = target.getBoundingClientRect().top + window.pageYOffset - 92;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                }, 60);
-            }
+        const button = group.querySelector('.year-toggle');
+        const panel = group.querySelector('.year-panel');
+        panel.hidden = false;
+        group.classList.add('is-open');
+        button.setAttribute('aria-expanded', 'true');
+
+        const targetHeight = panel.scrollHeight;
+        if (instant) {
+            panel.style.maxHeight = targetHeight + 'px';
+            panel.style.opacity = '1';
+            setEntriesVisible(group, true);
+        } else {
+            panel.style.maxHeight = '0px';
+            requestAnimationFrame(() => {
+                panel.style.maxHeight = targetHeight + 'px';
+                panel.style.opacity = '1';
+                setEntriesVisible(group, true);
+            });
         }
 
-        syncFromHash();
-        window.addEventListener('hashchange', syncFromHash);
-        window.addEventListener('resize', function () {
-            const openPanel = document.querySelector('.year-group.is-open .year-panel');
-            if (openPanel) {
-                setPanelHeight(openPanel);
+        if (updateHash) {
+            history.replaceState(null, '', `#${group.id}`);
+        }
+    }
+
+    groups.forEach(group => {
+        const button = group.querySelector('.year-toggle');
+        const panel = group.querySelector('.year-panel');
+        panel.hidden = true;
+        panel.style.maxHeight = '0px';
+        panel.style.opacity = '0';
+
+        button.addEventListener('click', function () {
+            if (group.classList.contains('is-open')) {
+                closeGroup(group);
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+            } else {
+                openGroup(group);
             }
-            updateScrollIndicator();
         });
     });
+
+    function syncFromHash() {
+        const hash = window.location.hash.replace('#', '');
+        const target = hash ? document.getElementById(hash) : null;
+        if (target && target.classList.contains('year-group')) {
+            openGroup(target, { updateHash: false, instant: true });
+            requestAnimationFrame(() => {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+    }
+
+    syncFromHash();
+    window.addEventListener('hashchange', syncFromHash);
+
+    window.addEventListener('resize', function () {
+        const openPanel = document.querySelector('.year-group.is-open .year-panel');
+        if (openPanel) {
+            openPanel.style.maxHeight = openPanel.scrollHeight + 'px';
+        }
+    });
+});
 </script>
+
 </html>

@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<!-- © 2026 LU Shan. Personal website page extension. -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU Shan — Research in Formation</title>
+    <meta name="description" content="Research in formation — one completed undergraduate thesis, current supervised directions, and future questions shaping LU Shan's move toward theoretical corporate finance.">
+    <link rel="stylesheet" href="./css/style.min.css">
+    <link rel="shortcut icon" href="./assets/public/favicon.svg" />
+    <style>
+        .research-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            --mw: 968px;
+            flex-direction: column;
+            gap: 82px;
+            padding: 144px 40px 76px 40px;
+            overflow: visible;
+        }
+
+        .research-shell {
+            width: 100%;
+            max-width: var(--mw);
+        }
+
+        .research-compat-shims {
+            display: none !important;
+        }
+
+        .research-page .research-kicker,
+        .research-page .research-section-kicker,
+        .research-page .research-mini-kicker,
+        .research-page .research-meta-kicker {
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 11px;
+            line-height: 18px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #8F8DA4;
+        }
+
+        .research-page .research-kicker::before,
+        .research-page .research-section-kicker::before,
+        .research-page .research-mini-kicker::before,
+        .research-page .research-meta-kicker::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #6461F1;
+            box-shadow: 0 0 0 6px rgba(100, 97, 241, 0.12);
+            flex-shrink: 0;
+        }
+
+        .research-page .research-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+            gap: 44px;
+            align-items: center;
+        }
+
+        .research-page .research-hero-copy {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .research-page .research-title {
+            display: inline-block;
+            margin-top: 18px;
+            padding-right: 0.12em;
+            font-size: clamp(40px, 6vw, 56px);
+            line-height: 1.08;
+            font-weight: 700;
+            letter-spacing: -0.045em;
+            background: linear-gradient(90deg, #E8E8F6 0%, #D7D5EA 30%, #BFD6F7 70%, #E8C6B0 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-rendering: geometricPrecision;
+        }
+
+        .research-page .research-hero-copy-group {
+            margin-top: 24px;
+            max-width: 628px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .research-page .research-hero-line {
+            font-size: 15px;
+            line-height: 28px;
+            color: #9E9CB1;
+        }
+
+        .research-page .research-hero-line strong {
+            font-size: inherit;
+            line-height: inherit;
+            font-weight: 500;
+            color: #E8E8F6;
+        }
+
+        .research-page .research-hero-soft {
+            color: #7F7D91;
+        }
+
+        .research-page .research-hero-pill-row {
+            margin-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .research-page .research-hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(120, 120, 146, 0.18);
+            background: rgba(20, 20, 25, 0.74);
+            color: #C4C3D2;
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .research-page .research-hero-pill::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: currentColor;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        .research-page .research-hero-visual {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .research-page .research-orbit {
+            position: relative;
+            width: min(100%, 348px);
+            aspect-ratio: 1;
+            border-radius: 28px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(100, 97, 241, 0.10) 0%, rgba(20, 20, 25, 0.16) 34%, rgba(14, 14, 19, 0.02) 72%),
+                linear-gradient(180deg, rgba(24, 24, 31, 0.94) 0%, rgba(17, 17, 23, 0.92) 100%);
+            border: 1px solid rgba(94, 95, 118, 0.22);
+            box-shadow: 0 26px 58px rgba(10, 10, 14, 0.28);
+            isolation: isolate;
+        }
+
+        .research-page .research-orbit::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(90deg, rgba(232, 232, 246, 0.028) 1px, transparent 1px),
+                linear-gradient(180deg, rgba(232, 232, 246, 0.028) 1px, transparent 1px);
+            background-size: 22px 22px;
+            mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95) 32%, transparent 84%);
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95) 32%, transparent 84%);
+            opacity: 0.42;
+            z-index: 0;
+        }
+
+        .research-page .research-orbit::after {
+            content: '';
+            position: absolute;
+            inset: 14%;
+            border-radius: 999px;
+            border: 1px solid rgba(232, 232, 246, 0.06);
+            animation: researchOrbitSpin 28s linear infinite;
+            z-index: 1;
+        }
+
+        .research-page .research-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 88px;
+            height: 88px;
+            border-radius: 999px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.08) 24%, rgba(100, 97, 241, 0.34) 46%, rgba(14, 14, 19, 0) 76%), rgba(18, 18, 24, 0.96);
+            box-shadow: 0 0 34px rgba(100, 97, 241, 0.18), inset 0 0 0 1px rgba(232, 232, 246, 0.06);
+            animation: researchCorePulse 5.6s ease-in-out infinite;
+            z-index: 3;
+        }
+
+        .research-page .research-orbit-ring,
+        .research-page .research-orbit-ring-alt {
+            position: absolute;
+            inset: 18%;
+            border-radius: 999px;
+            border: 1px solid rgba(232, 232, 246, 0.07);
+            z-index: 2;
+        }
+
+        .research-page .research-orbit-ring {
+            animation: researchOrbitDrift 18s linear infinite;
+        }
+
+        .research-page .research-orbit-ring-alt {
+            inset: 28%;
+            border-color: rgba(100, 97, 241, 0.13);
+            animation: researchOrbitReverse 22s linear infinite;
+        }
+
+        .research-page .research-orbit-arc {
+            position: absolute;
+            inset: 7%;
+            border-radius: 999px;
+            border-top: 1px solid rgba(188, 233, 255, 0.16);
+            border-left: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            transform: rotate(18deg);
+            z-index: 2;
+        }
+
+        .research-page .research-orbit-node,
+        .research-page .research-orbit-node-soft,
+        .research-page .research-orbit-node-accent {
+            position: absolute;
+            border-radius: 999px;
+            z-index: 4;
+        }
+
+        .research-page .research-orbit-node {
+            width: 12px;
+            height: 12px;
+            top: 24%;
+            right: 19%;
+            background: #E8E8F6;
+            box-shadow: 0 0 0 9px rgba(232, 232, 246, 0.05), 0 0 20px rgba(232, 232, 246, 0.1);
+            animation: researchNodeFloat 5.4s ease-in-out infinite;
+        }
+
+        .research-page .research-orbit-node-soft {
+            width: 8px;
+            height: 8px;
+            left: 16%;
+            top: 52%;
+            background: rgba(232, 232, 246, 0.68);
+            box-shadow: 0 0 16px rgba(232, 232, 246, 0.14);
+            animation: researchNodeFloat 6.4s ease-in-out infinite;
+        }
+
+        .research-page .research-orbit-node-accent {
+            width: 10px;
+            height: 10px;
+            left: 20%;
+            bottom: 20%;
+            background: #6461F1;
+            box-shadow: 0 0 0 7px rgba(100, 97, 241, 0.08), 0 0 18px rgba(100, 97, 241, 0.16);
+            animation: researchNodeFloat 5.9s ease-in-out infinite;
+        }
+
+        .research-page .research-orbit-chip {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(232, 232, 246, 0.08);
+            background: rgba(20, 20, 25, 0.72);
+            color: #B8B6C8;
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: lowercase;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 12px 24px rgba(10, 10, 14, 0.18);
+            z-index: 5;
+        }
+
+        .research-page .research-orbit-chip::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 2px;
+            transform: rotate(45deg);
+            background: currentColor;
+            opacity: 0.82;
+            flex-shrink: 0;
+        }
+
+        .research-page .research-chip-one {
+            left: 10%;
+            top: 14%;
+        }
+
+        .research-page .research-chip-two {
+            right: 10%;
+            bottom: 16%;
+        }
+
+        .research-page .research-chip-three {
+            left: 16%;
+            bottom: 11%;
+        }
+
+        .research-page .research-flow {
+            position: relative;
+            width: 100%;
+            max-width: var(--mw);
+            display: flex;
+            flex-direction: column;
+            gap: 74px;
+            padding-left: 34px;
+        }
+
+        .research-page .research-flow::before {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 10px;
+            bottom: 18px;
+            width: 1px;
+            background: linear-gradient(180deg, rgba(100, 97, 241, 0.28) 0%, rgba(78, 78, 100, 0.08) 100%);
+            pointer-events: none;
+        }
+
+        .research-page .research-section {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .research-page .research-section::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #6461F1;
+            box-shadow: 0 0 0 6px rgba(100, 97, 241, 0.12);
+        }
+
+        .research-page .research-section-head {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 660px;
+        }
+
+        .research-page .research-section-title {
+            font-size: clamp(28px, 5vw, 40px);
+            line-height: 1.14;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            background: linear-gradient(180deg, #E8E8F6 0%, rgba(232, 232, 246, 0.72) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .research-page .research-section-copy {
+            font-size: 14px;
+            line-height: 26px;
+            color: #747286;
+            max-width: 640px;
+        }
+
+        .research-page .research-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 22px;
+            padding: 28px;
+            border: 1px solid rgba(92, 92, 116, 0.24);
+            background:
+                radial-gradient(120% 120% at 100% 0%, var(--research-tint, rgba(232, 232, 246, 0.05)) 0%, transparent 54%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.028) 0%, rgba(255, 255, 255, 0.012) 100%),
+                rgba(20, 20, 25, 0.9);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 20px 48px rgba(10, 10, 14, 0.22);
+            transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+        }
+
+        .research-page .research-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(110, 110, 138, 0.14) 0%, rgba(110, 110, 138, 0) 24%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .research-page .research-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+            pointer-events: none;
+        }
+
+        .research-page .research-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(120, 120, 148, 0.32);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 26px 54px rgba(10, 10, 14, 0.25);
+        }
+
+        .research-page .research-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .research-page .research-card-link,
+        .research-page .research-text-link {
+            color: #E8E8F6;
+            text-decoration: none;
+            transition: color 0.22s ease;
+        }
+
+        .research-page .research-text-link:hover,
+        .research-page .research-card-link:hover {
+            color: #BCE9FF;
+        }
+
+        .research-page .research-thesis-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+            gap: 24px;
+            --research-tint: rgba(100, 97, 241, 0.08);
+        }
+
+        .research-page .research-thesis-main {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .research-page .research-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            color: #8D8BA4;
+            font-size: 12px;
+            line-height: 20px;
+        }
+
+        .research-page .research-meta-row span {
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+        .research-page .research-meta-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 999px;
+            background: rgba(168, 168, 182, 0.44);
+            flex-shrink: 0;
+        }
+
+        .research-page .research-thesis-title {
+            font-size: clamp(28px, 4.2vw, 38px);
+            line-height: 1.16;
+            font-weight: 650;
+            letter-spacing: -0.035em;
+            background: linear-gradient(180deg, #E8E8F6 0%, rgba(232, 232, 246, 0.78) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-wrap: balance;
+        }
+
+        .research-page .research-thesis-summary {
+            font-size: 15px;
+            line-height: 29px;
+            color: #A3A1B4;
+        }
+
+        .research-page .research-thesis-summary strong,
+        .research-page .research-thesis-note strong,
+        .research-page .research-direction-copy strong,
+        .research-page .research-section-copy strong,
+        .research-page .research-hero-line strong {
+            font-size: inherit;
+            line-height: inherit;
+            font-weight: 500;
+            color: #E8E8F6;
+        }
+
+        .research-page .research-thesis-note {
+            font-size: 13px;
+            line-height: 24px;
+            color: #777689;
+            max-width: 640px;
+        }
+
+        .research-page .research-thesis-side {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .research-page .research-side-panel {
+            padding: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(102, 102, 126, 0.18);
+            background: rgba(17, 17, 24, 0.58);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .research-page .research-side-panel .research-mini-kicker {
+            margin-bottom: 14px;
+        }
+
+        .research-page .research-side-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .research-page .research-side-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(78, 78, 100, 0.18);
+        }
+
+        .research-page .research-side-item:first-child {
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .research-page .research-side-label {
+            font-size: 11px;
+            line-height: 16px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #686777;
+        }
+
+        .research-page .research-side-value {
+            font-size: 13px;
+            line-height: 22px;
+            color: #C7C6D6;
+        }
+
+        .research-page .research-link-cluster {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .research-page .research-link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 13px 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(108, 108, 132, 0.18);
+            background: rgba(17, 17, 24, 0.58);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            color: #E8E8F6;
+            text-decoration: none;
+            transition: transform 0.24s ease, border-color 0.24s ease, color 0.24s ease;
+        }
+
+        .research-page .research-link-item span,
+        .research-page .research-link-item strong {
+            font-size: 13px;
+            line-height: 22px;
+        }
+
+        .research-page .research-link-item strong {
+            font-weight: 500;
+            color: inherit;
+        }
+
+        .research-page .research-link-item .research-link-arrow {
+            font-size: 13px;
+            line-height: 1;
+            color: #8D8BA4;
+            transition: transform 0.24s ease, color 0.24s ease;
+        }
+
+        .research-page .research-link-item:hover {
+            transform: translateY(-1px);
+            border-color: rgba(128, 128, 156, 0.28);
+            color: #FFFFFF;
+        }
+
+        .research-page .research-link-item:hover .research-link-arrow {
+            transform: translate(2px, -2px);
+            color: #CFCDE1;
+        }
+
+        .research-page .research-directions-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+            gap: 18px;
+        }
+
+        .research-page .research-direction-card {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            min-height: 308px;
+            padding-top: 24px;
+        }
+
+        .research-page .research-direction-primary {
+            --research-tint: rgba(100, 97, 241, 0.10);
+        }
+
+        .research-page .research-direction-secondary {
+            --research-tint: rgba(123, 212, 255, 0.08);
+        }
+
+        .research-page .research-direction-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .research-page .research-direction-meta {
+            max-width: 78%;
+            font-size: 11px;
+            line-height: 18px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #7C7A8F;
+        }
+
+        .research-page .research-direction-symbol {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            position: relative;
+        }
+
+        .research-page .research-direction-symbol.primary::before,
+        .research-page .research-direction-symbol.primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            border: 1px solid rgba(100, 97, 241, 0.34);
+        }
+
+        .research-page .research-direction-symbol.primary::after {
+            inset: 9px;
+            border-color: rgba(232, 232, 246, 0.34);
+        }
+
+        .research-page .research-direction-symbol.secondary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            border: 1px solid rgba(123, 212, 255, 0.34);
+            transform: translate(-50%, -50%) rotate(45deg);
+            border-radius: 4px;
+        }
+
+        .research-page .research-direction-symbol.secondary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            border-radius: 999px;
+            background: #BCE9FF;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 0 7px rgba(123, 212, 255, 0.08);
+        }
+
+        .research-page .research-direction-title {
+            font-size: 25px;
+            line-height: 1.24;
+            font-weight: 620;
+            letter-spacing: -0.03em;
+            background: linear-gradient(180deg, #E8E8F6 0%, rgba(232, 232, 246, 0.76) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-wrap: balance;
+        }
+
+        .research-page .research-paper-anchor {
+            margin-top: -4px;
+            font-size: 12px;
+            line-height: 20px;
+            color: #BAB8CC;
+        }
+
+        .research-page .research-direction-copy {
+            font-size: 14px;
+            line-height: 26px;
+            color: #9E9CB1;
+            max-width: 96%;
+        }
+
+        .research-page .research-direction-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(78, 78, 100, 0.18);
+        }
+
+        .research-page .research-footer-note {
+            font-size: 12px;
+            line-height: 20px;
+            color: #6E6C7C;
+        }
+
+        .research-page .research-footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 500;
+            color: #E8E8F6;
+            text-decoration: none;
+            transition: color 0.22s ease;
+        }
+
+        .research-page .research-footer-link::after {
+            content: '↗';
+            font-size: 12px;
+            line-height: 1;
+            color: #7E7C90;
+            transition: transform 0.22s ease, color 0.22s ease;
+        }
+
+        .research-page .research-footer-link:hover {
+            color: #BCE9FF;
+        }
+
+        .research-page .research-footer-link:hover::after {
+            transform: translate(2px, -2px);
+            color: #BCE9FF;
+        }
+
+        .research-page .research-future-section .research-section-copy {
+            max-width: 600px;
+        }
+
+        .research-page .research-future-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .research-page .research-future-card {
+            position: relative;
+            padding: 18px 18px 18px 20px;
+            border-radius: 18px;
+            border: 1px solid rgba(92, 92, 116, 0.16);
+            background: linear-gradient(180deg, rgba(20, 20, 25, 0.82) 0%, rgba(17, 17, 23, 0.86) 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 12px 28px rgba(10, 10, 14, 0.18);
+            transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+        }
+
+        .research-page .research-future-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 18px;
+            bottom: 18px;
+            width: 2px;
+            border-radius: 999px;
+            background: linear-gradient(180deg, rgba(100, 97, 241, 0.64) 0%, rgba(100, 97, 241, 0.12) 100%);
+            opacity: 0.8;
+        }
+
+        .research-page .research-future-card:hover {
+            transform: translateY(-1px);
+            border-color: rgba(118, 118, 144, 0.22);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 16px 30px rgba(10, 10, 14, 0.2);
+        }
+
+        .research-page .research-question-index {
+            font-size: 10px;
+            line-height: 16px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #6C6A7C;
+        }
+
+        .research-page .research-question-title {
+            margin-top: 10px;
+            font-size: 17px;
+            line-height: 26px;
+            font-weight: 560;
+            letter-spacing: -0.02em;
+            background: linear-gradient(180deg, #E8E8F6 0%, rgba(232, 232, 246, 0.78) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .research-page .research-question-note {
+            margin-top: 8px;
+            font-size: 12px;
+            line-height: 21px;
+            color: #757385;
+        }
+
+        @keyframes researchOrbitSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes researchOrbitReverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        @keyframes researchOrbitDrift {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.02); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes researchCorePulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 32px rgba(100, 97, 241, 0.16), inset 0 0 0 1px rgba(232, 232, 246, 0.06);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.04);
+                box-shadow: 0 0 40px rgba(100, 97, 241, 0.22), inset 0 0 0 1px rgba(232, 232, 246, 0.08);
+            }
+        }
+
+        @keyframes researchNodeFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @media (max-width: 968px) {
+            .research-page {
+                gap: 72px;
+                padding-top: 136px;
+            }
+
+            .research-page .research-hero {
+                grid-template-columns: 1fr;
+                gap: 34px;
+            }
+
+            .research-page .research-hero-visual {
+                justify-content: flex-start;
+            }
+
+            .research-page .research-orbit {
+                width: min(100%, 330px);
+            }
+
+            .research-page .research-thesis-card,
+            .research-page .research-directions-grid,
+            .research-page .research-future-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .research-page .research-direction-card {
+                min-height: 0;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .research-page .research-flow {
+                padding-left: 0;
+            }
+
+            .research-page .research-flow::before,
+            .research-page .research-section::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .research-page {
+                gap: 58px;
+                padding: 126px 24px 64px 24px;
+            }
+
+            .research-page .research-title {
+                font-size: clamp(34px, 11vw, 46px);
+            }
+
+            .research-page .research-hero-copy-group {
+                gap: 12px;
+            }
+
+            .research-page .research-hero-line,
+            .research-page .research-section-copy,
+            .research-page .research-direction-copy,
+            .research-page .research-thesis-note {
+                font-size: 13px;
+                line-height: 25px;
+            }
+
+            .research-page .research-thesis-summary {
+                font-size: 14px;
+                line-height: 27px;
+            }
+
+            .research-page .research-section-title {
+                font-size: 30px;
+            }
+
+            .research-page .research-card,
+            .research-page .research-future-card {
+                padding: 20px;
+                border-radius: 18px;
+            }
+
+            .research-page .research-thesis-title,
+            .research-page .research-direction-title {
+                font-size: 23px;
+                line-height: 1.22;
+            }
+
+            .research-page .research-orbit {
+                width: min(100%, 300px);
+                border-radius: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas class="fireworks"></canvas>
+    <div class="head" id="headscrollbg">
+        <div class="main">
+            <div class="main-left">
+                <a href="./index.html" class="logo"><img height="24" width="24" src="./assets/public/logo_graph.png"></a>
+                <div class="tag tag-cooperate" onclick="window.location.href='./about.html'">
+                    <div class="breath-dot"></div>Contact
+                </div>
+            </div>
+            <div class="menu" id="main-menu">
+                <li class="magical btn" onclick="window.location.href='./index.html'">Home</li>
+                <li class="magical btn nav" onclick="window.location.href='./research.html'">Research</li>
+                <li class="magical btn" onclick="window.location.href='./blog.html'">Blog</li>
+                <li class="magical btn" onclick="window.location.href='./book.html'">Book</li>
+                <li class="magical btn" onclick="window.location.href='./about.html'">About</li>
+            </div>
+            <div class="menu" id="menu-expand">
+                <li class="magical btn menu-expand-btn" id="menu-expand-child"><i class="icon menu-icon"></i></li>
+            </div>
+            <div id="menu-panel">
+                <div class="menu-panel-content" id="menu-panel-content"></div>
+                <div class="menu-close-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.5859 12L2.79297 4.20706L4.20718 2.79285L12.0001 10.5857L19.793 2.79285L21.2072 4.20706L13.4143 12L21.2072 19.7928L19.793 21.2071L12.0001 13.4142L4.20718 21.2071L2.79297 19.7928L10.5859 12Z"></path></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="research-page">
+        <div class="research-compat-shims" aria-hidden="true">
+            <div class="scroll-thumb"></div>
+            <div id="rowScroll"></div>
+        </div>
+
+        <section class="research-hero research-shell load-pro">
+            <div class="research-hero-copy">
+                <div class="research-kicker">Research</div>
+                <h1 class="research-title text-effect">Research in Formation</h1>
+                <div class="research-hero-copy-group">
+                    <p class="research-hero-line">I am currently moving toward <strong>theoretical corporate finance</strong>.</p>
+                    <p class="research-hero-line">My background in physics, statistics, and optimisation still shapes how I think, but the questions now becoming central are about <strong>debt</strong>, <strong>contracts</strong>, <strong>strategic interaction</strong>, and financing under uncertainty.</p>
+                    <p class="research-hero-line research-hero-soft">This page gathers one completed undergraduate thesis, the supervised directions I am now entering, and the questions I expect to carry forward.</p>
+                </div>
+                <div class="research-hero-pill-row">
+                    <div class="research-hero-pill">physics</div>
+                    <div class="research-hero-pill">statistics</div>
+                    <div class="research-hero-pill">theoretical corporate finance</div>
+                </div>
+            </div>
+
+            <div class="research-hero-visual" aria-hidden="true">
+                <div class="research-orbit">
+                    <div class="research-orbit-ring"></div>
+                    <div class="research-orbit-ring-alt"></div>
+                    <div class="research-orbit-arc"></div>
+                    <div class="research-core"></div>
+                    <div class="research-orbit-node"></div>
+                    <div class="research-orbit-node-soft"></div>
+                    <div class="research-orbit-node-accent"></div>
+                    <div class="research-orbit-chip research-chip-one">theory</div>
+                    <div class="research-orbit-chip research-chip-two">contracts</div>
+                    <div class="research-orbit-chip research-chip-three">timing</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="research-flow research-shell">
+            <section class="research-section load-pro" id="undergraduate-thesis">
+                <div class="research-section-head">
+                    <div class="research-section-kicker">Undergraduate Thesis</div>
+                    <h2 class="research-section-title">One completed research training, and the closing work of my physics phase.</h2>
+                    <p class="research-section-copy">This section is not meant to keep the page anchored in my earlier field forever. It is here because one completed thesis-level work gives the transition its seriousness, weight, and intellectual continuity.</p>
+                </div>
+
+                <article class="research-card research-thesis-card">
+                    <div class="research-thesis-main">
+                        <div class="research-meta-row">
+                            <span>2025–2026</span>
+                            <span class="research-meta-dot"></span>
+                            <span>Physics · Optimisation · Inverse Problems</span>
+                        </div>
+                        <h3 class="research-thesis-title">Towards Understanding and Optimising Ptychography for High-Performance Electron Microscopy</h3>
+                        <p class="research-thesis-summary">An undergraduate thesis that studies <strong>PtyRAD</strong> as a differentiable, physics-constrained reconstruction framework for electron ptychography. The work combines physical modelling with optimisation-aware analysis and examines how objective design, staged activation, batch geometry, and mixed-state flexibility shape reconstruction behaviour.</p>
+                        <p class="research-thesis-note">It is the most complete research work I have finished so far — a representative closing work of my physics phase, and the foundation that makes the next direction feel earned rather than declared.</p>
+                    </div>
+
+                    <div class="research-thesis-side">
+                        <div class="research-side-panel">
+                            <div class="research-mini-kicker">Research Profile</div>
+                            <div class="research-side-grid">
+                                <div class="research-side-item">
+                                    <div class="research-side-label">Framework</div>
+                                    <div class="research-side-value">PtyRAD as a differentiable, physics-constrained system</div>
+                                </div>
+                                <div class="research-side-item">
+                                    <div class="research-side-label">Method</div>
+                                    <div class="research-side-value">Forward modelling, optimisation formulation, and controlled studies</div>
+                                </div>
+                                <div class="research-side-item">
+                                    <div class="research-side-label">Position in this page</div>
+                                    <div class="research-side-value">A completed foundation — not the final centre, but the proof of serious training.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="research-link-cluster">
+                            <a class="research-link-item" href="./notes/elc-ptycho.pdf" target="_blank" rel="noopener noreferrer">
+                                <strong>Thesis PDF</strong>
+                                <span class="research-link-arrow">↗</span>
+                            </a>
+                            <a class="research-link-item" href="./notes/miditv-ppt.pdf" target="_blank" rel="noopener noreferrer">
+                                <strong>Slides</strong>
+                                <span class="research-link-arrow">↗</span>
+                            </a>
+                            <a class="research-link-item" href="./notes/elc-ptycho.pdf#page=88" target="_blank" rel="noopener noreferrer">
+                                <strong>Supplementary notes</strong>
+                                <span class="research-link-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="research-section load-pro" id="current-directions">
+                <div class="research-section-head">
+                    <div class="research-section-kicker">Current Directions</div>
+                    <h2 class="research-section-title">Two supervised directions are now giving the transition its actual structure.</h2>
+                    <p class="research-section-copy">These are not presented as finished projects. They are the most concrete theoretical directions I am currently entering, with one line more central to my future field and the other functioning as a supporting training ground.</p>
+                </div>
+
+                <div class="research-directions-grid">
+                    <article class="research-card research-direction-card research-direction-primary">
+                        <div class="research-direction-top">
+                            <div class="research-direction-meta">Current supervised direction · Prof. Zhaoli Jiang</div>
+                            <div class="research-direction-symbol primary" aria-hidden="true"></div>
+                        </div>
+                        <h3 class="research-direction-title">Distressed financing, debt contracts, and liability management</h3>
+                        <div class="research-paper-anchor">Following: <span class="research-text-link">Creditor-on-Creditor Violence</span></div>
+                        <p class="research-direction-copy">This is the clearest bridge into my future work in theoretical corporate finance. Through this line, I am entering questions about <strong>liability management exercises</strong>, <strong>debt overhang</strong>, <strong>secured debt</strong>, and how contract design and creditor incentives shape efficiency in distress.</p>
+                        <div class="research-direction-footer">
+                            <div class="research-footer-note">More central to the direction I expect to keep developing.</div>
+                            <a class="research-footer-link" href="./Creditor-on-Creditor.pdf" target="_blank" rel="noopener noreferrer">Paper anchor</a>
+                        </div>
+                    </article>
+
+                    <article class="research-card research-direction-card research-direction-secondary">
+                        <div class="research-direction-top">
+                            <div class="research-direction-meta">Theoretical training line · Prof. Min Dai &amp; Prof. Zhaoli Jiang</div>
+                            <div class="research-direction-symbol secondary" aria-hidden="true"></div>
+                        </div>
+                        <h3 class="research-direction-title">Strategic timing under uncertainty</h3>
+                        <div class="research-paper-anchor">Following: <span class="research-text-link">First- and Second-mover Advantages</span></div>
+                        <p class="research-direction-copy">This thread is a supporting but meaningful preparation line. It helps me enter <strong>dynamic games</strong>, <strong>mixed strategies</strong>, and strategic timing problems under uncertainty — formal tools I want to carry into later questions in finance rather than keep as an isolated track.</p>
+                        <div class="research-direction-footer">
+                            <div class="research-footer-note">A theoretical training ground that supports the more central finance direction.</div>
+                            <a class="research-footer-link" href="./First-%20and%20Second-mover%20Advantages.pdf" target="_blank" rel="noopener noreferrer">Paper anchor</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="research-section research-future-section load-pro" id="future-questions">
+                <div class="research-section-head">
+                    <div class="research-section-kicker">Future Questions</div>
+                    <h2 class="research-section-title">The questions I expect to carry forward are becoming sharper.</h2>
+                    <p class="research-section-copy">This final layer is intentionally lighter than the thesis and direction sections. It is not a promise of finished work, only a clearer map of the problems and methods I expect to keep approaching next.</p>
+                </div>
+
+                <div class="research-future-grid">
+                    <article class="research-future-card">
+                        <div class="research-question-index">Q1</div>
+                        <div class="research-question-title">How should debt contracts allocate bargaining power when distressed financing is needed?</div>
+                        <div class="research-question-note">Debt, contracts, and creditor incentives are likely to remain central.</div>
+                    </article>
+
+                    <article class="research-future-card">
+                        <div class="research-question-index">Q2</div>
+                        <div class="research-question-title">When do liability management exercises create value rather than merely redistribute it?</div>
+                        <div class="research-question-note">A future question shaped by current reading on LME and distressed restructuring.</div>
+                    </article>
+
+                    <article class="research-future-card">
+                        <div class="research-question-index">Q3</div>
+                        <div class="research-question-title">Where can auction-theoretic tools sharpen financing and security-design problems?</div>
+                        <div class="research-question-note">Auction theory appears here as a future method, not yet a full current direction.</div>
+                    </article>
+
+                    <article class="research-future-card">
+                        <div class="research-question-index">Q4</div>
+                        <div class="research-question-title">Which strategic corporate finance problems require dynamic game structure rather than static intuition?</div>
+                        <div class="research-question-note">A question carried forward from the timing and mixed-strategy training line.</div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="copyright">
+                <div>© Last Updated 07/04/2026</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="widget">
+        <div class="shape-light"></div>
+        <div class="shape-star">
+            <div class="rising-stars rising-stars-visible">
+                <div style="height:1px;width:1px"></div>
+                <div style="height:2px;width:2px"></div>
+                <div style="height:1px;width:1px"></div>
+            </div>
+        </div>
+        <div class="shape-earth"></div>
+    </div>
+    <div class="widget-top"></div>
+</body>
+
+<script src="./js/main.min.js"></script>
+<script src='./js/anime.js'></script>
+<script src='./js/firework.js'></script>
+
+</html>

@@ -13,7 +13,11 @@
             max-width: 968px;
             margin: 0 auto;
             padding-top: 144px;
+            padding-bottom: 68px;
+            display: flex;
+            flex-direction: column;
             gap: 72px;
+            min-height: calc(100vh - 100px);
         }
 
         .index-redesign .home-section {
@@ -65,8 +69,8 @@
 
         .index-redesign .home-hero {
             display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
-            gap: 40px;
+            grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+            gap: 42px;
             align-items: center;
         }
 
@@ -136,6 +140,44 @@
             color: #E8E8F6;
         }
 
+        .index-redesign .hero-actions .normal-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .index-redesign .hero-actions .normal-btn::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        .index-redesign .hero-actions .normal-btn:hover a::after,
+        .index-redesign .hero-actions .normal-btn:hover::after {
+            transform: none;
+        }
+
+        .index-redesign .hero-actions .normal-btn a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .index-redesign .hero-actions .normal-btn a::after {
+            content: '↗';
+            font-size: 12px;
+            line-height: 1;
+            color: #A8A8B6;
+            transition: transform 0.24s ease, color 0.24s ease;
+        }
+
+        .index-redesign .hero-actions .normal-btn:hover a::after {
+            transform: translate(2px, -2px);
+            color: #E8E8F6;
+        }
+
         .index-redesign .hero-visual {
             display: flex;
             justify-content: flex-end;
@@ -143,147 +185,269 @@
 
         .index-redesign .hero-orbit {
             position: relative;
-            width: min(100%, 360px);
+            width: min(100%, 388px);
             aspect-ratio: 1;
-            border-radius: 32px;
+            border-radius: 28px;
             overflow: hidden;
-            background: radial-gradient(circle at 50% 50%, rgba(100, 97, 241, 0.16) 0%, rgba(20, 20, 25, 0.24) 38%, rgba(14, 14, 19, 0.02) 72%), rgba(20, 20, 25, 0.88);
-            box-shadow: 0 24px 64px rgba(10, 10, 14, 0.32);
+            background:
+                radial-gradient(circle at 50% 50%, rgba(100, 97, 241, 0.18) 0%, rgba(20, 20, 25, 0.22) 38%, rgba(14, 14, 19, 0) 74%),
+                radial-gradient(circle at 86% 18%, rgba(188, 233, 255, 0.08) 0%, transparent 22%),
+                linear-gradient(180deg, rgba(20, 20, 25, 0.96) 0%, rgba(20, 20, 25, 0.82) 100%);
+            border: 1px solid rgba(78, 78, 100, 0.34);
+            box-shadow: 0 28px 72px rgba(10, 10, 14, 0.46);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             isolation: isolate;
         }
 
-        .index-redesign .hero-orbit::before,
+        .index-redesign .hero-orbit::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.26;
+            mask-image: radial-gradient(circle at center, #fff 0%, rgba(255, 255, 255, 0.22) 66%, transparent 88%);
+            -webkit-mask-image: radial-gradient(circle at center, #fff 0%, rgba(255, 255, 255, 0.22) 66%, transparent 88%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .index-redesign .hero-orbit::after {
             content: '';
             position: absolute;
+            inset: -12% auto auto -12%;
+            width: 62%;
+            height: 62%;
+            background: radial-gradient(circle, rgba(100, 97, 241, 0.14) 0%, rgba(100, 97, 241, 0) 74%);
+            filter: blur(14px);
+            opacity: 0.9;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .index-redesign .orbit-track {
+            position: absolute;
+            left: 50%;
+            top: 50%;
             border-radius: 999px;
-            inset: 18%;
+            transform: translate(-50%, -50%);
             border: 1px solid rgba(232, 232, 246, 0.08);
+            z-index: 1;
+            pointer-events: none;
         }
 
-        .index-redesign .hero-orbit::before {
-            animation: orbitSpin 22s linear infinite;
+        .index-redesign .orbit-track::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: conic-gradient(from 0deg, rgba(100, 97, 241, 0) 0deg, rgba(100, 97, 241, 0.28) 42deg, rgba(100, 97, 241, 0) 86deg, rgba(188, 233, 255, 0) 360deg);
+            mask: radial-gradient(farthest-side, transparent calc(100% - 1px), #000 calc(100% - 1px));
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1px), #000 calc(100% - 1px));
+            opacity: 0.32;
         }
 
-        .index-redesign .hero-orbit::after {
-            inset: 10%;
-            border-color: rgba(100, 97, 241, 0.18);
-            animation: orbitSpinReverse 28s linear infinite;
+        .index-redesign .track-one {
+            width: 188px;
+            height: 188px;
+            animation: ringRotate 18s linear infinite;
+        }
+
+        .index-redesign .track-two {
+            width: 260px;
+            height: 260px;
+            border-color: rgba(111, 213, 255, 0.14);
+            animation: ringRotateReverse 26s linear infinite;
+        }
+
+        .index-redesign .track-three {
+            width: 332px;
+            height: 332px;
+            border-color: rgba(232, 191, 172, 0.12);
+            animation: ringRotate 34s linear infinite;
+        }
+
+        .index-redesign .hero-axis {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 1px;
+            height: 66%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(180deg, rgba(100, 97, 241, 0) 0%, rgba(100, 97, 241, 0.36) 18%, rgba(100, 97, 241, 0.08) 100%);
+            opacity: 0.72;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .index-redesign .hero-signal {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 232px;
+            height: 1px;
+            transform: translate(-50%, -50%) rotate(18deg);
+            background: linear-gradient(90deg, rgba(100, 97, 241, 0), rgba(100, 97, 241, 0.34), rgba(188, 233, 255, 0));
+            opacity: 0.44;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .index-redesign .hero-signal::before,
+        .index-redesign .hero-signal::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            transform: translateY(-50%);
+            background: rgba(188, 233, 255, 0.82);
+            box-shadow: 0 0 14px rgba(188, 233, 255, 0.18);
+        }
+
+        .index-redesign .hero-signal::before {
+            left: 34px;
+        }
+
+        .index-redesign .hero-signal::after {
+            right: 40px;
         }
 
         .index-redesign .orbit-core {
             position: absolute;
-            top: 50%;
             left: 50%;
-            width: 106px;
-            height: 106px;
+            top: 50%;
+            width: 116px;
+            height: 116px;
             border-radius: 999px;
             transform: translate(-50%, -50%);
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.18) 24%, rgba(100, 97, 241, 0.44) 45%, rgba(14, 14, 19, 0) 74%), rgba(18, 18, 24, 0.96);
-            box-shadow: 0 0 54px rgba(100, 97, 241, 0.26), inset 0 0 0 1px rgba(232, 232, 246, 0.08);
-            animation: pulseCore 4.8s ease-in-out infinite;
+            background:
+                radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.16) 22%, transparent 52%),
+                radial-gradient(circle, rgba(100, 97, 241, 0.44) 0%, rgba(100, 97, 241, 0.16) 42%, rgba(100, 97, 241, 0.04) 68%, transparent 78%);
+            box-shadow: 0 0 48px rgba(100, 97, 241, 0.24), 0 0 0 1px rgba(232, 232, 246, 0.08);
+            animation: pulseCore 6.6s ease-in-out infinite;
             z-index: 2;
+            pointer-events: none;
         }
 
-        .index-redesign .orbit-ring,
-        .index-redesign .orbit-ring-alt {
+        .index-redesign .orbit-core::before {
+            content: '';
             position: absolute;
-            inset: 16%;
-            border-radius: 999px;
-            border: 1px solid rgba(232, 232, 246, 0.08);
-            z-index: 1;
-        }
-
-        .index-redesign .orbit-ring {
-            animation: orbitDrift 16s linear infinite;
-        }
-
-        .index-redesign .orbit-ring-alt {
-            inset: 24%;
-            border-color: rgba(100, 97, 241, 0.14);
-            animation: orbitSpinReverse 18s linear infinite;
-        }
-
-        .index-redesign .orbit-node,
-        .index-redesign .orbit-node-alt,
-        .index-redesign .orbit-node-soft {
-            position: absolute;
-            border-radius: 999px;
-            z-index: 3;
-        }
-
-        .index-redesign .orbit-node {
-            top: 22%;
-            right: 19%;
-            width: 14px;
-            height: 14px;
-            background: #E8E8F6;
-            box-shadow: 0 0 0 10px rgba(232, 232, 246, 0.06), 0 0 26px rgba(232, 232, 246, 0.16);
-            animation: floatDrift 5s ease-in-out infinite;
-        }
-
-        .index-redesign .orbit-node-alt {
-            bottom: 24%;
-            left: 17%;
-            width: 12px;
-            height: 12px;
-            background: #6461F1;
-            box-shadow: 0 0 0 8px rgba(100, 97, 241, 0.1), 0 0 24px rgba(100, 97, 241, 0.22);
-            animation: floatDrift 6.2s ease-in-out infinite;
-        }
-
-        .index-redesign .orbit-node-soft {
+            left: 50%;
             top: 50%;
-            left: 15%;
-            width: 8px;
-            height: 8px;
-            background: rgba(232, 232, 246, 0.7);
-            box-shadow: 0 0 18px rgba(232, 232, 246, 0.18);
-            animation: floatDrift 5.6s ease-in-out infinite;
+            width: 150px;
+            height: 150px;
+            border-radius: 999px;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(100, 97, 241, 0.12);
+            opacity: 0;
+            animation: haloExpand 8.8s ease-out infinite;
         }
 
-        .index-redesign .orbit-label {
+        .index-redesign .orbit-item {
+            --radius: 130px;
+            --offset: 0deg;
+            --duration: 20s;
             position: absolute;
+            left: 50%;
+            top: 50%;
+            width: calc(var(--radius) * 2);
+            height: calc(var(--radius) * 2);
+            transform: translate(-50%, -50%) rotate(var(--offset));
+            transform-origin: center center;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .index-redesign .orbit-item.spin-cw {
+            animation: orbitItemCW var(--duration) linear infinite;
+        }
+
+        .index-redesign .orbit-item.spin-ccw {
+            animation: orbitItemCCW var(--duration) linear infinite;
+        }
+
+        .index-redesign .orbit-item .item-body {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translate(-50%, -50%);
+            transform-origin: center center;
+        }
+
+        .index-redesign .orbit-item.spin-cw .item-body {
+            animation: orbitItemCounterCW var(--duration) linear infinite;
+        }
+
+        .index-redesign .orbit-item.spin-ccw .item-body {
+            animation: orbitItemCounterCCW var(--duration) linear infinite;
+        }
+
+        .index-redesign .orbit-chip {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             padding: 8px 12px;
             border-radius: 999px;
-            background: rgba(20, 20, 25, 0.68);
-            border: 1px solid rgba(232, 232, 246, 0.08);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(168, 168, 182, 0.14);
+            background: rgba(20, 20, 25, 0.72);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: #B8B6C9;
             font-size: 11px;
             line-height: 1;
             letter-spacing: 0.05em;
             box-shadow: 0 12px 24px rgba(10, 10, 14, 0.18);
-            z-index: 4;
+            white-space: nowrap;
         }
 
-        .index-redesign .orbit-label::before {
+        .index-redesign .orbit-chip::before {
             content: '';
             width: 6px;
             height: 6px;
             border-radius: 999px;
             background: currentColor;
-            opacity: 0.7;
+            opacity: 0.72;
             flex-shrink: 0;
         }
 
-        .index-redesign .orbit-label-one {
-            top: 16%;
-            left: 10%;
+        .index-redesign .chip-research {
+            color: #D5D3E8;
         }
 
-        .index-redesign .orbit-label-two {
-            right: 8%;
-            bottom: 16%;
+        .index-redesign .chip-direction {
+            color: #D9D5FF;
         }
 
-        .index-redesign .orbit-label-three {
-            left: 14%;
-            bottom: 12%;
+        .index-redesign .chip-notes {
+            color: #CFEFFF;
+        }
+
+        .index-redesign .orbit-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            background: #CFCBFF;
+            box-shadow: 0 0 0 8px rgba(207, 203, 255, 0.08), 0 0 24px rgba(207, 203, 255, 0.2);
+        }
+
+        .index-redesign .orbit-dot.dot-accent {
+            background: #BCE9FF;
+            width: 10px;
+            height: 10px;
+            box-shadow: 0 0 0 8px rgba(188, 233, 255, 0.08), 0 0 20px rgba(188, 233, 255, 0.18);
+        }
+
+        .index-redesign .orbit-dot.dot-soft {
+            background: rgba(255, 227, 180, 0.92);
+            width: 7px;
+            height: 7px;
+            box-shadow: 0 0 0 6px rgba(255, 227, 180, 0.08), 0 0 14px rgba(255, 227, 180, 0.16);
         }
 
         .index-redesign .section-stack {
@@ -311,22 +475,15 @@
             width: 100%;
             min-height: 100%;
             padding: 22px;
-            align-items: stretch;
-            justify-content: stretch;
             border-radius: 22px;
             border: 1px solid var(--card-border, rgba(86, 86, 108, 0.36));
             background:
                 radial-gradient(140% 140% at 100% 0%, var(--card-tint, rgba(232, 232, 246, 0.06)) 0%, transparent 52%),
                 linear-gradient(180deg, rgba(255, 255, 255, 0.028) 0%, rgba(255, 255, 255, 0.012) 100%),
-                rgba(20, 20, 25, 0.9);
+                rgba(20, 20, 25, 0.92);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 16px 40px rgba(10, 10, 14, 0.2);
             overflow: hidden;
-            --circle-size: 420px;
-            transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
-        }
-
-        .index-redesign .stack-card::after {
-            background: linear-gradient(180deg, rgba(92, 92, 114, 0.48) 0%, rgba(64, 64, 82, 0.18) 100%);
+            transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, background-color 0.28s ease;
         }
 
         .index-redesign .stack-card:hover {
@@ -337,7 +494,6 @@
 
         .index-redesign .stack-card-inner {
             position: relative;
-            z-index: 1;
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -345,14 +501,13 @@
         }
 
         .index-redesign .focus-card {
-            min-height: 236px;
-            --card-tint: rgba(232, 232, 246, 0.05);
+            min-height: 228px;
         }
 
         .index-redesign .route-card {
-            min-height: 228px;
+            min-height: 224px;
+            display: block;
             text-decoration: none;
-            --card-tint: rgba(232, 232, 246, 0.05);
         }
 
         .index-redesign .card-top {
@@ -420,8 +575,7 @@
             color: #8E8CA2;
         }
 
-        .index-redesign .card-foot,
-        .index-redesign .route-foot {
+        .index-redesign .card-foot {
             margin-top: auto;
             padding-top: 10px;
             font-size: 12px;
@@ -436,7 +590,6 @@
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            color: #8E8CA2;
         }
 
         .index-redesign .route-enter {
@@ -453,12 +606,11 @@
             transition: transform 0.24s ease, opacity 0.24s ease, color 0.24s ease;
         }
 
-        .index-redesign .stack-card:hover .route-arrow {
+        .index-redesign .route-card:hover .route-arrow {
             opacity: 1;
             color: #E8E8F6;
             transform: translate(2px, -2px);
         }
-
 
         .index-redesign .focus-grid .focus-card:nth-child(1) {
             --card-tint: rgba(100, 97, 241, 0.09);
@@ -542,7 +694,6 @@
             border-color: rgba(232, 191, 172, 0.15);
         }
 
-
         .index-redesign .script-bridge {
             position: absolute;
             width: 0;
@@ -555,33 +706,64 @@
         @keyframes pulseCore {
             0%, 100% {
                 transform: translate(-50%, -50%) scale(1);
-                box-shadow: 0 0 44px rgba(100, 97, 241, 0.22), inset 0 0 0 1px rgba(232, 232, 246, 0.08);
+                box-shadow: 0 0 42px rgba(100, 97, 241, 0.22), 0 0 0 1px rgba(232, 232, 246, 0.08);
             }
             50% {
                 transform: translate(-50%, -50%) scale(1.05);
-                box-shadow: 0 0 58px rgba(100, 97, 241, 0.28), inset 0 0 0 1px rgba(232, 232, 246, 0.12);
+                box-shadow: 0 0 58px rgba(100, 97, 241, 0.28), 0 0 0 1px rgba(232, 232, 246, 0.12);
             }
         }
 
-        @keyframes orbitSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes haloExpand {
+            0% {
+                transform: translate(-50%, -50%) scale(0.88);
+                opacity: 0;
+            }
+            18% {
+                opacity: 0.34;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.18);
+                opacity: 0;
+            }
         }
 
-        @keyframes orbitSpinReverse {
-            from { transform: rotate(360deg); }
-            to { transform: rotate(0deg); }
+        @keyframes ringRotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        @keyframes orbitDrift {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.03); }
-            100% { transform: rotate(360deg) scale(1); }
+        @keyframes ringRotateReverse {
+            from { transform: translate(-50%, -50%) rotate(360deg); }
+            to { transform: translate(-50%, -50%) rotate(0deg); }
         }
 
-        @keyframes floatDrift {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
+        @keyframes orbitItemCW {
+            from { transform: translate(-50%, -50%) rotate(var(--offset)); }
+            to { transform: translate(-50%, -50%) rotate(calc(var(--offset) + 360deg)); }
+        }
+
+        @keyframes orbitItemCCW {
+            from { transform: translate(-50%, -50%) rotate(var(--offset)); }
+            to { transform: translate(-50%, -50%) rotate(calc(var(--offset) - 360deg)); }
+        }
+
+        @keyframes orbitItemCounterCW {
+            from { transform: translate(-50%, -50%) rotate(calc(-1 * var(--offset))); }
+            to { transform: translate(-50%, -50%) rotate(calc(-1 * var(--offset) - 360deg)); }
+        }
+
+        @keyframes orbitItemCounterCCW {
+            from { transform: translate(-50%, -50%) rotate(calc(-1 * var(--offset))); }
+            to { transform: translate(-50%, -50%) rotate(calc(-1 * var(--offset) + 360deg)); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .index-redesign .hero-orbit *,
+            .index-redesign .hero-orbit::before,
+            .index-redesign .hero-orbit::after {
+                animation: none !important;
+            }
         }
 
         @media screen and (max-width: 968px) {
@@ -597,10 +779,6 @@
 
             .index-redesign .hero-visual {
                 justify-content: flex-start;
-            }
-
-            .index-redesign .hero-orbit {
-                width: min(100%, 340px);
             }
 
             .index-redesign .focus-grid,
@@ -656,22 +834,47 @@
             .index-redesign .route-link-row {
                 padding-top: 14px;
             }
+
+            .index-redesign .hero-orbit {
+                width: min(100%, 360px);
+                border-radius: 24px;
+            }
+
+            .index-redesign .track-one {
+                width: 176px;
+                height: 176px;
+            }
+
+            .index-redesign .track-two {
+                width: 236px;
+                height: 236px;
+            }
+
+            .index-redesign .track-three {
+                width: 296px;
+                height: 296px;
+            }
+
+            .index-redesign .orbit-core {
+                width: 104px;
+                height: 104px;
+            }
         }
     </style>
 </head>
-
 <body>
     <canvas class="fireworks"></canvas>
     <div class="head" id="headscrollbg">
         <div class="main">
             <div class="main-left">
-                <a href="./index.html" class="logo"><img height="24" width="24" src="./assets/public/logo_graph.png"></a>
+                <a href="./index.html" class="logo"><img height="24" width="24" src="./assets/public/logo_graph.png" alt="LU Shan logo"></a>
                 <div class="tag tag-cooperate" onclick="window.location.href='./about.html'">
                     <div class="breath-dot"></div>Contact
                 </div>
             </div>
             <div class="menu" id="main-menu">
                 <li class="magical btn nav" onclick="window.location.href='./index.html'">Home</li>
+                <li class="magical btn" onclick="window.location.href='./research.html'">Research</li>
                 <li class="magical btn" onclick="window.location.href='./blog.html'">Blog</li>
                 <li class="magical btn" onclick="window.location.href='./book.html'">Book</li>
                 <li class="magical btn" onclick="window.location.href='./about.html'">About</li>
@@ -691,6 +894,11 @@
     </div>
 
     <div class="index index-redesign">
+        <div class="script-bridge" aria-hidden="true">
+            <div class="scroll-thumb"></div>
+            <div id="rowScroll"></div>
+        </div>
+
         <section class="home-section home-hero load-pro">
             <div class="hero-copy">
                 <div class="hero-kicker">Cross-disciplinary researcher</div>
@@ -702,20 +910,46 @@
                 </div>
                 <div class="hero-actions">
                     <a class="magical primary-btn" href="./about.html">About Me</a>
-                    <a class="magical btn normal-btn" href="https://shanlu.cc/notes/spwm.pdf" target="_blank" rel="noopener noreferrer">View Notes</a>
+                    <div class="magical btn normal-btn"><a href="https://shanlu.cc/notes/spwm.pdf" target="_blank" rel="noopener noreferrer">View Notes</a></div>
                 </div>
             </div>
+
             <div class="hero-visual">
                 <div class="hero-orbit" aria-hidden="true">
-                    <div class="orbit-ring"></div>
-                    <div class="orbit-ring-alt"></div>
+                    <div class="orbit-track track-one"></div>
+                    <div class="orbit-track track-two"></div>
+                    <div class="orbit-track track-three"></div>
+                    <div class="hero-axis"></div>
+                    <div class="hero-signal"></div>
                     <div class="orbit-core"></div>
-                    <div class="orbit-node"></div>
-                    <div class="orbit-node-alt"></div>
-                    <div class="orbit-node-soft"></div>
-                    <div class="orbit-label orbit-label-one">Research</div>
-                    <div class="orbit-label orbit-label-two">Direction</div>
-                    <div class="orbit-label orbit-label-three">Notes</div>
+
+                    <div class="orbit-item spin-cw" style="--radius: 166px; --offset: 18deg; --duration: 28s;">
+                        <div class="item-body"><div class="orbit-chip chip-research">Research</div></div>
+                    </div>
+
+                    <div class="orbit-item spin-ccw" style="--radius: 130px; --offset: 126deg; --duration: 20s;">
+                        <div class="item-body"><div class="orbit-chip chip-direction">Direction</div></div>
+                    </div>
+
+                    <div class="orbit-item spin-cw" style="--radius: 166px; --offset: 226deg; --duration: 24s;">
+                        <div class="item-body"><div class="orbit-chip chip-notes">Notes</div></div>
+                    </div>
+
+                    <div class="orbit-item spin-cw" style="--radius: 166px; --offset: 84deg; --duration: 12s;">
+                        <div class="item-body"><div class="orbit-dot"></div></div>
+                    </div>
+
+                    <div class="orbit-item spin-ccw" style="--radius: 166px; --offset: 284deg; --duration: 17s;">
+                        <div class="item-body"><div class="orbit-dot dot-accent"></div></div>
+                    </div>
+
+                    <div class="orbit-item spin-ccw" style="--radius: 130px; --offset: 314deg; --duration: 10s;">
+                        <div class="item-body"><div class="orbit-dot dot-soft"></div></div>
+                    </div>
+
+                    <div class="orbit-item spin-cw" style="--radius: 94px; --offset: 208deg; --duration: 8s;">
+                        <div class="item-body"><div class="orbit-dot dot-soft"></div></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -726,7 +960,7 @@
                 <div class="section-copy">A quieter layer between introduction and navigation — less a list of skills, more a map of where my attention is currently gathering.</div>
             </div>
             <div class="stack-grid focus-grid">
-                <article class="magical stack-card focus-card">
+                <article class="stack-card focus-card">
                     <div class="stack-card-inner">
                         <div class="card-top">
                             <div class="card-head">
@@ -740,7 +974,7 @@
                     </div>
                 </article>
 
-                <article class="magical stack-card focus-card">
+                <article class="stack-card focus-card">
                     <div class="stack-card-inner">
                         <div class="card-top">
                             <div class="card-head">
@@ -754,7 +988,7 @@
                     </div>
                 </article>
 
-                <article class="magical stack-card focus-card">
+                <article class="stack-card focus-card">
                     <div class="stack-card-inner">
                         <div class="card-top">
                             <div class="card-head">
@@ -773,10 +1007,10 @@
         <section class="home-section section-stack home-routes load-pro">
             <div class="section-head">
                 <div class="section-kicker">Public Routes</div>
-                <!-- <div class="section-copy">Four doors into the parts of the site I actively want to show — identity, notes, direction, and writing.</div> -->
+                <div class="section-copy">Four doors into the parts of the site I actively want to show — identity, notes, direction, and writing.</div>
             </div>
             <div class="stack-grid route-grid">
-                <a class="magical stack-card route-card" href="./about.html">
+                <a class="stack-card route-card" href="./about.html">
                     <div class="stack-card-inner">
                         <div class="card-top">
                             <div class="card-head">
@@ -793,7 +1027,7 @@
                     </div>
                 </a>
 
-                <a class="magical stack-card route-card" href="https://shanlu.cc/notes/spwm.pdf" target="_blank" rel="noopener noreferrer">
+                <a class="stack-card route-card" href="https://shanlu.cc/notes/spwm.pdf" target="_blank" rel="noopener noreferrer">
                     <div class="stack-card-inner">
                         <div class="card-top">
                             <div class="card-head">
@@ -810,7 +1044,7 @@
                     </div>
                 </a>
 
-                <a class="magical stack-card route-card" href="./about.html">
+                <a class="stack-card route-card" href="./research.html">
                     <div class="stack-card-inner">
                         <div class="card-top">
                             <div class="card-head">
@@ -819,47 +1053,41 @@
                             </div>
                             <div class="route-tag">Where I am going</div>
                         </div>
-                        <p class="route-desc">Current questions, emerging direction, and the work that is gradually taking shape while a dedicated research page is still being built.</p>
+                        <p class="route-desc">One completed thesis, two supervised directions, and the theoretical questions that now guide my research transition.</p>
                         <div class="route-link-row">
-                            <div class="route-enter">View direction</div>
+                            <div class="route-enter">View page</div>
                             <div class="route-arrow">↗</div>
                         </div>
                     </div>
                 </a>
 
-                <a class="magical stack-card route-card" href="./blog.html">
+                <a class="stack-card route-card" href="./blog.html">
                     <div class="stack-card-inner">
                         <div class="card-top">
                             <div class="card-head">
                                 <div class="route-label">Public writing</div>
                                 <h3 class="route-title">Blog</h3>
                             </div>
-                            <div class="route-tag">Broader archive</div>
+                            <div class="route-tag">What I record</div>
                         </div>
-                        <p class="route-desc">Longer reflections, quieter records, and a broader archive of thought and life that remains public.</p>
+                        <p class="route-desc">Longer reflections, quieter records, and a broader archive of study, transition, and life.</p>
                         <div class="route-link-row">
-                            <div class="route-enter">Read entries</div>
+                            <div class="route-enter">Read archive</div>
                             <div class="route-arrow">↗</div>
                         </div>
                     </div>
                 </a>
             </div>
         </section>
-
-        <div class="script-bridge" aria-hidden="true">
-            <div class="scroll-thumb"></div>
-            <div id="rowScroll"></div>
-        </div>
     </div>
 
     <div class="footer">
         <div class="footer-content">
             <div class="copyright">
-                <div>© Last Updated 06/04/2026</div>
+                <div>© Last Updated 07/04/2026</div>
             </div>
         </div>
     </div>
-
     <div class="widget">
         <div class="shape-light"></div>
         <div class="shape-star">
@@ -873,9 +1101,7 @@
     </div>
     <div class="widget-top"></div>
 </body>
-
 <script src="./js/main.min.js"></script>
 <script src='./js/anime.js'></script>
 <script src='./js/firework.js'></script>
-
 </html>

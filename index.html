@@ -4,9 +4,660 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio</title>
+    <title>LU Shan — Personal Website</title>
     <link rel="stylesheet" href="./css/style.min.css">
     <link rel="shortcut icon" href="./assets/public/favicon.svg" />
+    <style>
+        .index.index-redesign {
+            width: 100%;
+            max-width: 968px;
+            margin: 0 auto;
+            padding-top: 144px;
+            gap: 72px;
+        }
+
+        .index-redesign .home-section {
+            width: 100%;
+        }
+
+        .index-redesign .section-head {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .index-redesign .section-kicker,
+        .index-redesign .hero-kicker,
+        .index-redesign .mini-kicker,
+        .index-redesign .route-label {
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            line-height: 18px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #8D8BA4;
+        }
+
+        .index-redesign .section-kicker::before,
+        .index-redesign .hero-kicker::before,
+        .index-redesign .mini-kicker::before,
+        .index-redesign .route-label::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #6461F1;
+            box-shadow: 0 0 0 6px rgba(100, 97, 241, 0.12);
+            flex-shrink: 0;
+        }
+
+        .index-redesign .section-copy {
+            max-width: 560px;
+            font-size: 13px;
+            line-height: 24px;
+            color: #7A798A;
+        }
+
+        .index-redesign .home-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+            gap: 40px;
+            align-items: center;
+        }
+
+        .index-redesign .hero-copy {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .index-redesign .hero-name {
+            display: inline-block;
+            margin-top: 18px;
+            padding-right: 0.18em;
+            white-space: nowrap;
+            overflow: visible;
+            font-size: clamp(50px, 9vw, 74px);
+            line-height: 1.16;
+            font-weight: 700;
+            letter-spacing: -0.045em;
+            background: linear-gradient(90deg, #E8E8F6 0%, #D7D6EA 35%, #B9B5E7 68%, #E8C2AF 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .index-redesign .hero-copy-group {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-width: 560px;
+        }
+
+        .index-redesign .hero-line {
+            font-size: 15px;
+            line-height: 28px;
+            color: #9E9CB1;
+        }
+
+        .index-redesign .hero-line strong {
+            font-size: inherit;
+            font-weight: 500;
+            color: #E8E8F6;
+        }
+
+        .index-redesign .hero-line-soft {
+            color: #7E7C8F;
+        }
+
+        .index-redesign .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 34px;
+        }
+
+        .index-redesign .hero-actions .primary-btn,
+        .index-redesign .hero-actions .normal-btn {
+            padding: 9px 20px;
+        }
+
+        .index-redesign .hero-actions a {
+            font-size: 13px;
+            line-height: 22px;
+            font-weight: 500;
+            text-decoration: none;
+            color: #E8E8F6;
+        }
+
+        .index-redesign .hero-visual {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .index-redesign .hero-orbit {
+            position: relative;
+            width: min(100%, 360px);
+            aspect-ratio: 1;
+            border-radius: 32px;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, rgba(100, 97, 241, 0.16) 0%, rgba(20, 20, 25, 0.24) 38%, rgba(14, 14, 19, 0.02) 72%), rgba(20, 20, 25, 0.88);
+            box-shadow: 0 24px 64px rgba(10, 10, 14, 0.32);
+            isolation: isolate;
+        }
+
+        .index-redesign .hero-orbit::before,
+        .index-redesign .hero-orbit::after {
+            content: '';
+            position: absolute;
+            border-radius: 999px;
+            inset: 18%;
+            border: 1px solid rgba(232, 232, 246, 0.08);
+        }
+
+        .index-redesign .hero-orbit::before {
+            animation: orbitSpin 22s linear infinite;
+        }
+
+        .index-redesign .hero-orbit::after {
+            inset: 10%;
+            border-color: rgba(100, 97, 241, 0.18);
+            animation: orbitSpinReverse 28s linear infinite;
+        }
+
+        .index-redesign .orbit-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 106px;
+            height: 106px;
+            border-radius: 999px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.18) 24%, rgba(100, 97, 241, 0.44) 45%, rgba(14, 14, 19, 0) 74%), rgba(18, 18, 24, 0.96);
+            box-shadow: 0 0 54px rgba(100, 97, 241, 0.26), inset 0 0 0 1px rgba(232, 232, 246, 0.08);
+            animation: pulseCore 4.8s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        .index-redesign .orbit-ring,
+        .index-redesign .orbit-ring-alt {
+            position: absolute;
+            inset: 16%;
+            border-radius: 999px;
+            border: 1px solid rgba(232, 232, 246, 0.08);
+            z-index: 1;
+        }
+
+        .index-redesign .orbit-ring {
+            animation: orbitDrift 16s linear infinite;
+        }
+
+        .index-redesign .orbit-ring-alt {
+            inset: 24%;
+            border-color: rgba(100, 97, 241, 0.14);
+            animation: orbitSpinReverse 18s linear infinite;
+        }
+
+        .index-redesign .orbit-node,
+        .index-redesign .orbit-node-alt,
+        .index-redesign .orbit-node-soft {
+            position: absolute;
+            border-radius: 999px;
+            z-index: 3;
+        }
+
+        .index-redesign .orbit-node {
+            top: 22%;
+            right: 19%;
+            width: 14px;
+            height: 14px;
+            background: #E8E8F6;
+            box-shadow: 0 0 0 10px rgba(232, 232, 246, 0.06), 0 0 26px rgba(232, 232, 246, 0.16);
+            animation: floatDrift 5s ease-in-out infinite;
+        }
+
+        .index-redesign .orbit-node-alt {
+            bottom: 24%;
+            left: 17%;
+            width: 12px;
+            height: 12px;
+            background: #6461F1;
+            box-shadow: 0 0 0 8px rgba(100, 97, 241, 0.1), 0 0 24px rgba(100, 97, 241, 0.22);
+            animation: floatDrift 6.2s ease-in-out infinite;
+        }
+
+        .index-redesign .orbit-node-soft {
+            top: 50%;
+            left: 15%;
+            width: 8px;
+            height: 8px;
+            background: rgba(232, 232, 246, 0.7);
+            box-shadow: 0 0 18px rgba(232, 232, 246, 0.18);
+            animation: floatDrift 5.6s ease-in-out infinite;
+        }
+
+        .index-redesign .orbit-label {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(20, 20, 25, 0.68);
+            border: 1px solid rgba(232, 232, 246, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #B8B6C9;
+            font-size: 11px;
+            line-height: 1;
+            letter-spacing: 0.05em;
+            box-shadow: 0 12px 24px rgba(10, 10, 14, 0.18);
+            z-index: 4;
+        }
+
+        .index-redesign .orbit-label::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: currentColor;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        .index-redesign .orbit-label-one {
+            top: 16%;
+            left: 10%;
+        }
+
+        .index-redesign .orbit-label-two {
+            right: 8%;
+            bottom: 16%;
+        }
+
+        .index-redesign .orbit-label-three {
+            left: 14%;
+            bottom: 12%;
+        }
+
+        .index-redesign .section-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .index-redesign .stack-grid {
+            width: 100%;
+            display: grid;
+            gap: 18px;
+        }
+
+        .index-redesign .focus-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .index-redesign .route-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .index-redesign .stack-card {
+            position: relative;
+            width: 100%;
+            min-height: 100%;
+            padding: 22px;
+            align-items: stretch;
+            justify-content: stretch;
+            border-radius: 22px;
+            border: 1px solid var(--card-border, rgba(86, 86, 108, 0.36));
+            background:
+                radial-gradient(140% 140% at 100% 0%, var(--card-tint, rgba(232, 232, 246, 0.06)) 0%, transparent 52%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.028) 0%, rgba(255, 255, 255, 0.012) 100%),
+                rgba(20, 20, 25, 0.9);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 16px 40px rgba(10, 10, 14, 0.2);
+            overflow: hidden;
+            --circle-size: 420px;
+            transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+        }
+
+        .index-redesign .stack-card::after {
+            background: linear-gradient(180deg, rgba(92, 92, 114, 0.48) 0%, rgba(64, 64, 82, 0.18) 100%);
+        }
+
+        .index-redesign .stack-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--card-border-hover, rgba(118, 118, 146, 0.44));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 22px 46px rgba(10, 10, 14, 0.24);
+        }
+
+        .index-redesign .stack-card-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: 16px;
+        }
+
+        .index-redesign .focus-card {
+            min-height: 236px;
+            --card-tint: rgba(232, 232, 246, 0.05);
+        }
+
+        .index-redesign .route-card {
+            min-height: 228px;
+            text-decoration: none;
+            --card-tint: rgba(232, 232, 246, 0.05);
+        }
+
+        .index-redesign .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .index-redesign .card-head {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .index-redesign .card-chip,
+        .index-redesign .route-tag {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 11px;
+            border-radius: 999px;
+            border: 1px solid rgba(232, 232, 246, 0.1);
+            background: rgba(232, 232, 246, 0.04);
+            color: #C7C6D6;
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .index-redesign .card-chip::before,
+        .index-redesign .route-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 2px;
+            transform: rotate(45deg);
+            background: currentColor;
+            opacity: 0.9;
+            flex-shrink: 0;
+        }
+
+        .index-redesign .focus-title,
+        .index-redesign .route-title {
+            font-size: 24px;
+            line-height: 1.28;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            background: linear-gradient(180deg, #E8E8F6 0%, rgba(232, 232, 246, 0.72) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-wrap: balance;
+        }
+
+        .index-redesign .focus-desc,
+        .index-redesign .route-desc {
+            font-size: 14px;
+            line-height: 25px;
+            color: #8E8CA2;
+        }
+
+        .index-redesign .card-foot,
+        .index-redesign .route-foot {
+            margin-top: auto;
+            padding-top: 10px;
+            font-size: 12px;
+            line-height: 20px;
+            color: #6E6C7C;
+        }
+
+        .index-redesign .route-link-row {
+            margin-top: auto;
+            padding-top: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            color: #8E8CA2;
+        }
+
+        .index-redesign .route-enter {
+            font-size: 12px;
+            line-height: 20px;
+            color: #6E6C7C;
+        }
+
+        .index-redesign .route-arrow {
+            font-size: 14px;
+            line-height: 1;
+            color: #A8A8B6;
+            opacity: 0.72;
+            transition: transform 0.24s ease, opacity 0.24s ease, color 0.24s ease;
+        }
+
+        .index-redesign .stack-card:hover .route-arrow {
+            opacity: 1;
+            color: #E8E8F6;
+            transform: translate(2px, -2px);
+        }
+
+
+        .index-redesign .focus-grid .focus-card:nth-child(1) {
+            --card-tint: rgba(100, 97, 241, 0.09);
+            --card-border: rgba(100, 97, 241, 0.18);
+            --card-border-hover: rgba(100, 97, 241, 0.3);
+        }
+
+        .index-redesign .focus-grid .focus-card:nth-child(1) .card-chip {
+            color: #D8D5FF;
+            background: rgba(100, 97, 241, 0.08);
+            border-color: rgba(100, 97, 241, 0.16);
+        }
+
+        .index-redesign .focus-grid .focus-card:nth-child(2) {
+            --card-tint: rgba(123, 212, 255, 0.08);
+            --card-border: rgba(123, 212, 255, 0.16);
+            --card-border-hover: rgba(123, 212, 255, 0.28);
+        }
+
+        .index-redesign .focus-grid .focus-card:nth-child(2) .card-chip {
+            color: #CFEFFF;
+            background: rgba(123, 212, 255, 0.07);
+            border-color: rgba(123, 212, 255, 0.15);
+        }
+
+        .index-redesign .focus-grid .focus-card:nth-child(3) {
+            --card-tint: rgba(232, 191, 172, 0.085);
+            --card-border: rgba(232, 191, 172, 0.17);
+            --card-border-hover: rgba(232, 191, 172, 0.28);
+        }
+
+        .index-redesign .focus-grid .focus-card:nth-child(3) .card-chip {
+            color: #FFDCCF;
+            background: rgba(232, 191, 172, 0.075);
+            border-color: rgba(232, 191, 172, 0.15);
+        }
+
+        .index-redesign .route-grid .route-card:nth-child(1) {
+            --card-tint: rgba(232, 232, 246, 0.055);
+            --card-border: rgba(232, 232, 246, 0.14);
+            --card-border-hover: rgba(232, 232, 246, 0.24);
+        }
+
+        .index-redesign .route-grid .route-card:nth-child(1) .route-tag {
+            color: #E8E8F6;
+        }
+
+        .index-redesign .route-grid .route-card:nth-child(2) {
+            --card-tint: rgba(123, 212, 255, 0.08);
+            --card-border: rgba(123, 212, 255, 0.16);
+            --card-border-hover: rgba(123, 212, 255, 0.28);
+        }
+
+        .index-redesign .route-grid .route-card:nth-child(2) .route-tag {
+            color: #CFEFFF;
+            background: rgba(123, 212, 255, 0.07);
+            border-color: rgba(123, 212, 255, 0.15);
+        }
+
+        .index-redesign .route-grid .route-card:nth-child(3) {
+            --card-tint: rgba(100, 97, 241, 0.09);
+            --card-border: rgba(100, 97, 241, 0.18);
+            --card-border-hover: rgba(100, 97, 241, 0.3);
+        }
+
+        .index-redesign .route-grid .route-card:nth-child(3) .route-tag {
+            color: #D8D5FF;
+            background: rgba(100, 97, 241, 0.08);
+            border-color: rgba(100, 97, 241, 0.16);
+        }
+
+        .index-redesign .route-grid .route-card:nth-child(4) {
+            --card-tint: rgba(232, 191, 172, 0.085);
+            --card-border: rgba(232, 191, 172, 0.17);
+            --card-border-hover: rgba(232, 191, 172, 0.28);
+        }
+
+        .index-redesign .route-grid .route-card:nth-child(4) .route-tag {
+            color: #FFDCCF;
+            background: rgba(232, 191, 172, 0.075);
+            border-color: rgba(232, 191, 172, 0.15);
+        }
+
+
+        .index-redesign .script-bridge {
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        @keyframes pulseCore {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 44px rgba(100, 97, 241, 0.22), inset 0 0 0 1px rgba(232, 232, 246, 0.08);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.05);
+                box-shadow: 0 0 58px rgba(100, 97, 241, 0.28), inset 0 0 0 1px rgba(232, 232, 246, 0.12);
+            }
+        }
+
+        @keyframes orbitSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes orbitSpinReverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        @keyframes orbitDrift {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.03); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes floatDrift {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @media screen and (max-width: 968px) {
+            .index.index-redesign {
+                padding-top: 132px;
+                gap: 60px;
+            }
+
+            .index-redesign .home-hero {
+                grid-template-columns: 1fr;
+                gap: 34px;
+            }
+
+            .index-redesign .hero-visual {
+                justify-content: flex-start;
+            }
+
+            .index-redesign .hero-orbit {
+                width: min(100%, 340px);
+            }
+
+            .index-redesign .focus-grid,
+            .index-redesign .route-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 640px) {
+            .index.index-redesign {
+                padding-top: 124px;
+                gap: 50px;
+            }
+
+            .index-redesign .hero-name {
+                font-size: clamp(42px, 18vw, 56px);
+                line-height: 1.18;
+            }
+
+            .index-redesign .hero-copy-group {
+                gap: 12px;
+            }
+
+            .index-redesign .hero-line {
+                font-size: 14px;
+                line-height: 26px;
+            }
+
+            .index-redesign .stack-card {
+                padding: 20px 18px;
+                border-radius: 18px;
+            }
+
+            .index-redesign .card-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .index-redesign .focus-title,
+            .index-redesign .route-title {
+                font-size: 22px;
+                line-height: 1.3;
+            }
+
+            .index-redesign .focus-desc,
+            .index-redesign .route-desc,
+            .index-redesign .section-copy {
+                font-size: 13px;
+                line-height: 24px;
+            }
+
+            .index-redesign .route-link-row {
+                padding-top: 14px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -14,15 +665,13 @@
     <div class="head" id="headscrollbg">
         <div class="main">
             <div class="main-left">
-                <a href="./index.html" class="logo"><img height= 24px width= 24px src="./assets/public/logo_graph.png"></a>
+                <a href="./index.html" class="logo"><img height="24" width="24" src="./assets/public/logo_graph.png"></a>
                 <div class="tag tag-cooperate" onclick="window.location.href='./about.html'">
                     <div class="breath-dot"></div>Contact
                 </div>
             </div>
             <div class="menu" id="main-menu">
                 <li class="magical btn nav" onclick="window.location.href='./index.html'">Home</li>
-                <!-- <li class="magical btn" onclick="window.location.href='./work.html'">Work</li> -->
-                <!-- <li class="magical btn" onclick="window.location.href='./moment.html'">Moments</li> -->
                 <li class="magical btn" onclick="window.location.href='./blog.html'">Blog</li>
                 <li class="magical btn" onclick="window.location.href='./book.html'">Book</li>
                 <li class="magical btn" onclick="window.location.href='./about.html'">About</li>
@@ -34,256 +683,183 @@
                 <div class="menu-panel-content" id="menu-panel-content"></div>
                 <div class="menu-close-btn">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M10.5858 12L4.29291 18.2929L5.70712 19.7071L12 13.4142L18.2929 19.7071L19.7071 18.2929L13.4142 12L19.7071 5.70712L18.2929 4.29291L12 10.5858L5.70712 4.29291L4.29291 5.70712L10.5858 12Z"
-                            fill="#E8E8F6" />
+                        <path d="M10.5858 12L4.29291 18.2929L5.70712 19.7071L12 13.4142L18.2929 19.7071L19.7071 18.2929L13.4142 12L19.7071 5.70712L18.2929 4.29291L12 10.5858L5.70712 4.29291L4.29291 5.70712L10.5858 12Z" fill="#E8E8F6" />
                     </svg>
                 </div>
             </div>
         </div>
     </div>
-    <div class="index">
-        <div class="hello">
-            <div class="hello-left">
-                <div class="title">
-                    <div class="title-hi">Hi, I'm</div>
-                    <a class="title-name text-effect">LU Shan</a>
+
+    <div class="index index-redesign">
+        <section class="home-section home-hero load-pro">
+            <div class="hero-copy">
+                <div class="hero-kicker">Cross-disciplinary researcher</div>
+                <h1 class="hero-name text-effect">LU Shan</h1>
+                <div class="hero-copy-group">
+                    <p class="hero-line">My work grows out of <strong>physics</strong>, <strong>statistics</strong>, and a habit of sustained reflection.</p>
+                    <p class="hero-line">I am now moving toward a more defined research path in <strong>theoretical corporate finance</strong>.</p>
+                    <p class="hero-line hero-line-soft">This site gathers the public traces of what I study, write, and continue to become.</p>
                 </div>
-                <div class="hello-introduce">
-                    <span>Final-year</span> student at <a style="font-size: 14px;line-height: 24px;color: #A8A8B6;" href="http://www.polyu.edu.hk/" target="_blank">PolyU</a>, majoring in <span>Physics</span>. I am currently supervised by <a style="font-size: 14px;line-height: 24px;color: #A8A8B6;" href="https://www.polyu.edu.hk/ap/people/academic-staff/prof-ye-zhu/" target="_blank">Prof. ZHU Ye</a> for my Final Year Project (FYP), <a style="font-size: 14px;line-height: 24px;color: #A8A8B6;" href="https://shanlu.cc/notes/miditv-ppt.pdf" target="_blank">Towards Understanding and Optimising ePIE for Electron Microscopy</a>. I am also fortunate to be advised, in near future, by <a style="font-size: 14px;line-height: 24px;color: #A8A8B6;" href="https://sites.google.com/view/zhaolijiang/home" target="_blank">Dr. JIANG Zhaoli</a> and <a style="font-size: 14px;line-height: 24px;color: #A8A8B6;" href="https://sites.google.com/view/mindai/home" target="_blank">Prof. DAI Min</a>, where I am exploring <span>Theoretical Corporate Finance</span>. I am currently moving through a demanding season both academically and personally (relationship) but I am trying to stay steady, keep learning, and move forward with intention.
-                </div>
-                <div class="hello-actions">
-                    <div class="magical primary-btn"><a href="mailto:33at20@gmail.com" target="_blank">Email Me</a></div>
-                    <div class="magical btn normal-btn">
-                        <a onclick="window.location.href='./about.html'">Learn more →</a>
-                        <div class="glowing-border"></div>
-                    </div>
+                <div class="hero-actions">
+                    <a class="magical primary-btn" href="./about.html">About Me</a>
+                    <a class="magical btn normal-btn" href="https://shanlu.cc/notes/spwm.pdf" target="_blank" rel="noopener noreferrer">View Notes</a>
                 </div>
             </div>
-            <div class="hello-right">
-                <div class="eyes-container">
-                    <div class="eye eye-pic-one">
-                        <div class="pupil"></div>
-                    </div>
-                    <div class="eye eye-pic-two">
-                        <div class="pupil"></div>
-                    </div>
+            <div class="hero-visual">
+                <div class="hero-orbit" aria-hidden="true">
+                    <div class="orbit-ring"></div>
+                    <div class="orbit-ring-alt"></div>
+                    <div class="orbit-core"></div>
+                    <div class="orbit-node"></div>
+                    <div class="orbit-node-alt"></div>
+                    <div class="orbit-node-soft"></div>
+                    <div class="orbit-label orbit-label-one">Research</div>
+                    <div class="orbit-label orbit-label-two">Direction</div>
+                    <div class="orbit-label orbit-label-three">Notes</div>
                 </div>
             </div>
-        </div>
-        <div class="main-content">
-            <div class="power-list-container load-pro">
-                <div class="power-list">
-                    <div class="power-card load-item">
-                        <div class="power-container">
-                            <div class="card-img" style="background-image: url('./assets/index/ai.svg')"></div>
-                            <div class="title">Fin Math</div>
-                        </div>
-                        <span class="power-separator"></span>
-                    </div>
-                    <div class="power-card load-item">
-                        <div class="power-container">
-                            <div class="card-img" style="background-image: url('./assets/index/tob.svg')"></div>
-                            <div class="title">Physics</div>
-                        </div>
-                        <span class="power-separator"></span>
-                    </div>
-                    <div class="power-card load-item">
-                        <div class="power-container">
-                            <div class="card-img" style="background-image: url('./assets/index/web.svg')"></div>
-                            <div class="title">AI Theory</div>
-                        </div>
-                        <span class="power-separator"></span>
-                    </div>
-                    <div class="power-card load-item">
-                        <div class="power-container">
-                            <div class="card-img" style="background-image: url('./assets/index/app.svg')"></div>
-                            <div class="title">MOBA</div>
-                        </div>
-                        <span class="power-separator"></span>
-                    </div>
-                    <div class="power-card load-item">
-                        <div class="power-container">
-                            <div class="card-img" style="background-image: url('./assets/index/assets.svg')"></div>
-                            <div class="title">Statistics</div>
-                        </div>
-                        <span class="power-separator"></span>
-                    </div>
-                    <div class="power-card load-item">
-                        <div class="power-container">
-                            <div class="card-img" style="background-image: url('./assets/index/code.svg')"></div>
-                            <div class="title">Note Typing</div>
-                        </div>
-                        <span class="power-separator"></span>
-                    </div>
-                    <div class="power-card load-item">
-                        <div class="power-container">
-                            <div class="card-img" style="background-image: url('./assets/index/interactive.svg')"></div>
-                            <div class="title">R & B</div>
-                        </div>
-                    </div>
-                    <div class="power-card sticky-item" id="sticky-item">
-                        <div class="loader"></div>
-                    </div>
-                </div>
+        </section>
+
+        <section class="home-section section-stack home-focus load-pro">
+            <div class="section-head">
+                <div class="section-kicker">Current Focus</div>
+                <div class="section-copy">A quieter layer between introduction and navigation — less a list of skills, more a map of where my attention is currently gathering.</div>
             </div>
-            <div class="link-list load-pro">
-                <!-- <div class="magical link-card">
-                    <a href="https://www.yuque.com/asorn" target="_blank">
-                        <img src="./assets/index/yuque.png" alt="">
-                        <div class="info">
-                            <div class="info-title">Yue Que</div>
-                            <div class="info-desc">My knowledge garden</div>
+            <div class="stack-grid focus-grid">
+                <article class="magical stack-card focus-card">
+                    <div class="stack-card-inner">
+                        <div class="card-top">
+                            <div class="card-head">
+                                <div class="mini-kicker">Background</div>
+                                <h3 class="focus-title">Cross-disciplinary foundation</h3>
+                            </div>
+                            <div class="card-chip">Physics · Stats</div>
                         </div>
-                        <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
-                            </svg>
+                        <p class="focus-desc">A background shaped by physics, statistics, and mathematical thinking — broad enough to move across fields, structured enough to stay rigorous.</p>
+                        <div class="card-foot">Where I come from</div>
+                    </div>
+                </article>
+
+                <article class="magical stack-card focus-card">
+                    <div class="stack-card-inner">
+                        <div class="card-top">
+                            <div class="card-head">
+                                <div class="mini-kicker">Direction</div>
+                                <h3 class="focus-title">Research in formation</h3>
+                            </div>
+                            <div class="card-chip">Corporate Finance</div>
                         </div>
-                    </a>
-                </div> -->
-                <div class="magical link-card">
-                    <a href="https://www.xiaohongshu.com/user/profile/636a671b000000001f01527c" target="_blank">
-                        <img src="./assets/index/xiaohongshu.png" alt="">
-                        <div class="info">
-                            <div class="info-title">Red Note</div>
-                            <div class="info-desc">My life notes</div>
+                        <p class="focus-desc">My current direction is becoming clearer, with growing emphasis on theoretical corporate finance and the kinds of questions that reward slow, careful thought.</p>
+                        <div class="card-foot">Where I am going</div>
+                    </div>
+                </article>
+
+                <article class="magical stack-card focus-card">
+                    <div class="stack-card-inner">
+                        <div class="card-top">
+                            <div class="card-head">
+                                <div class="mini-kicker">Practice</div>
+                                <h3 class="focus-title">Notes as method</h3>
+                            </div>
+                            <div class="card-chip">Writing · Reading</div>
                         </div>
-                        <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-                <div class="magical link-card">
-                    <a href="https://github.com/Lucasat21" target="_blank">
-                        <img src="./assets/index/github.png" alt="">
-                        <div class="info">
-                            <div class="info-title">Github</div>
-                            <div class="info-desc">My Repositories</div>
-                        </div>
-                        <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-                <div class="magical link-card">
-                    <a href="https://shanlu.cc/notes/spwm.pdf" target="_blank">
-                        <img src="./assets/index/Reze-SP.png" alt="">
-                        <div class="info">
-                            <div class="info-title">Stochastic Process</div>
-                            <div class="info-desc">Personal Study Notes</div>
-                        </div>
-                        <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-                <div class="magical link-card">
-                    <a href="https://shanlu.cc/notes/sa.pdf" target="_blank">
-                        <img src="./assets/index/Reze-SA.png" alt="">
-                        <div class="info">
-                            <div class="info-title">Stochastic Analysis</div>
-                            <div class="info-desc">Personal Study Notes</div>
-                        </div>
-                        <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-                <!-- <div class="magical link-card">
-                    <a href="https://www.figma.com/@asorn" target="_blank">
-                        <img src="./assets/index/figma.png" alt="">
-                        <div class="info">
-                            <div class="info-title">Figma</div>
-                            <div class="info-desc">My design garden</div>
-                        </div>
-                        <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
-                            </svg>
-                        </div>
-                    </a>
-                </div> -->
-               <!--  <div class="magical link-card">
-                    <a href="javascript:void(0)">
-                        <img src="./assets/index/gongzhonghao.png" alt="">
-                        <div class="info">
-                            <div class="info-title">WeChat PP</div>
-                            <div class="info-desc">Search for "biliux" on WeChat</div>
-                        </div>
-                        <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
-                            </svg>
-                        </div>
-                    </a>
-                </div> -->
-                <!-- <div class="magical link-card">
-                    <a href="https://dribbble.com/Asorn" target="_blank">
-                        <img src="./assets/index/dribbble.png" alt="">
-                        <div class="info">
-                            <div class="info-title">Dribbble</div>
-                            <div class="info-desc">My design community</div>
-                        </div>
-                        <div class="icon icon-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none">
-                                <path
-                                    d="M10.55 7.58332H1.16663V6.41665H10.55L7.75415 3.62082L8.5791 2.79587L12.1645 6.3813C12.5062 6.72299 12.5062 7.27701 12.1645 7.61873L8.5791 11.2042L7.75415 10.3792L10.55 7.58332Z"
-                                    fill="#B3B3C1"></path>
-                            </svg>
-                        </div>
-                    </a>
-                </div> -->
+                        <p class="focus-desc">I use notes, reading, and writing to make difficult ideas clearer and more durable — not just as records, but as part of how I think.</p>
+                        <div class="card-foot">How I work</div>
+                    </div>
+                </article>
             </div>
+        </section>
+
+        <section class="home-section section-stack home-routes load-pro">
+            <div class="section-head">
+                <div class="section-kicker">Public Routes</div>
+                <!-- <div class="section-copy">Four doors into the parts of the site I actively want to show — identity, notes, direction, and writing.</div> -->
+            </div>
+            <div class="stack-grid route-grid">
+                <a class="magical stack-card route-card" href="./about.html">
+                    <div class="stack-card-inner">
+                        <div class="card-top">
+                            <div class="card-head">
+                                <div class="route-label">Background</div>
+                                <h3 class="route-title">About</h3>
+                            </div>
+                            <div class="route-tag">Who I am</div>
+                        </div>
+                        <p class="route-desc">The public outline of who I am, where I come from, and how my direction is changing.</p>
+                        <div class="route-link-row">
+                            <div class="route-enter">Enter</div>
+                            <div class="route-arrow">↗</div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="magical stack-card route-card" href="https://shanlu.cc/notes/spwm.pdf" target="_blank" rel="noopener noreferrer">
+                    <div class="stack-card-inner">
+                        <div class="card-top">
+                            <div class="card-head">
+                                <div class="route-label">Working archive</div>
+                                <h3 class="route-title">Notes</h3>
+                            </div>
+                            <div class="route-tag">How I learn</div>
+                        </div>
+                        <p class="route-desc">Study notes, reading traces, and the structures I build to make difficult material more coherent.</p>
+                        <div class="route-link-row">
+                            <div class="route-enter">Open archive</div>
+                            <div class="route-arrow">↗</div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="magical stack-card route-card" href="./about.html">
+                    <div class="stack-card-inner">
+                        <div class="card-top">
+                            <div class="card-head">
+                                <div class="route-label">In formation</div>
+                                <h3 class="route-title">Research</h3>
+                            </div>
+                            <div class="route-tag">Where I am going</div>
+                        </div>
+                        <p class="route-desc">Current questions, emerging direction, and the work that is gradually taking shape while a dedicated research page is still being built.</p>
+                        <div class="route-link-row">
+                            <div class="route-enter">View direction</div>
+                            <div class="route-arrow">↗</div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="magical stack-card route-card" href="./blog.html">
+                    <div class="stack-card-inner">
+                        <div class="card-top">
+                            <div class="card-head">
+                                <div class="route-label">Public writing</div>
+                                <h3 class="route-title">Blog</h3>
+                            </div>
+                            <div class="route-tag">Broader archive</div>
+                        </div>
+                        <p class="route-desc">Longer reflections, quieter records, and a broader archive of thought and life that remains public.</p>
+                        <div class="route-link-row">
+                            <div class="route-enter">Read entries</div>
+                            <div class="route-arrow">↗</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <div class="script-bridge" aria-hidden="true">
+            <div class="scroll-thumb"></div>
+            <div id="rowScroll"></div>
         </div>
     </div>
+
     <div class="footer">
         <div class="footer-content">
             <div class="copyright">
-                <!-- <div>© 2025 Design by <a href="https://asorn.cn/" target="_blank">Asorn</a></div> -->
-                <div>© Last Updated 10/03/2026</div>
-                <!-- <span>|</span>
-                <div class="fillings">
-                    <a href="https://asorn.cn/" target="_blank">Your filing number</a>
-                </div> -->
+                <div>© Last Updated 06/04/2026</div>
             </div>
-            <!-- <div class="friends">
-                <a href="https://zdo.fun/" target="_blank">ZDO</a>
-                <a href="https://larkmap.com/" target="_blank">Larkmap</a>
-                <a href="https://qingicon.com/" target="_blank">QingIcon</a>
-            </div> -->
         </div>
     </div>
+
     <div class="widget">
         <div class="shape-light"></div>
         <div class="shape-star">
@@ -298,32 +874,6 @@
     <div class="widget-top"></div>
 </body>
 
-<script>
-    const stickyItem = document.querySelector('#sticky-item');
-    const powerList = document.querySelector('.power-list');
-    function checkScroll() {
-        const isAtRight = powerList.scrollLeft + powerList.clientWidth >= powerList.scrollWidth;
-        if (isAtRight) {
-            stickyItem.style.opacity = 0;
-        } else {
-            stickyItem.style.opacity = 1;
-        }
-    }
-    function checkVisibility() {
-        if (powerList.scrollWidth > powerList.clientWidth) {
-            stickyItem.style.opacity = 1;
-        } else {
-            stickyItem.style.opacity = 0;
-        }
-    }
-    powerList.addEventListener('scroll', checkScroll);
-    window.addEventListener('resize', () => {
-        checkVisibility();
-        checkScroll();
-    });
-    checkVisibility();
-    checkScroll();
-</script>
 <script src="./js/main.min.js"></script>
 <script src='./js/anime.js'></script>
 <script src='./js/firework.js'></script>

@@ -4,16 +4,774 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
+    <title>LU Shan — About</title>
+    <meta name="description" content="Background, direction, and method behind LU Shan's public work.">
     <link rel="stylesheet" href="./css/style.min.css">
     <link rel="shortcut icon" href="./assets/public/favicon.svg"/>
+    <style>
+        .about {
+            gap: 84px;
+            overflow: visible;
+            padding-bottom: 84px;
+        }
+
+        .about-shell {
+            width: 100%;
+            max-width: var(--mw);
+        }
+
+        .about-compat-shims {
+            display: none !important;
+        }
+
+        .about .section-kicker,
+        .about .mini-kicker {
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #A8A8B6;
+        }
+
+        .about .section-kicker::before,
+        .about .mini-kicker::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #6461F1;
+            box-shadow: 0 0 0 6px rgba(100, 97, 241, 0.12);
+            flex-shrink: 0;
+        }
+
+        .about .section-heading {
+            margin-top: 16px;
+            font-size: clamp(28px, 5vw, 40px);
+            line-height: 1.12;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            background: linear-gradient(180deg, #E8E8F6 0%, rgba(232, 232, 246, 0.72) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about .section-copy {
+            margin-top: 12px;
+            max-width: 620px;
+            font-size: 14px;
+            line-height: 26px;
+            color: #62616F;
+        }
+
+        .about .about-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+            gap: 44px;
+            align-items: start;
+        }
+
+        .about .about-hero-main {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .about .about-name-wrap {
+            margin-top: 18px;
+            padding-right: 18px;
+            overflow: visible;
+        }
+
+        .about .about-name {
+            display: inline-block;
+            padding-right: 0.16em;
+            padding-bottom: 0.08em;
+            font-size: clamp(54px, 9vw, 76px);
+            line-height: 1.06;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            white-space: nowrap;
+            background: linear-gradient(90deg, #E8E8F6 0%, #D8D4FF 44%, #BCE9FF 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-rendering: geometricPrecision;
+            filter: drop-shadow(0 0 24px rgba(100, 97, 241, 0.08));
+        }
+
+        .about .about-lede {
+            margin-top: 26px;
+            max-width: 660px;
+            font-size: 16px;
+            line-height: 31px;
+            color: #8D8BA4;
+        }
+
+        .about .about-lede strong,
+        .about .about-copy strong,
+        .about .section-copy strong,
+        .about .timeline-copy strong,
+        .about .coursework-intro strong {
+            font-size: inherit;
+            line-height: inherit;
+            font-weight: 500;
+            color: #E8E8F6;
+        }
+
+        .about .about-copy {
+            margin-top: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 680px;
+        }
+
+        .about .about-copy p {
+            font-size: 14px;
+            line-height: 28px;
+            color: #A8A8B6;
+        }
+
+        .about .inline-link {
+            font-size: inherit;
+            line-height: inherit;
+            font-weight: 500;
+            color: #E8E8F6;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(232, 232, 246, 0.16);
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .about .inline-link:hover {
+            color: #BCE9FF;
+            border-color: rgba(188, 233, 255, 0.32);
+        }
+
+        .about .about-side {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .about .magical.about-panel,
+        .about .magical.pillar-card,
+        .about .magical.timeline-card,
+        .about .magical.coursework-card {
+            align-items: stretch;
+            /*justify-content: flex-start;*/
+            background: rgba(20, 20, 25, 0.9);
+            box-shadow: 0 0 24px rgba(10, 10, 14, 0.28);
+        }
+
+        .about .about-panel {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding: 24px;
+            border-radius: 20px;
+            --circle-size: 360px;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(20, 20, 25, 0.96) 0%, rgba(16, 16, 22, 0.94) 100%);
+            box-shadow: 0 0 0 1px rgba(112, 114, 142, 0.12), 0 18px 42px rgba(10, 10, 14, 0.26);
+        }
+
+        .about .about-panel::after {
+            background: linear-gradient(180deg, rgba(108, 110, 138, 0.68) 0%, rgba(76, 78, 98, 0.28) 100%);
+        }
+
+        .about .pillar-card::after,
+        .about .timeline-card::after,
+        .about .coursework-card::after {
+            background: linear-gradient(180deg, rgba(78, 78, 100, 0.56) 0%, rgba(78, 78, 100, 0.18) 100%);
+        }
+
+        .about .about-panel::before {
+            background: none;
+        }
+
+        .about .about-panel .show {
+            display: none !important;
+        }
+
+        .about .about-panel-body {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .about .contact-note,
+        .about .frame-note {
+            font-size: 12px;
+            line-height: 22px;
+            color: #62616F;
+        }
+
+        .about .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .about .contact-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(78, 78, 100, 0.22);
+        }
+
+        .about .contact-row:first-child {
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .about .contact-label {
+            font-size: 11px;
+            line-height: 16px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #62616F;
+        }
+
+        .about .contact-value,
+        .about .contact-link {
+            font-size: 14px;
+            line-height: 24px;
+            color: #E8E8F6;
+            text-decoration: none;
+        }
+
+        .about .contact-link {
+            transition: color 0.2s ease;
+        }
+
+        .about .contact-link:hover {
+            color: #BCE9FF;
+        }
+
+        .about .contact-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0;
+            background: transparent;
+            color: #E8E8F6;
+            font-size: 14px;
+            line-height: 24px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .about .contact-action::after {
+            content: '↗';
+            font-size: 12px;
+            line-height: 1;
+            color: #62616F;
+            transition: transform 0.22s ease, color 0.22s ease;
+        }
+
+        .about .contact-action:hover::after {
+            transform: translate(2px, -2px);
+            color: #A8A8B6;
+        }
+
+        .about .copy-state {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            line-height: 18px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #57AC84;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            pointer-events: none;
+        }
+
+        .about .copy-state.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about .tooltip {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .about .tooltip::after {
+            content: '↗';
+            font-size: 12px;
+            line-height: 1;
+            color: #62616F;
+            transition: transform 0.22s ease, color 0.22s ease;
+        }
+
+        .about .tooltip:hover::after {
+            transform: translate(2px, -2px);
+            color: #A8A8B6;
+        }
+
+        .about .tooltip-box {
+            position: absolute;
+            top: calc(100% + 14px);
+            left: 0;
+            width: 172px;
+            height: 172px;
+            padding: 16px;
+            border-radius: 14px;
+            background: rgba(20, 20, 25, 0.96);
+            border: 1px solid rgba(168, 168, 182, 0.14);
+            box-shadow: 0 18px 48px rgba(10, 10, 14, 0.42);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            transform: translateY(8px);
+            z-index: 40;
+        }
+
+        .about .tooltip-box img {
+            width: 140px;
+            height: 140px;
+            border-radius: 10px;
+        }
+
+        .about .tooltip:hover .tooltip-box {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .about .frame-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .about .frame-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(78, 78, 100, 0.22);
+        }
+
+        .about .frame-item:first-child {
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .about .frame-label {
+            font-size: 11px;
+            line-height: 16px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #62616F;
+        }
+
+        .about .frame-text {
+            font-size: 13px;
+            line-height: 24px;
+            color: #A8A8B6;
+        }
+
+        .about .pillar-grid {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .about .pillar-card {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            min-height: 228px;
+            padding: 24px;
+            border-radius: 20px;
+            --circle-size: 360px;
+            overflow: hidden;
+        }
+
+        .about .pillar-card::before,
+        .about .timeline-card::before,
+        .about .coursework-card::before {
+            background: radial-gradient(var(--circle-size) circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.16), transparent 42%);
+        }
+
+        .about .pillar-tag,
+        .about .timeline-tag {
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 11px;
+            border-radius: 999px;
+            background: rgba(232, 232, 246, 0.03);
+            border: 1px solid rgba(168, 168, 182, 0.14);
+            color: #A8A8B6;
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .about .pillar-tag::before,
+        .about .timeline-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #6461F1;
+            box-shadow: 0 0 0 5px rgba(100, 97, 241, 0.12);
+            flex-shrink: 0;
+        }
+
+        .about .pillar-title,
+        .about .timeline-title,
+        .about .coursework-title-main {
+            font-size: 20px;
+            line-height: 30px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(180deg, #E8E8F6 0%, rgba(232, 232, 246, 0.72) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about .pillar-copy,
+        .about .timeline-copy,
+        .about .coursework-intro {
+            font-size: 14px;
+            line-height: 26px;
+            color: #A8A8B6;
+        }
+
+        .about .journey-grid {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: minmax(0, 0.96fr) minmax(320px, 1.04fr);
+            gap: 16px;
+            align-items: start;
+        }
+
+        .about .timeline-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .about .timeline-card {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 24px;
+            border-radius: 20px;
+            --circle-size: 360px;
+            overflow: hidden;
+        }
+
+        .about .timeline-time {
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #62616F;
+        }
+
+        .about .timeline-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .about .timeline-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 500;
+            color: #E8E8F6;
+            text-decoration: none;
+            transition: color 0.22s ease;
+        }
+
+        .about .timeline-link::after {
+            content: '↗';
+            font-size: 12px;
+            line-height: 1;
+            color: #62616F;
+            transition: transform 0.22s ease, color 0.22s ease;
+        }
+
+        .about .timeline-link:hover {
+            color: #BCE9FF;
+        }
+
+        .about .timeline-link:hover::after {
+            transform: translate(2px, -2px);
+            color: #A8A8B6;
+        }
+
+        .about .coursework-card {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 24px;
+            border-radius: 20px;
+            --circle-size: 420px;
+            overflow: hidden;
+        }
+
+        .about .coursework-head {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .about .coursework-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .about details.course-year {
+            padding-top: 12px;
+            border-top: 1px solid rgba(78, 78, 100, 0.22);
+        }
+
+        .about details.course-year:first-child {
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .about details.course-year summary {
+            list-style: none;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 24px;
+            font-weight: 500;
+            color: #E8E8F6;
+        }
+
+        .about .course-year-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .about .course-year-sub {
+            font-size: 11px;
+            line-height: 18px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #62616F;
+        }
+
+        .about details.course-year summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .about details.course-year summary::after {
+            content: '+';
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1;
+            color: #A8A8B6;
+            background: rgba(232, 232, 246, 0.03);
+            border: 1px solid rgba(168, 168, 182, 0.14);
+            flex-shrink: 0;
+            transition: transform 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+        }
+
+        .about details.course-year[open] summary::after {
+            content: '–';
+            color: #E8E8F6;
+            border-color: rgba(100, 97, 241, 0.24);
+        }
+
+        .about .course-terms {
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .about .course-term {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .about .course-term + .course-term {
+            padding-top: 14px;
+            border-top: 1px solid rgba(78, 78, 100, 0.22);
+        }
+
+        .about .course-term-label {
+            font-size: 11px;
+            line-height: 18px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #62616F;
+        }
+
+        .about .course-term-note {
+            font-size: 12px;
+            line-height: 22px;
+            color: #62616F;
+        }
+
+        .about .course-list {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px 18px;
+        }
+
+        .about .course-term .course-list {
+            margin-top: 0;
+        }
+
+        .about .course-list li {
+            position: relative;
+            padding-left: 14px;
+            font-size: 13px;
+            line-height: 23px;
+            color: #8D8BA4;
+        }
+
+        .about .course-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 5px;
+            height: 5px;
+            border-radius: 999px;
+            background: rgba(100, 97, 241, 0.72);
+            box-shadow: 0 0 0 4px rgba(100, 97, 241, 0.08);
+        }
+
+        .about .course-note {
+            font-size: 12px;
+            line-height: 22px;
+            color: #62616F;
+        }
+
+        @media (max-width: 968px) {
+            .about {
+                gap: 72px;
+            }
+
+            .about .about-hero,
+            .about .journey-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about .about-side {
+                max-width: 520px;
+            }
+
+            .about .pillar-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about .course-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .about {
+                gap: 64px;
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .about .about-name-wrap {
+                padding-right: 10px;
+            }
+
+            .about .about-name {
+                font-size: clamp(44px, 14vw, 60px);
+            }
+
+            .about .about-lede {
+                font-size: 15px;
+                line-height: 29px;
+            }
+
+            .about .about-copy p,
+            .about .pillar-copy,
+            .about .timeline-copy,
+            .about .coursework-intro,
+            .about .section-copy {
+                font-size: 13px;
+                line-height: 25px;
+            }
+
+            .about .about-panel,
+            .about .pillar-card,
+            .about .timeline-card,
+            .about .coursework-card {
+                padding: 20px;
+                border-radius: 18px;
+            }
+
+            .about .section-heading {
+                font-size: 30px;
+            }
+
+            .about .pillar-title,
+            .about .timeline-title,
+            .about .coursework-title-main {
+                font-size: 18px;
+                line-height: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
     <canvas class="fireworks"></canvas>
     <div class="head" id="headscrollbg">
         <div class="main">
             <div class="main-left">
-                <a href="./index.html" class="logo"><img height= 24px width= 24px src="./assets/public/logo_graph.png"></a>
+                <a href="./index.html" class="logo"><img height="24" width="24" src="./assets/public/logo_graph.png"></a>
                 <div class="tag tag-cooperate" onclick="window.location.href='./about.html'">
                     <div class="breath-dot"></div>Contact
                 </div>
@@ -37,299 +795,252 @@
             </div>
         </div>
     </div>
+
     <div class="about">
-        <div class="about-top">
-            <div class="about-name text-effect">LU Shan</div>
-            <div class="about-info">
-                <div class="about-info-left load-pro">
-                    <div class="about-info-title">Introduce</div>
-                    <div class="introduce-desc">
-                        I am a final-year student at The Hong Kong Polytechnic University, majoring in Physics with a secondary major on Artificial Intelligence and Data Analysis, and minoring in Mathematics. In the coming semester, I will be joining the Southern University of Science and Technology in Shenzhen as an exchange student, where I plan to take advanced courses in Statistics, Mathematics, and Physics.<br><br>
-                        Academically, I am deeply passionate about theoretical and applied research, with a strong interest in pursuing a PhD in areas such as Theoretical Statistics, Machine Learning (particularly diffusion models), and Quantum Computing. <br><br>
-                        While my university (academic) journey has been heavily focused on coursework and research, I have also actively participated in extracurricular activities, such as co-founding the Hainan-Hong Kong Youth Federation and volunteering in community service initiatives, including food distribution for the elderly. Additionally, I was part of a team that won second place in a entrepreneurship competition organized by the University of Macau, earning the opportunity to present our business proposal to representatives from eight major casinos.<br><br>
-                        That said, my university life hasn’t been solely defined by academics or achievements. Recently, I went through an unexpected breakup with someone I deeply loved and saw a future with. This loss has been profoundly difficult, and I’m still in the process of healing and rebuilding myself emotionally.<br><br>
-                        Although life feels somewhat off course right now, I haven’t let go of hope. More than anything, I wish we could find our way back to each other and rekindle what we shared. At the same time, I am trying to focus on self-improvement—strengthening my mind, advancing my studies, and growing through this period of change.<br><br>
-                        What I’ve learned through this experience is that while some things are beyond our control, we can always choose how we respond. I am committed to moving forward with sincerity, resilience, and an open heart—whether in research or the quiet journey back to myself.<br><br>
-                        I look forward to embracing new opportunities, collaborating with like-minded individuals, and continuing my journey toward becoming a thoughtful and innovative researcher.<br><br>
-                    </div>
+        <div class="about-compat-shims" aria-hidden="true">
+            <div class="scroll-thumb"></div>
+            <div id="rowScroll"></div>
+        </div>
+
+        <section class="about-shell about-hero">
+            <div class="about-hero-main load-pro">
+                <div class="section-kicker">About</div>
+                <div class="about-name-wrap">
+                    <h1 class="about-name text-effect">LU Shan</h1>
                 </div>
-                <div class="about-info-right load-pro">
-                    <div class="contact">
-                        <div class="about-info-title">Contact</div>
-                        <div class="contact-desc">
-                            <div class="list">
-                                <div class="list-label">Email：</div>
-                                <div href="javascript:" class="list-value" id="email" tabindex="0" role="button"  title="点击复制邮箱">
-                                    <a id="emailCopied">33at20@gmail.com</a>
-                                </div>
-                                <span class="list-value copied">Copied&nbsp;✓</span>
+                <p class="about-lede">
+                    I come from a background shaped by <strong>physics, statistics</strong>, and I am gradually moving toward a clearer research direction in <strong>theoretical corporate finance</strong>.
+                </p>
+                <div class="about-copy">
+                    <p>
+                        My undergraduate training at <a class="inline-link" href="https://www.polyu.edu.hk/" target="_blank">The Hong Kong Polytechnic University</a>, began in physics, but it never stayed inside a single boundary. Over time, I found myself drawn toward probability, statistics, optimisation, and the kinds of questions that reward both structure and patience.
+                    </p>
+                    <p>
+                        My <a class="inline-link" href="./notes/elc-ptycho.pdf" target="_blank">final-year project in electron ptychography</a> taught me something I still value: difficult problems rarely yield to speed. They require time, repeated framing, careful writing, and the willingness to stay close to uncertainty until the logic begins to show itself.
+                    </p>
+                    <p>
+                        I am now increasingly drawn to theoretical corporate finance. What attracts me is the balance between rigorous modelling, uncertainty, and economic meaning. I do not think of this as abandoning my earlier training; I think of it as giving that training a new centre.
+                    </p>
+                    <p>
+                        Outside formal research, I keep notes and write steadily. For me, writing is not separate from thinking — it is one of the ways thought becomes precise enough to keep. This page is the fuller outline behind the homepage: background, direction, method, and a few ways to reach me.
+                    </p>
+                </div>
+            </div>
+
+            <aside class="about-side">
+                <div class="magical pillar-card">
+                    <div class="mini-kicker">Contact</div>
+                    <div class="about-panel-body">
+                        <div class="contact-list">
+                            <div class="contact-row">
+                                <div class="contact-label">Email</div>
+                                <button class="contact-action" type="button" data-copy="33at20@gmail.com">33at20@gmail.com</button>
+                                <span class="copy-state">Copied ✓</span>
                             </div>
-                            <div class="list">
-                                <div class="list-label">WeChat：</div>
-                                <div class="list-value">
-                                    <a class="tooltip">Lucasat21
+                            <div class="contact-row">
+                                <div class="contact-label">WeChat</div>
+                                <div class="contact-value">
+                                    <a class="contact-link tooltip">Lucasat21
                                         <div class="tooltip-box">
-                                            <img height=320px width=320px src="./assets/about/wechat.png">
+                                            <img src="./assets/about/wechat.png" alt="WeChat QR code for Lucasat21">
                                         </div>
                                     </a>
                                 </div>
                             </div>
-                            <div class="list">
-                                <div class="list-label">Phone：</div>
-                                <div href="javascript:" class="list-value" id="phone" tabindex="0" role="button"  title="点击电话号码">
-                                    <a id="phoneCopied">63522087</a>
+                            <div class="contact-row">
+                                <div class="contact-label">Phone</div>
+                                <button class="contact-action" type="button" data-copy="63522087">63522087</button>
+                                <span class="copy-state">Copied ✓</span>
+                            </div>
+                        </div>
+                        <div class="contact-note">Email is usually the best place to reach me for research, writing, or thoughtful conversation.</div>
+                    </div>
+                </div>
+
+                <div class="magical pillar-card">
+                    <div class="mini-kicker">Current Frame</div>
+                    <div class="about-panel-body">
+                        <div class="frame-list">
+                            <div class="frame-item">
+                                <div class="frame-label">Background</div>
+                                <div class="frame-text">Physics, statistics.</div>
+                            </div>
+                            <div class="frame-item">
+                                <div class="frame-label">Direction</div>
+                                <div class="frame-text">A clearer research path is forming, with growing emphasis on theoretical corporate finance.</div>
+                            </div>
+                            <div class="frame-item">
+                                <div class="frame-label">Practice</div>
+                                <div class="frame-text">Notes, reading, and writing are not side products for me — they are part of the method itself.</div>
+                            </div>
+                        </div>
+                        <div class="frame-note">What matters to me most is not speed, but depth that can keep its shape.</div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="about-shell about-pillars load-pro">
+            <div class="section-kicker">What Shapes My Work</div>
+            <h2 class="section-heading">The broader pattern behind the homepage.</h2>
+            <!-- <p class="section-copy">Not a full autobiography — only the parts that currently give my work its shape.</p> -->
+            <div class="pillar-grid">
+                <article class="magical pillar-card">
+                    <div class="pillar-tag">Foundation</div>
+                    <div class="pillar-title">Cross-disciplinary grounding</div>
+                    <div class="pillar-copy">Physics taught me patience with formal structure. Statistics gave me a language for uncertainty. Mathematics keeps me honest whenever ideas begin to drift into vagueness.</div>
+                </article>
+                <article class="magical pillar-card">
+                    <div class="pillar-tag">Direction</div>
+                    <div class="pillar-title">Research in transition</div>
+                    <div class="pillar-copy">My present interest is increasingly centred on theoretical corporate finance — especially questions that deserve rigorous models rather than surface-level commentary.</div>
+                </article>
+                <article class="magical pillar-card">
+                    <div class="pillar-tag">Method</div>
+                    <div class="pillar-title">Notes as working method</div>
+                    <div class="pillar-copy">I rely on notes, re-derivation, and careful writing as working tools. They slow me down in the right way and help difficult ideas become durable.</div>
+                </article>
+            </div>
+        </section>
+
+        <section class="about-shell about-journey load-pro">
+            <div class="section-kicker">Academic Path</div>
+            <h2 class="section-heading">The fuller background behind the transition.</h2>
+            <p class="section-copy">The path has not been linear, but it has been cumulative: each stage left a way of thinking I still carry.</p>
+            <div class="journey-grid">
+                <div class="timeline-column">
+                    <article class="magical timeline-card">
+                        <div class="timeline-tag">2022 — Present</div>
+                        <div class="timeline-title">PolyU · Physics and quantitative coursework</div>
+                        <div class="timeline-copy">My undergraduate training began in physics, then widened into statistics, probability, real analysis, optimisation, and machine learning. What stayed constant was a preference for rigorous structure.</div>
+                    </article>
+
+                    <article class="magical timeline-card">
+                        <div class="timeline-tag">2025 — 2026</div>
+                        <div class="timeline-title">Final-year project · Electron ptychography</div>
+                        <div class="timeline-copy">My project focused on understanding and optimising ePIE for electron microscopy. It deepened my relationship with difficult problems and taught me how much careful writing can sharpen thought.</div>
+                        <div class="timeline-links">
+                            <a class="timeline-link" href="./notes/elc-ptycho.pdf" target="_blank">Read thesis</a>
+                            <a class="timeline-link" href="./notes/miditv-ppt.pdf" target="_blank">View presentation</a>
+                        </div>
+                    </article>
+
+                    <article class="magical timeline-card">
+                        <div class="timeline-tag">Now</div>
+                        <div class="timeline-title">Direction in formation</div>
+                        <div class="timeline-copy">I am moving toward a more clearly defined research future in theoretical corporate finance, while trying to retain the breadth and discipline that came from my earlier training.</div>
+                    </article>
+                </div>
+
+                <div class="magical coursework-card">
+                    <div class="coursework-head">
+                        <div class="mini-kicker">Coursework</div>
+                        <div class="coursework-title-main">Quantitative threads</div>
+                        <div class="coursework-intro">A few years of study across physics, statistics, mathematics, and computation. The later years increasingly reveal the transition toward <strong>probability, inference, finance, and modelling</strong>.</div>
+                    </div>
+
+                    <div class="coursework-list">
+                        <details class="course-year" open>
+                            <summary>
+                                <span class="course-year-summary">
+                                    <span>25/26 Academic Year</span>
+                                    <span class="course-year-sub">Current year · exchange + final semester</span>
+                                </span>
+                            </summary>
+                            <div class="course-terms">
+                                <div class="course-term">
+                                    <div class="course-term-label">Semester 1 · Exchange study at SUSTech</div>
+                                    <ul class="course-list">
+                                        <li>MA401 Dynamical Systems</li>
+                                        <li>MAT7102 Topics in Probability and Statistics</li>
+                                        <li>MAT7092 Stochastic Processes</li>
+                                        <li>MAT8030 Advanced Probability</li>
+                                        <li>PHY5001 Advanced Quantum Mechanics</li>
+                                        <li>PHY5003 Advanced Statistical Mechanics</li>
+                                    </ul>
+                                    <div class="course-term-note">These were taken during my exchange semester at SUSTech in Semester 1 of the 25/26 academic year.</div>
                                 </div>
-                                <span class="list-value copied">Copied&nbsp;✓</span>
+                                <div class="course-term">
+                                    <div class="course-term-label">Semester 2 · Current semester</div>
+                                    <ul class="course-list">
+                                        <li>AMA3201 Computational Methods</li>
+                                        <li>AMA4325 Derivative Pricing</li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        </details>
+
+                        <details class="course-year">
+                            <summary>24/25 Academic Year</summary>
+                            <ul class="course-list">
+                                <li>AMA3304 Theory of Interest and Portfolio Analysis</li>
+                                <li>AMA3602 Applied Linear Models</li>
+                                <li>AMA3640 Statistical Inference</li>
+                                <li>AMA3658 Stochastic Processes for Investment</li>
+                                <li>AMA3707 Real Analysis</li>
+                                <li>AMA4380 Algorithmic and High Frequency Trading</li>
+                                <li>AMA4688 Simulation</li>
+                                <li>AMA4840 Decision Analysis</li>
+                                <li>AP30010 Radiation Physics</li>
+                                <li>AP30011 Solid State Physics</li>
+                                <li>AP30019 Data Analysis Techniques for Scientists</li>
+                                <li>AP30020 From Semiconductor to Intelligent Devices</li>
+                                <li>AP30022 Scientific Instrumentation and Automation</li>
+                                <li>AP30023 Designing Sensing Systems for Internet of Things in Smart Cities</li>
+                                <li>COMP4431 Artificial Intelligence</li>
+                                <li>COMP4432 Machine Learning</li>
+                            </ul>
+                        </details>
+
+                        <details class="course-year">
+                            <summary>23/24 Academic Year</summary>
+                            <ul class="course-list">
+                                <li>AMA1501 Introduction to Statistics for Business</li>
+                                <li>AMA1611 Data Analytics Fundamentals</li>
+                                <li>AMA2111 Mathematics I</li>
+                                <li>AMA2691 Probability &amp; Distributions</li>
+                                <li>AMA3724 Further Mathematical Methods</li>
+                                <li>AP20002 Materials Science</li>
+                                <li>AP20006 Quantum Mechanics for Scientists and Engineers</li>
+                                <li>AP20016 Electromagnetism and Waves</li>
+                                <li>AP20017 Mechanics and Robotic Motion</li>
+                                <li>COMP1012 Programming Fundamentals and Applications</li>
+                                <li>COMP2013 Data Structures and Algorithms</li>
+                            </ul>
+                        </details>
+
+                        <details class="course-year">
+                            <summary>22/23 Academic Year</summary>
+                            <ul class="course-list">
+                                <li>ABCT1101 Introductory Life Science</li>
+                                <li>ABCT1700 Introduction to Chemistry</li>
+                                <li>AMA1110 Basic Mathematics I — Calculus and Probability &amp; Statistics</li>
+                                <li>AMA1120 Basic Mathematics II — Calculus and Linear Algebra</li>
+                                <li>AMA1600 Fundamentals of AI and Data Analytics</li>
+                                <li>AMA1D08 The Mathematics Behind Music</li>
+                                <li>AP10005 Physics I</li>
+                                <li>AP10006 Physics II</li>
+                                <li>AP10007 Applied Physics Laboratory</li>
+                                <li>AP30012 Thermal and Statistical Physics</li>
+                                <li>AP40017 Experiment X</li>
+                            </ul>
+                        </details>
                     </div>
-                    <!-- <div class="resume">
-                        <div class="about-info-title resume-title">Resume</div>
-                        <div class="resume-desc">
-                            <div class="resume-desc-helptext">Download CV (PDF & 1MB)</div>
-                            <div class="magical primary-btn btn-s"><a href="https://asorn.cn/" target="_blank">Download</a></div>
-                        </div>
-                    </div> -->
+
+                    <div class="course-note">The list is long because the transition was real. I did not arrive at my present direction from one discipline alone.</div>
                 </div>
             </div>
-        </div>
-        <div class="about-middle load-pro">
-            <div class="power">
-                <div class="list-00">
-                    <div class="magical power-card-number">
-                        <a>
-                            <div class="card-title">xx</div>
-                            <div class="card-text">Work</div>
-                        </a>
-                    </div>
-                    <div class="magical power-card-number">
-                        <a>
-                            <div class="card-title">xx</div>
-                            <div class="card-text">Project</div>
-                        </a>
-                    </div>
-                    <div class="magical power-card-number">
-                        <a>
-                            <div class="card-title">xx</div>
-                            <div class="card-text">Article</div>
-                        </a>
-                    </div>
-                    <div class="magical power-card-number">
-                        <a>
-                            <div class="card-title">xx</div>
-                            <div class="card-text">Patent</div>
-                        </a>
-                    </div>
-                </div>
-                <div class="list-01">
-                    <div class="magical power-card">
-                        <a>
-                            <div class="card-img" style="background-image: url('./assets/about/menu.svg')"></div>
-                            <div class="card-text">My abilities</div>
-                        </a>
-                    </div>
-                    <div class="magical power-card">
-                        <a>
-                            <div class="card-img" style="background-image: url('./assets/about/pen.svg')"></div>
-                            <div class="card-text">My abilities</div>
-                        </a>
-                    </div>
-                    <div class="magical power-card">
-                        <a>
-                            <div class="card-img" style="background-image: url('./assets/about/pin.svg')"></div>
-                            <div class="card-text">My abilities</div>
-                        </a>
-                    </div>
-                    <div class="magical power-card">
-                        <a>
-                            <div class="card-img" style="background-image: url('./assets/about/abstract.svg')"></div>
-                            <div class="card-text">My abilities</div>
-                        </a>
-                    </div>
-                    <div class="magical power-card">
-                        <a>
-                            <div class="card-img" style="background-image: url('./assets/about/code.svg')"></div>
-                            <div class="card-text">My abilities</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="about-bottom load-pro">
-            <div class="experience">
-                <div class="item load-pro">
-                    <div class="time">❖ 2022.9 ~ Now</div>
-                    <div class="name">
-                        <div class="company"><a href="https://www.polyu.edu.hk/" target="_blank">HKPU ↗</a></div>
-                        <div class="job">Full-Time Student</div>
-                    </div>
-                    <div class="project-experience">
-                        <div class="item load-pro">
-                            <!-- <div class="title coursework-title">Coursework:
-                                <span>Click to Display</span>
-                            </div>
-                        <div class="desc coursework-desc" style="display: none;"> -->
-                            <div class="title">Coursework</div>
-                            <div class="desc">
-                                <ul>
-                                    <li>
-                                        <div class="title coursework-title"> 
-                                            <span class="toggle-arrow">
-                                                22/23 Acedemic Year<br>
-                                            </span>
-                                        </div>
-                                        <div class="desc coursework-desc" style="display: none;">
-                                            ABCT1101 INTRODUCTORY LIFE SCIENCE <br>
-                                            ABCT1700 INTRODUCTION TO CHEMISTRY <br>
-                                            AMA1110 BASIC MATHEMATICS I - CALCULUS AND PROBABILITY & STATISTICS <br>
-                                            AMA1120 BASIC MATHEMATICS II - CALCULUS AND LINEAR ALGEBRA <br>
-                                            AMA1600 FUNDAMENTALS OF AI AND DATA ANALYTICS <br>
-                                            AMA1D08 THE MATHEMATICS BEHIND MUSIC <br>
-                                            AP10005 PHYSICS I <br>
-                                            AP10006 PHYSICS II <br>
-                                            AP10007 APPLIED PHYSICS LABORATORY <br>
-                                            AP30012 THERMAL AND STATISTICAL PHYSICS <br>
-                                            AP40017 EXPERIMENT X <br>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="title coursework-title"> 
-                                            <span class="toggle-arrow">
-                                                23/24 Acedemic Year<br>
-                                            </span>
-                                        </div>
-                                        <div class="desc coursework-desc" style="display: none;">
-                                            AMA1501 INTRODUCTION TO STATISTICS FOR BUSINESS <br>
-                                            AMA1611 DATA ANALYTICS FUNDAMENTALS <br>
-                                            AMA2111 MATHEMATICS I <br>
-                                            AMA2691 PROBABILITY & DISTRIBUTIONS <br>
-                                            AMA3724 FURTHER MATHEMATICAL METHODS <br>
-                                            AP20002 MATERIALS SCIENCE <br>
-                                            AP20006 QUANTUM MECHANICS FOR SCIENTISTS AND ENGINEERS <br>
-                                            AP20016 ELECTROMAGNETISM AND WAVES <br>
-                                            AP20017 MECHANICS AND ROBOTIC MOTION <br>
-                                            COMP1012 PROGRAMMING FUNDAMENTALS AND APPLICATIONS <br>
-                                            COMP2013 DATA STRUCTURES AND ALGORITHMS <br>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="title coursework-title"> 
-                                            <span class="toggle-arrow">
-                                                24/25 Acedemic Year
-                                            </span>
-                                        </div>
-                                        <div class="desc coursework-desc" style="display: none;">
-                                            AMA3304  THEORY OF INTEREST AND PORTFOLIO ANALYSIS <br>
-                                            AMA3602 APPLIED LINEAR MODELS <br>
-                                            AMA3640 STATISTICAL INFERENCE <br>
-                                            AMA3658 STOCHASTIC PROCESSES FOR INVESTMENT <br>
-                                            AMA3707 REAL ANALYSIS <br>
-                                            AMA4380 ALGORITHMIC AND HIGH FREQUENCY TRADING <br>
-                                            AMA4688 SIMULATION <br>
-                                            AMA4840 DECISION ANALYSIS <br>
-                                            AP30010 RADIATION PHYSICS <br>
-                                            AP30011 SOLID STATE PHYSICS <br>
-                                            AP30019 DATA ANALYSIS TECHNIQUES FOR SCIENTISTS <br>
-                                            AP30020 FROM SEMICONDUCTOR TO INTELLIGENT DEVICES <br>
-                                            AP30022 SCIENTIFIC INSTRUMENTATION AND AUTOMATION <br>
-                                            AP30023 DESIGNING SENSING SYSTEMS FOR INTERNET OF THINGS IN SMART CITIES <br>
-                                            COMP4431 ARTIFICIAL INTELLIGENCE <br>
-                                            COMP4432 MACHINE LEARNING <br>
-                                        </div>
-                                    </li>
-                                    <!-- <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li> -->
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- <div class="item load-pro">
-                            <div class="title">Project Title</div>
-                            <div class="desc">
-                                <ul>
-                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult;</li>
-                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="item load-pro">
-                            <div class="title">Project Title</div>
-                            <div class="desc">
-                                <ul>
-                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
-                                </ul>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
-                <!-- <div class="item load-pro">
-                    <div class="time">❖ 2019.08 ~ 2023.08</div>
-                    <div class="name">
-                        <div class="company"><a href="https://asorn.cn/" target="_blank">Company Name ↗</a></div>
-                        <div class="job">Product Designer</div>
-                    </div>
-                    <div class="project-experience">
-                        <div class="item load-pro">
-                            <div class="title">Project Title</div>
-                            <div class="desc">
-                                <ul>
-                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="item load-pro">
-                            <div class="title">Project Title</div>
-                            <div class="desc">
-                                <ul>
-                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult;</li>
-                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="item load-pro">
-                            <div class="title">Project Title</div>
-                            <div class="desc">
-                                <ul>
-                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item load-pro">
-                    <div class="time">❖ 2016.05 ~ 2019.06</div>
-                    <div class="name">
-                        <div class="company"><a href="https://asorn.cn/" target="_blank">Company Name ↗</a></div>
-                        <div class="job">Product Designer</div>
-                    </div>
-                    <div class="project-experience">
-                        <div class="item load-pro">
-                            <div class="title">Project Title</div>
-                            <div class="desc">
-                                <ul>
-                                    <li>App, Web, H5, Mini Program, Backend Design, <span>Design </span>Asset Building, Axure Interaction Design, Enterprise VI Design, etc. Welcome to consult.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-        </div>
+        </section>
     </div>
+
     <div class="footer">
         <div class="footer-content">
             <div class="copyright">
-                <div>© Last Updated 10/09/2025 <!-- <a href="https://asorn.cn/" target="_blank">Asorn</a></div>
-                <span>|</span>
-                <div class="fillings">
-                    <a href="https://asorn.cn/" target="_blank">Your filing number</a>
-                </div> -->
+                <div>© Last Updated 07/04/2026</div>
             </div>
-            <!-- <div class="friends">
-                <a href="https://zdo.fun/" target="_blank">ZDO</a>
-                <a href="https://larkmap.com/" target="_blank">Larkmap</a>
-                <a href="https://qingicon.com/" target="_blank">QingIcon</a>
-            </div> -->
         </div>
     </div>
+
     <div class="widget">
         <div class="shape-light"></div>
         <div class="shape-star">
@@ -346,105 +1057,40 @@
 <script src="./js/main.min.js"></script>
 <script src='./js/anime.js'></script>
 <script src='./js/firework.js'></script>
-
-<!-- Deepseek做的点击展开动画 -->
 <script>
-// js/coursework.js
-// Handles expand/collapse for all coursework-year items
-document.addEventListener('DOMContentLoaded', function () {
-  // select all title elements (there are multiple .coursework-title in the HTML)
-  const titles = Array.from(document.querySelectorAll('.coursework-title'));
+    document.addEventListener('DOMContentLoaded', function () {
+        const copyButtons = document.querySelectorAll('[data-copy]');
 
-  titles.forEach(title => {
-    // find the .toggle-arrow inside the title (exists in your markup)
-    const arrow = title.querySelector('.toggle-arrow');
+        copyButtons.forEach(button => {
+            const row = button.closest('.contact-row');
+            const state = row ? row.querySelector('.copy-state') : null;
+            let timer = null;
 
-    // the markup has: <div class="title coursework-title"> ... </div>
-    // then the next sibling is the .desc.coursework-desc
-    const desc = title.nextElementSibling;
-    if (!desc || !desc.classList.contains('coursework-desc')) return;
+            async function copyText(text) {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(text);
+                    return;
+                }
+                const input = document.createElement('input');
+                input.value = text;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+            }
 
-    // init accessibility attributes
-    title.setAttribute('role', 'button');
-    title.setAttribute('tabindex', '0');
-    title.setAttribute('aria-expanded', 'false');
-
-    // ensure desc starts collapsed (some markup had inline display:none)
-    desc.style.display = 'block'; // make visible for measuring but we keep max-height:0 so it's visually hidden
-    desc.style.maxHeight = '0';
-    desc.style.overflow = 'hidden';
-    desc.style.transition = 'max-height 320ms ease, opacity 220ms ease';
-    desc.style.opacity = '0';
-
-    // toggle function
-    function toggle(openState) {
-      const isOpen = title.classList.contains('open');
-      const shouldOpen = typeof openState === 'boolean' ? openState : !isOpen;
-
-      if (shouldOpen) {
-        title.classList.add('open');
-        title.setAttribute('aria-expanded', 'true');
-
-        // ensure block for correct scrollHeight
-        desc.style.display = 'block';
-        // compute needed height, set max-height to that value
-        const h = desc.scrollHeight;
-        desc.style.maxHeight = h + 'px';
-        // set opacity visible
-        desc.style.opacity = '1';
-      } else {
-        // collapse
-        title.classList.remove('open');
-        title.setAttribute('aria-expanded', 'false');
-        desc.style.maxHeight = '0';
-        desc.style.opacity = '0';
-        // leave display:block to avoid reflow jumps; if you prefer, you can hide after transition
-      }
-    }
-
-    // click handler
-    title.addEventListener('click', function (e) {
-      toggle();
+            button.addEventListener('click', async function () {
+                try {
+                    await copyText(button.dataset.copy || button.textContent.trim());
+                    if (!state) return;
+                    state.classList.add('is-visible');
+                    clearTimeout(timer);
+                    timer = setTimeout(() => state.classList.remove('is-visible'), 1200);
+                } catch (error) {
+                    console.error('Copy failed:', error);
+                }
+            });
+        });
     });
-
-    // keyboard handler (Enter or Space to toggle)
-    title.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggle();
-      }
-    });
-
-    // Optional: if you want only one open at a time, uncomment the block below:
-    /*
-    title.addEventListener('click', function () {
-      // close other items
-      titles.forEach(t => {
-        if (t !== title && t.classList.contains('open')) {
-          t.classList.remove('open');
-          t.setAttribute('aria-expanded', 'false');
-          const otherDesc = t.nextElementSibling;
-          if (otherDesc) {
-            otherDesc.style.maxHeight = '0';
-            otherDesc.style.opacity = '0';
-          }
-        }
-      });
-      // open this one
-      toggle(true);
-    });
-    */
-
-  });
-
-  // Ensure initial collapsed view (first screenshot) — close all on load
-  // (This enforces first-image look)
-  const allDesc = document.querySelectorAll('.coursework-desc');
-  allDesc.forEach(d => {
-    d.style.maxHeight = '0';
-    d.style.opacity = '0';
-    d.style.overflow = 'hidden';
-  });
-});
 </script>
 </html>
